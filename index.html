@@ -181,6 +181,73 @@
 
 <div class="post">
 
+    <a href="/2022/04/13/2022-4-12/---/">
+        <h2>
+            
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <hr>
+<h2 id="title-每日算法"><a href="#title-每日算法" class="headerlink" title="title:每日算法"></a>title:每日算法</h2><pre><code class="java">/**
+ * @author: 61分
+ * @date: 2022/4/13 0:23
+ * @description:
+ */
+public class popSort &#123;
+    public static void main(String[] args) &#123;
+        int[] nums=&#123;1,2,3,4,5,6,89,77&#125;;
+        int tmp = 0;
+        for (int i = 0; i &lt; nums.length-1; i++) &#123;
+            for (int j = 0; j &lt; nums.length-i-1; j++) &#123;
+                if (nums[j]&lt;nums[j+1])&#123;
+                    tmp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = tmp;
+                &#125;
+
+            &#125;
+        &#125;
+        for (int k = 0; k &lt; nums.length; k++) &#123;
+            System.out.println(nums[k]);
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/13/2022-4-12/---/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
         <h2>
             Mybatis02

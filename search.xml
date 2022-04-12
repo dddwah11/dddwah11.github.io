@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2022/04/13/2022-4-12/---/"/>
+      <url>/2022/04/13/2022-4-12/---/</url>
+      
+        <content type="html"><![CDATA[<hr><h2 id="title-每日算法"><a href="#title-每日算法" class="headerlink" title="title:每日算法"></a>title:每日算法</h2><pre><code class="java">/** * @author: 61分 * @date: 2022/4/13 0:23 * @description: */public class popSort &#123;    public static void main(String[] args) &#123;        int[] nums=&#123;1,2,3,4,5,6,89,77&#125;;        int tmp = 0;        for (int i = 0; i &lt; nums.length-1; i++) &#123;            for (int j = 0; j &lt; nums.length-i-1; j++) &#123;                if (nums[j]&lt;nums[j+1])&#123;                    tmp = nums[j];                    nums[j] = nums[j+1];                    nums[j+1] = tmp;                &#125;            &#125;        &#125;        for (int k = 0; k &lt; nums.length; k++) &#123;            System.out.println(nums[k]);        &#125;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mybatis02</title>
       <link href="/2022/04/12/2022-4-12/%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8C%E5%90%8D%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%8B/"/>
       <url>/2022/04/12/2022-4-12/%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8C%E5%90%8D%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%8B/</url>
