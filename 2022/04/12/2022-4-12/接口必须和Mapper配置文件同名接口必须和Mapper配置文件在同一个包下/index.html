@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || </title>
+    <title>61分 || Mybatis02</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -149,75 +149,81 @@
                 </div>
 
                 <div id="main">
-                    
-<div id="archives">
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/12" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/12</div>
-                <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
-                    <h3>Mybatis02</h3>
-                </a>
-                <div class="info">
-                    
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Mybatis02 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/12
+        </span>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/11" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/11</div>
-                <a href="/2022/04/11/2022-4-11/Mybatis/">
-                    <h3>Mybatis初学</h3>
-                </a>
-                <div class="info">
-                    
+        
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/22" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/22</div>
-                <a href="/2022/03/22/we/">
-                    <h3>这是个测试块</h3>
-                </a>
-                <div class="info">
-                    
+        
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/21" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/21</div>
-                <a href="/2022/03/21/hello-world/">
-                    <h3>欢迎来到小刘的博客</h3>
-                </a>
-                <div class="info">
-                    
+    <div class="content" v-pre>
+        <h2 id="映射器"><a href="#映射器" class="headerlink" title="映射器"></a>映射器</h2><ul>
+<li>接口必须和Mapper配置文件同名</li>
+<li>接口必须和Mapper配置文件在同一个包下</li>
+</ul>
+<h2 id="生命周期及其作用域"><a href="#生命周期及其作用域" class="headerlink" title="生命周期及其作用域"></a>生命周期及其作用域</h2><ul>
+<li>生命周期类别是至关重要的，因为错误的使用会导致非常严重的并发问题。</li>
+</ul>
+<h2 id="属性名和字段名的不一致"><a href="#属性名和字段名的不一致" class="headerlink" title="属性名和字段名的不一致"></a>属性名和字段名的不一致</h2><ul>
+<li>利用resultMap（结果集映射）</li>
+</ul>
+<p><strong>UserMapper.xml：</strong></p>
+<pre><code class="java">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.xiaoliu.Dao.UserMapper&quot;&gt;
+&lt;!--    结果集映射--&gt;
+    &lt;!--    column为数据库中的字段名，property为实体类中的属性--&gt;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
+    &lt;resultMap id=&quot;UserMap&quot; type=&quot;com.xiaoliu.pojo.User&quot;&gt;
+&lt;!--        &lt;result property=&quot;id&quot; column=&quot;id&quot;/&gt;--&gt;
+&lt;!--        &lt;result property=&quot;name&quot; column=&quot;name&quot;/&gt;--&gt;
+        &lt;result property=&quot;pwd&quot; column=&quot;password&quot;/&gt;
+    &lt;/resultMap&gt;
+
+    &lt;select id=&quot;getUserById&quot; resultMap=&quot;UserMap&quot;&gt;
+        select id,name,password from mybatis.user where id  = #&#123;id&#125;
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre>
+<p>测试类：</p>
+<pre><code class="java">public class UserMapperTest &#123;
+
+    @Test
+    public void getUserById()&#123;
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+//        获取接口
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        User user = mapper.getUserById(2);
+        System.out.println(user);
+        sqlSession.close();
+    &#125;
+
+&#125;
+</code></pre>
+<p>结果：</p>
+<p>User{id&#x3D;2, name&#x3D;’大刘哥’, pwd&#x3D;’1234’}</p>
+<p>Process finished with exit code 0<img src="/.io//"></p>
+
+    </div>
+
     
 </div>
-
                      
 <footer id="footer">
     <div class="footer-wrap">

@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Mybatis02</title>
+      <link href="/2022/04/12/2022-4-12/%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8C%E5%90%8D%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%8B/"/>
+      <url>/2022/04/12/2022-4-12/%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8C%E5%90%8D%E6%8E%A5%E5%8F%A3%E5%BF%85%E9%A1%BB%E5%92%8CMapper%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="映射器"><a href="#映射器" class="headerlink" title="映射器"></a>映射器</h2><ul><li>接口必须和Mapper配置文件同名</li><li>接口必须和Mapper配置文件在同一个包下</li></ul><h2 id="生命周期及其作用域"><a href="#生命周期及其作用域" class="headerlink" title="生命周期及其作用域"></a>生命周期及其作用域</h2><ul><li>生命周期类别是至关重要的，因为错误的使用会导致非常严重的并发问题。</li></ul><h2 id="属性名和字段名的不一致"><a href="#属性名和字段名的不一致" class="headerlink" title="属性名和字段名的不一致"></a>属性名和字段名的不一致</h2><ul><li>利用resultMap（结果集映射）</li></ul><p><strong>UserMapper.xml：</strong></p><pre><code class="java">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&lt;!DOCTYPE mapper        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;&lt;mapper namespace=&quot;com.xiaoliu.Dao.UserMapper&quot;&gt;&lt;!--    结果集映射--&gt;    &lt;!--    column为数据库中的字段名，property为实体类中的属性--&gt;    &lt;resultMap id=&quot;UserMap&quot; type=&quot;com.xiaoliu.pojo.User&quot;&gt;&lt;!--        &lt;result property=&quot;id&quot; column=&quot;id&quot;/&gt;--&gt;&lt;!--        &lt;result property=&quot;name&quot; column=&quot;name&quot;/&gt;--&gt;        &lt;result property=&quot;pwd&quot; column=&quot;password&quot;/&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;getUserById&quot; resultMap=&quot;UserMap&quot;&gt;        select id,name,password from mybatis.user where id  = #&#123;id&#125;    &lt;/select&gt;&lt;/mapper&gt;</code></pre><p>测试类：</p><pre><code class="java">public class UserMapperTest &#123;    @Test    public void getUserById()&#123;        SqlSession sqlSession = MybatisUtils.getSqlSession();//        获取接口        UserMapper mapper = sqlSession.getMapper(UserMapper.class);        User user = mapper.getUserById(2);        System.out.println(user);        sqlSession.close();    &#125;&#125;</code></pre><p>结果：</p><p>User{id&#x3D;2, name&#x3D;’大刘哥’, pwd&#x3D;’1234’}</p><p>Process finished with exit code 0<img src="/.io//"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mybatis初学</title>
       <link href="/2022/04/11/2022-4-11/Mybatis/"/>
       <url>/2022/04/11/2022-4-11/Mybatis/</url>
