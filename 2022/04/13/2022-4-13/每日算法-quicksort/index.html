@@ -149,139 +149,86 @@
                 </div>
 
                 <div id="main">
-                    
-<div id="archives">
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
-                    <h3></h3>
-                </a>
-                <div class="info">
-                    
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/springboot/">
-                    <h3></h3>
-                </a>
-                <div class="info">
-                    
+        
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/Mybatis-03/">
-                    <h3></h3>
-                </a>
-                <div class="info">
-                    
+        
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-12/---/">
-                    <h3>每日算法</h3>
-                </a>
-                <div class="info">
-                    
+    <div class="content" v-pre>
+        <hr>
+<h2 id="title-每日算法-quicksort"><a href="#title-每日算法-quicksort" class="headerlink" title="title:每日算法-quicksort"></a>title:每日算法-quicksort</h2><p>有没有既不浪费空间又可以快一点的排序算法呢？那就是快速排啦！</p>
+<pre><code class="java">/**
+ * @author: 61分
+ * @date: 2022/4/14 0:05
+ * @description:
+ */
+public class quickSort &#123;
+    public static void quickSort(int [] arr,int low,int high)&#123;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/12" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/12</div>
-                <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
-                    <h3>Mybatis02</h3>
-                </a>
-                <div class="info">
-                    
+        int i,j,tmp,t;
+        if (low&gt;high)&#123;
+            return;
+        &#125;
+        i = low;
+        j = high;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/11" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/11</div>
-                <a href="/2022/04/11/2022-4-11/Mybatis/">
-                    <h3>Mybatis初学</h3>
-                </a>
-                <div class="info">
-                    
+        tmp = arr[low];
+        while (i&lt;j)&#123;
+            //        先看右边,从最右边递减
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/22" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/22</div>
-                <a href="/2022/03/22/we/">
-                    <h3>这是个测试块</h3>
-                </a>
-                <div class="info">
-                    
+            while (tmp&lt;=arr[j]&amp;&amp;i&lt;j)&#123;
+                j--;
+            &#125;
+//            再看左边，递加
+            while (tmp&gt;=arr[i]&amp;&amp;i&lt;j)&#123;
+                i++;
+            &#125;
+//            满足条件的话，交换他们的值
+            if (i&lt;j)&#123;
+                t = arr[j];
+                arr[j] = arr[i];
+                arr[i] = t;
+            &#125;
+        &#125;
+        arr[low] = arr[i];
+        arr[i] = tmp;
+//            之后递归调用 处理左边的
+        quickSort(arr,low,j-1);
+//            处理右边的
+        quickSort(arr,j+1,high);
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/21" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/21</div>
-                <a href="/2022/03/21/hello-world/">
-                    <h3>欢迎来到小刘的博客</h3>
-                </a>
-                <div class="info">
-                    
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
+    &#125;
+
+    public static void main(String[] args) &#123;
+        int [] num= &#123;10,54,21,42,78,65,48&#125;;
+        quickSort(num,0,num.length-1);
+        for (int i = 0; i &lt; num.length; i++) &#123;
+            System.out.println(num[i]);
+
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
     
 </div>
-
                      
 <footer id="footer">
     <div class="footer-wrap">
