@@ -181,6 +181,170 @@
 
 <div class="post">
 
+    <a href="/2022/04/14/4.14/SpringBoot-Web开发/">
+        <h2>
+            SpringBoot Web开发
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/14
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="jar-webpp"><a href="#jar-webpp" class="headerlink" title="jar:webpp!"></a>jar:webpp!</h1><ul>
+<li>导入静态资源</li>
+<li>首页</li>
+<li>jsp，模板引擎Thymeleaf</li>
+<li>装配扩展SpringMVC</li>
+<li>增删改查</li>
+<li>拦截器</li>
+<li>国际化</li>
+</ul>
+<p>在springboot，我们使用以下方式处理静态资源</p>
+<ul>
+<li>webjars    <code>localhost:8080/webjars/</code><ul>
+<li>public，static，&#x2F;**,resource     <code>localhost:8080/</code></li>
+</ul>
+</li>
+<li>优先级 resource&gt;static(默认)&gt;public</li>
+</ul>
+<h1 id="首页如何定制"><a href="#首页如何定制" class="headerlink" title="首页如何定制"></a>首页如何定制</h1><p>index.html</p>
+<p>最好设置在static里</p>
+<pre><code>在templates目录下的页面，只通过controller来跳转
+需要模板引擎的支持
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/14/4.14/SpringBoot-Web开发/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/14/4.14/springboot主启动类运行/">
+        <h2>
+            
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/14
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="主启动类运行"><a href="#主启动类运行" class="headerlink" title="主启动类运行"></a>主启动类运行</h1><ul>
+<li>初始化 判断是不是为一个web应用</li>
+<li>打开监听器全局处理上下文</li>
+<li>通过主类加载，通过类加载获取spring。factories</li>
+<li>装配环境参数</li>
+</ul>
+<h1 id="yaml"><a href="#yaml" class="headerlink" title="yaml"></a>yaml</h1><ul>
+<li><p>可以给实体类赋值</p>
+</li>
+<li><pre><code class="yaml"># k = v
+# 注入到我们配置类中
+# 普通的key-value
+name : xiaoliu
+
+dog:
+  name: xiaogou
+  age: 3
+# 对象
+student:
+  name: xiaoliu
+  age: 3
+
+##  行内写法
+student1: &#123;name: xialiu, age: 3&#125;
+
+##数组
+pets:
+  - dog
+  - vat
+  -  cat
+
+  pets1: [dog,we,zw]
+
+##对象
+  person:
+  name: xiaoliu
+  age: 3
+  happy: flase
+  birth: 2022/10/2
+  map: &#123;k2: v1,k1: v2&#125;
+  list:
+    - code
+    - music
+    - book
+</code></pre>
+</li>
+</ul>
+<pre><code class="java">@ConfigurationProperties(prefix = &quot;person&quot;)
+</code></pre>
+<p>可以通过这个注解将配置文件中的值映射到组件 <code>@component</code> 上</p>
+<p>也可以通过 <code>@PropertySource(&quot;classpath:xiaoliu.properties&quot;)</code> 注解映射到组件上</p>
+<pre><code class="java">//加载指定的配置文件
+@PropertySource(&quot;classpath:xiaoliu.properties&quot;)
+public class Person &#123;
+//    SPEL表达式取值
+    @Value(&quot;$&#123;name&#125;&quot;)
+</code></pre>
+<h1 id="松散绑定"><a href="#松散绑定" class="headerlink" title="松散绑定"></a>松散绑定</h1><p>在yml中 写的为last-name 与lastName是一样的</p>
+<h1 id="jsr303校验"><a href="#jsr303校验" class="headerlink" title="jsr303校验"></a>jsr303校验</h1><p><strong>约束注解名称    约束注解说明</strong><br><strong>@Null    验证对象是否为空</strong><br><strong>@NotNull    验证对象是否为非空</strong><br><strong>@AssertTrue    验证 Boolean 对象是否为 true</strong><br><strong>@AssertFalse    验证 Boolean 对象是否为 false</strong><br><strong>@Min    验证 Number 和 String 对象是否大等于指定的值</strong><br><strong>@Max    验证 Number 和 String 对象是否小等于指定的值</strong><br><strong>@DecimalMin    验证 Number 和 String 对象是否大等于指定的值，小数存在精度</strong><br><strong>@DecimalMax    验证 Number 和 String 对象是否小等于指定的值，小数存在精度</strong><br><strong>@Size    验证对象（Array,Collection,Map,String）长度是否在给定的范围之内</strong><br><strong>@Digits    验证 Number 和 String 的构成是否合法</strong><br><strong>@Past    验证 Date 和 Calendar 对象是否在当前时间之前</strong><br><strong>@Future    验证 Date 和 Calendar 对象是否在当前时间之后</strong><br><strong>@Pattern    验证 String 对象是否符合正则表达式的规则</strong></p>
+<h1 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h1><p>xxxAutoConfiguration:     默认值  xxxproperties 和配置文件绑定 我们就可以使用自定义的配置 </p>
+<p>每一个 xxxAutoConfiguration 都是容器中的一个组件，最后都加入到容器中让他们自动配置</p>
+<p><strong>这就是自动装配的原理!</strong><br><strong>精髓:</strong><br><strong>1)、SpringBoot启动会加载大量的自动配置类</strong><br><strong>2)、我们看我们需要的功能有没有在SpringBoot默认写好的自动配置类当中;</strong><br><strong>3)、我们再来看这个自动配置类中到底配置了哪些组件; (只要我们要用的组件存在在其中，我们</strong><br><strong>就不需要再手动配置了)</strong><br><strong>4)、给容器中自动配置类添加组件的时候，会从properties类中获取某些属性。我们只需要在配置</strong><br><strong>文件中指定这些属性的值即可;</strong><br><strong>xxxxAutoConfigurartion:自动配置类;给容器中添加组件</strong><br><strong>xxxxProperties:封装配置文件中相关属性文件</strong></p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/14/4.14/springboot主启动类运行/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
         <h2>
             每日算法-quicksort

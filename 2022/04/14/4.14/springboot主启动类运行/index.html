@@ -149,171 +149,93 @@
                 </div>
 
                 <div id="main">
-                    
-<div id="archives">
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4.14/SpringBoot-Web开发/">
-                    <h3>SpringBoot Web开发</h3>
-                </a>
-                <div class="info">
-                    
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/14
+        </span>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4.14/springboot主启动类运行/">
-                    <h3></h3>
-                </a>
-                <div class="info">
-                    
+        
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
-                    <h3>每日算法-quicksort</h3>
-                </a>
-                <div class="info">
-                    
+        
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/springboot/">
-                    <h3>spirngboot初学</h3>
-                </a>
-                <div class="info">
-                    
+    <div class="content" v-pre>
+        <h1 id="主启动类运行"><a href="#主启动类运行" class="headerlink" title="主启动类运行"></a>主启动类运行</h1><ul>
+<li>初始化 判断是不是为一个web应用</li>
+<li>打开监听器全局处理上下文</li>
+<li>通过主类加载，通过类加载获取spring。factories</li>
+<li>装配环境参数</li>
+</ul>
+<h1 id="yaml"><a href="#yaml" class="headerlink" title="yaml"></a>yaml</h1><ul>
+<li><p>可以给实体类赋值</p>
+</li>
+<li><pre><code class="yaml"># k = v
+# 注入到我们配置类中
+# 普通的key-value
+name : xiaoliu
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/Mybatis-03/">
-                    <h3>Mybatis-03</h3>
-                </a>
-                <div class="info">
-                    
+dog:
+  name: xiaogou
+  age: 3
+# 对象
+student:
+  name: xiaoliu
+  age: 3
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-12/---/">
-                    <h3>每日算法</h3>
-                </a>
-                <div class="info">
-                    
+##  行内写法
+student1: &#123;name: xialiu, age: 3&#125;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/12" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/12</div>
-                <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
-                    <h3>Mybatis02</h3>
-                </a>
-                <div class="info">
-                    
+##数组
+pets:
+  - dog
+  - vat
+  -  cat
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/11" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/11</div>
-                <a href="/2022/04/11/2022-4-11/Mybatis/">
-                    <h3>Mybatis初学</h3>
-                </a>
-                <div class="info">
-                    
+  pets1: [dog,we,zw]
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/22" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/22</div>
-                <a href="/2022/03/22/we/">
-                    <h3>这是个测试块</h3>
-                </a>
-                <div class="info">
-                    
+##对象
+  person:
+  name: xiaoliu
+  age: 3
+  happy: flase
+  birth: 2022/10/2
+  map: &#123;k2: v1,k1: v2&#125;
+  list:
+    - code
+    - music
+    - book
+</code></pre>
+</li>
+</ul>
+<pre><code class="java">@ConfigurationProperties(prefix = &quot;person&quot;)
+</code></pre>
+<p>可以通过这个注解将配置文件中的值映射到组件 <code>@component</code> 上</p>
+<p>也可以通过 <code>@PropertySource(&quot;classpath:xiaoliu.properties&quot;)</code> 注解映射到组件上</p>
+<pre><code class="java">//加载指定的配置文件
+@PropertySource(&quot;classpath:xiaoliu.properties&quot;)
+public class Person &#123;
+//    SPEL表达式取值
+    @Value(&quot;$&#123;name&#125;&quot;)
+</code></pre>
+<h1 id="松散绑定"><a href="#松散绑定" class="headerlink" title="松散绑定"></a>松散绑定</h1><p>在yml中 写的为last-name 与lastName是一样的</p>
+<h1 id="jsr303校验"><a href="#jsr303校验" class="headerlink" title="jsr303校验"></a>jsr303校验</h1><p><strong>约束注解名称    约束注解说明</strong><br><strong>@Null    验证对象是否为空</strong><br><strong>@NotNull    验证对象是否为非空</strong><br><strong>@AssertTrue    验证 Boolean 对象是否为 true</strong><br><strong>@AssertFalse    验证 Boolean 对象是否为 false</strong><br><strong>@Min    验证 Number 和 String 对象是否大等于指定的值</strong><br><strong>@Max    验证 Number 和 String 对象是否小等于指定的值</strong><br><strong>@DecimalMin    验证 Number 和 String 对象是否大等于指定的值，小数存在精度</strong><br><strong>@DecimalMax    验证 Number 和 String 对象是否小等于指定的值，小数存在精度</strong><br><strong>@Size    验证对象（Array,Collection,Map,String）长度是否在给定的范围之内</strong><br><strong>@Digits    验证 Number 和 String 的构成是否合法</strong><br><strong>@Past    验证 Date 和 Calendar 对象是否在当前时间之前</strong><br><strong>@Future    验证 Date 和 Calendar 对象是否在当前时间之后</strong><br><strong>@Pattern    验证 String 对象是否符合正则表达式的规则</strong></p>
+<h1 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h1><p>xxxAutoConfiguration:     默认值  xxxproperties 和配置文件绑定 我们就可以使用自定义的配置 </p>
+<p>每一个 xxxAutoConfiguration 都是容器中的一个组件，最后都加入到容器中让他们自动配置</p>
+<p><strong>这就是自动装配的原理!</strong><br><strong>精髓:</strong><br><strong>1)、SpringBoot启动会加载大量的自动配置类</strong><br><strong>2)、我们看我们需要的功能有没有在SpringBoot默认写好的自动配置类当中;</strong><br><strong>3)、我们再来看这个自动配置类中到底配置了哪些组件; (只要我们要用的组件存在在其中，我们</strong><br><strong>就不需要再手动配置了)</strong><br><strong>4)、给容器中自动配置类添加组件的时候，会从properties类中获取某些属性。我们只需要在配置</strong><br><strong>文件中指定这些属性的值即可;</strong><br><strong>xxxxAutoConfigurartion:自动配置类;给容器中添加组件</strong><br><strong>xxxxProperties:封装配置文件中相关属性文件</strong></p>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/21" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/21</div>
-                <a href="/2022/03/21/hello-world/">
-                    <h3>欢迎来到小刘的博客</h3>
-                </a>
-                <div class="info">
-                    
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
     
 </div>
-
                      
 <footer id="footer">
     <div class="footer-wrap">
