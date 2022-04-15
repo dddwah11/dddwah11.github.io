@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || </title>
+    <title>61分 || 通过java自建数据表</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -149,203 +149,185 @@
                 </div>
 
                 <div id="main">
-                    
-<div id="archives">
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/16" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/16</div>
-                <a href="/2022/04/16/4-16/在javav中建立数据表/">
-                    <h3>通过java自建数据表</h3>
-                </a>
-                <div class="info">
-                    
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>通过java自建数据表 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/16
+        </span>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/15" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/15</div>
-                <a href="/2022/04/15/4-15/thymeleaf语法/">
-                    <h3>MVC配置原理及thymeleaf</h3>
-                </a>
-                <div class="info">
-                    
+        
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4-14/SpringBoot-Web开发/">
-                    <h3>SpringBoot Web开发</h3>
-                </a>
-                <div class="info">
-                    
+        
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4-14/springboot主启动类运行/">
-                    <h3>自动装配原理</h3>
-                </a>
-                <div class="info">
-                    
+    <div class="content" v-pre>
+        <h1 id="建立一个员工部门表："><a href="#建立一个员工部门表：" class="headerlink" title="建立一个员工部门表："></a>建立一个员工部门表：</h1><h1 id="pojo"><a href="#pojo" class="headerlink" title="pojo:"></a>pojo:</h1><p><strong>Employee:</strong></p>
+<pre><code class="java">package com.xiaoliu.pojo;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
-                    <h3>每日算法-quicksort</h3>
-                </a>
-                <div class="info">
-                    
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/springboot/">
-                    <h3>spirngboot初学</h3>
-                </a>
-                <div class="info">
-                    
+import java.util.Date;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/Mybatis-03/">
-                    <h3>Mybatis-03</h3>
-                </a>
-                <div class="info">
-                    
+/**
+ * @author: 61分
+ * @date: 2022/4/15 23:12
+ * @description:
+ */
+@Data
+@NoArgsConstructor
+public class Employee &#123;
+    private Integer id;
+    private String lastName;
+    private String email;
+    private Integer gender;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-12/---/">
-                    <h3>每日算法</h3>
-                </a>
-                <div class="info">
-                    
+    private Department department;
+    private Date birth;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/12" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/12</div>
-                <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
-                    <h3>Mybatis02</h3>
-                </a>
-                <div class="info">
-                    
+    public Employee(Integer id, String lastName, String email, Integer gender, Department department) &#123;
+        this.id = id;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.department = department;
+        this.birth = new Date();
+    &#125;
+&#125;
+</code></pre>
+<p><strong>Department:</strong></p>
+<pre><code class="java">package com.xiaoliu.pojo;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/11" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/11</div>
-                <a href="/2022/04/11/2022-4-11/Mybatis/">
-                    <h3>Mybatis初学</h3>
-                </a>
-                <div class="info">
-                    
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/22" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/22</div>
-                <a href="/2022/03/22/we/">
-                    <h3>这是个测试块</h3>
-                </a>
-                <div class="info">
-                    
+/**
+ * @author: 61分
+ * @date: 2022/4/15 22:17
+ * @description:
+ */
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/21" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/21</div>
-                <a href="/2022/03/21/hello-world/">
-                    <h3>欢迎来到小刘的博客</h3>
-                </a>
-                <div class="info">
-                    
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Department &#123;
+    private Integer id;
+    private String department;
+&#125;
+</code></pre>
+<h2 id="Dao层："><a href="#Dao层：" class="headerlink" title="Dao层："></a>Dao层：</h2><p><strong>EmployeeDao：</strong></p>
+<pre><code class="java">package com.xiaoliu.dao;
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
+import com.xiaoliu.pojo.Department;
+import com.xiaoliu.pojo.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/15 23:44
+ * @description:
+ */
+public class EmployeeDao &#123;
+    private static Map&lt;Integer, Employee&gt; employees;
+
+    @Autowired
+    private DepartmentDao departmentDao;
+
+    static &#123;
+        employees = new HashMap&lt;Integer, Employee&gt;();//创建一个部门表
+        employees.put(1001, new Employee(1001,&quot;AA&quot;,&quot;A13151@ew.com&quot;,0,new Department(101,&quot;教学部&quot;)));
+        employees.put(1002, new Employee(1002,&quot;BB&quot;,&quot;B13151@ew.com&quot;,1,new Department(102,&quot;后勤部&quot;)));
+        employees.put(1003, new Employee(1003,&quot;CC&quot;,&quot;C13151@ew.com&quot;,0,new Department(103,&quot;保卫部&quot;)));
+        employees.put(1004, new Employee(1004,&quot;DD&quot;,&quot;D13151@ew.com&quot;,1,new Department(104,&quot;科研部&quot;)));
+        employees.put(1005, new Employee(1005,&quot;EE&quot;,&quot;E13151@ew.com&quot;,0,new Department(105,&quot;学生部&quot;)));
+
+    &#125;
+
+//    主键自增ID
+    private static Integer initId = 1006;
+//    增加一个员工
+    public void save(Employee employee)&#123;
+        if (employee.getId()==0)&#123;
+            employee.setId(initId++);
+        &#125;
+
+        employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
+
+        employees.put(employee.getId(),employee);
+    &#125;
+
+//    查询全部员工
+    public Collection&lt;Employee&gt; getAll()&#123;
+        return employees.values();
+    &#125;
+
+//    通过id查询员工
+    public Employee getById(Integer id)&#123;
+        return employees.get(id);
+    &#125;
+
+//    删除员工通过id
+    public Employee removeById(Integer id)&#123;
+        return employees.remove(id);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>DepartmentDao：</strong></p>
+<pre><code class="java">package com.xiaoliu.dao;
+
+import com.xiaoliu.pojo.Department;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/15 23:18
+ * @description:
+ */
+public class DepartmentDao &#123;
+//    模拟数据库中的数据
+        private  static Map&lt;Integer, Department&gt; departments = null;
+    static &#123;
+        departments = new HashMap&lt;Integer, Department&gt;();//创建一个部门数据表
+        departments.put(101,new Department(101,&quot;教学部&quot;));
+        departments.put(102,new Department(102,&quot;后勤部&quot;));
+        departments.put(103,new Department(103,&quot;保卫部&quot;));
+        departments.put(104,new Department(104,&quot;科研部&quot;));
+        departments.put(105,new Department(105,&quot;学生部&quot;));
+
+    &#125;
+//    获得部门信息
+    public Collection&lt;Department&gt; getDepartments()&#123;
+        return departments.values();
+    &#125;
+
+//    通过id得到部门
+    public Department getDepartment(Integer id)&#123;
+        return departments.get(id);
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
     
 </div>
-
                      
 <footer id="footer">
     <div class="footer-wrap">
