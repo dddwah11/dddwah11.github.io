@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>MVC配置原理及thymeleaf</title>
+      <link href="/2022/04/15/4-15/thymeleaf%E8%AF%AD%E6%B3%95/"/>
+      <url>/2022/04/15/4-15/thymeleaf%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="MVC配置原理"><a href="#MVC配置原理" class="headerlink" title="MVC配置原理"></a>MVC配置原理</h1><p>如果想要div一些定制化的功能，只要写一个组件，然后将它交给springboot，springboot就会自动帮我们转配</p><pre><code class="java">package com.xiaoliu.config;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.web.servlet.View;import org.springframework.web.servlet.ViewResolver;import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;import java.util.Locale;/** * @author: 61分 * @date: 2022/4/15 21:17 * @description: *///扩展 springmvc  dispatcherservlet@Configurationpublic class MyMvcConfig implements WebMvcConfigurer &#123;    @Bean    public ViewResolver myViewResolver()&#123;        return new myViewResolver();    &#125;//    自定义一个视图解析器    public static class myViewResolver implements ViewResolver &#123;        @Override        public View resolveViewName(String s, Locale locale) throws Exception &#123;            return null;        &#125;    &#125;&#125;</code></pre><p>基本的视图跳转</p><pre><code class="java">public class MyMvcConfig implements WebMvcConfigurer &#123;    //视图跳转    @Override    public void addViewControllers(ViewControllerRegistry registry) &#123;        registry.addViewController(&quot;/xiaoliu&quot;).setViewName(&quot;index&quot;);    &#125;&#125;</code></pre><p><strong>这样的话，视图跳转的文件，只能在templates，</strong>  <strong>而且thymeleaf也会失效</strong></p><p>如果要扩展的话，官方建议这样去做</p><p>springboot中，xxxConfiguraion 可以实现很多扩展</p><h1 id="thymeleaf"><a href="#thymeleaf" class="headerlink" title="thymeleaf"></a>thymeleaf</h1><p><strong>thymeleaf常用命名空间</strong>：</p><p>xmlns:th&#x3D;”<a href="http://www.thymeleaf.org&quot;/">http://www.thymeleaf.org&quot;</a><br>xmlns:sec&#x3D;”<a href="http://www.thymeleaf.org/extras/spring-security&quot;">http://www.thymeleaf.org/extras/spring-security&quot;</a><br>xmlns:shiro&#x3D;”<a href="http://www.pollix.at/thymeleaf/shiro&quot;">http://www.pollix.at/thymeleaf/shiro&quot;</a></p><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"></html>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpringBoot Web开发</title>
       <link href="/2022/04/14/4-14/SpringBoot-Web%E5%BC%80%E5%8F%91/"/>
       <url>/2022/04/14/4-14/SpringBoot-Web%E5%BC%80%E5%8F%91/</url>
