@@ -341,24 +341,7 @@ public void addInterceptors(InterceptorRegistry registry) &#123;
             .excludePathPatterns(&quot;/&quot;,&quot;/index.html&quot;,&quot;/user/login&quot;,&quot;/css/**&quot;,&quot;/js/**&quot;,&quot;/img/**&quot;);//不能被拦截的页面
 &#125;
 </code></pre>
-<h1 id="员工列表展示"><a href="#员工列表展示" class="headerlink" title="员工列表展示"></a>员工列表展示</h1><ul>
-<li>提前公共页面<ul>
-<li>&#96;th:replace&#x3D;”~{commons&#x2F;commons::sidebar&#96;&#96;</li>
-<li>&#96;&#96;<div th:replace="~{commons/commons::tobbar}"></div>&#96;</li>
-<li>如果要传参，可以直接使用（）传参，接受判断</li>
-</ul>
-</li>
-<li>列表循坏展示</li>
-</ul>
-<p>&#96;&#96;&#96;html</p>
-<tbody>
-   <tr th:each="emp:${emps}">
-      <td th:text="${emp.getId()}"></td>
-      <td th:text="${emp.getLastName()}"></td>
-      <td th:text="${emp.getEmail()}"></td>
-      <td th:text="${emp.getGender()==0?'女':'男'}"></td>
-      <td th:text="${emp.department.getDepartment()}"></td>
-      </tr></tbody>
+
     </div>
 
     

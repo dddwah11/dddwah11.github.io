@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || </title>
+    <title>61分 || springWeb-02开发</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -149,235 +149,48 @@
                 </div>
 
                 <div id="main">
-                    
-<div id="archives">
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/16" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/16</div>
-                <a href="/2022/04/16/4-16/springboot-web-02/">
-                    <h3>springWeb-02开发</h3>
-                </a>
-                <div class="info">
-                    
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>springWeb-02开发 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/16
+        </span>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/16" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/16</div>
-                <a href="/2022/04/16/4-16/springboot-web开发/">
-                    <h3>springWeb开发</h3>
-                </a>
-                <div class="info">
-                    
+        
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/16" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/16</div>
-                <a href="/2022/04/16/4-16/在javav中建立数据表/">
-                    <h3>通过java自建数据表</h3>
-                </a>
-                <div class="info">
-                    
+        
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/15" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/15</div>
-                <a href="/2022/04/15/4-15/thymeleaf语法/">
-                    <h3>MVC配置原理及thymeleaf</h3>
-                </a>
-                <div class="info">
-                    
+    <div class="content" v-pre>
+        <h1 id="员工列表展示"><a href="#员工列表展示" class="headerlink" title="员工列表展示"></a>员工列表展示</h1><ul>
+<li>提前公共页面<ul>
+<li>&#96;th:replace&#x3D;”~{commons&#x2F;commons::sidebar&#96;&#96;</li>
+<li>&#96;&#96;<div th:replace="~{commons/commons::tobbar}"></div>&#96;</li>
+<li>如果要传参，可以直接使用（）传参，接受判断</li>
+</ul>
+</li>
+<li>列表循坏展示</li>
+</ul>
+<p>&#96;&#96;&#96;html</p>
+<tbody>
+   <tr th:each="emp:${emps}">
+      <td th:text="${emp.getId()}"></td>
+      <td th:text="${emp.getLastName()}"></td>
+      <td th:text="${emp.getEmail()}"></td>
+      <td th:text="${emp.getGender()==0?'女':'男'}"></td>
+      <td th:text="${emp.department.getDepartment()}"></td>
+      </tr></tbody>
+    </div>
 
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4-14/SpringBoot-Web开发/">
-                    <h3>SpringBoot Web开发</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/14" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/14</div>
-                <a href="/2022/04/14/4-14/springboot主启动类运行/">
-                    <h3>自动装配原理</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
-                    <h3>每日算法-quicksort</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/springboot/">
-                    <h3>spirngboot初学</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-13/Mybatis-03/">
-                    <h3>Mybatis-03</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/13" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/13</div>
-                <a href="/2022/04/13/2022-4-12/---/">
-                    <h3>每日算法</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/12" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/12</div>
-                <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
-                    <h3>Mybatis02</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/4/11" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/4/11</div>
-                <a href="/2022/04/11/2022-4-11/Mybatis/">
-                    <h3>Mybatis初学</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/22" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/22</div>
-                <a href="/2022/03/22/we/">
-                    <h3>这是个测试块</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
-    
-    <a-timeline>
-        <a-timeline-item timestamp="2022/3/21" placement="top" color="#a5c2f5">
-            <a-card hoverable>
-                <div class="item-time">2022/3/21</div>
-                <a href="/2022/03/21/hello-world/">
-                    <h3>欢迎来到小刘的博客</h3>
-                </a>
-                <div class="info">
-                    
-
-                    
-                </div>
-            </a-card>
-        </a-timeline-item>
-    </a-timeline>
     
 </div>
-
                      
 <footer id="footer">
     <div class="footer-wrap">
