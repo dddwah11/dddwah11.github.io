@@ -181,6 +181,235 @@
 
 <div class="post">
 
+    <a href="/2022/04/16/4-16/springboot-web开发/">
+        <h2>
+            springWeb开发
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="1、首页配置：所有html页面使用thymeleaf接管："><a href="#1、首页配置：所有html页面使用thymeleaf接管：" class="headerlink" title="1、首页配置：所有html页面使用thymeleaf接管："></a>1、首页配置：所有html页面使用thymeleaf接管：</h1><p><code>url:@&#123;&#125;</code></p>
+<p>首页：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+   &lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+      &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+      &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+      &lt;meta name=&quot;author&quot; content=&quot;&quot;&gt;
+      &lt;title&gt;Signin Template for Bootstrap&lt;/title&gt;
+      &lt;!-- Bootstrap core CSS --&gt;
+      &lt;link th:href=&quot;@&#123;/css/bootstrap.min.css&#125;&quot; rel=&quot;stylesheet&quot;&gt;
+      &lt;!-- Custom styles for this template --&gt;
+      &lt;link th:href=&quot;@&#123;/css/signin.css&#125;&quot; rel=&quot;stylesheet&quot;&gt;
+   &lt;/head&gt;
+
+   &lt;body class=&quot;text-center&quot;&gt;
+      &lt;form class=&quot;form-signin&quot; action=&quot;dashboard.html&quot;&gt;
+         &lt;img class=&quot;mb-4&quot; th:src=&quot;@&#123;/img/bootstrap-solid.svg&#125;&quot; alt=&quot;&quot; width=&quot;72&quot; height=&quot;72&quot;&gt;
+         &lt;h1 class=&quot;h3 mb-3 font-weight-normal&quot;&gt;Please sign in&lt;/h1&gt;
+         &lt;label class=&quot;sr-only&quot;&gt;Username&lt;/label&gt;
+         &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Username&quot; required=&quot;&quot; autofocus=&quot;&quot;&gt;
+         &lt;label class=&quot;sr-only&quot;&gt;Password&lt;/label&gt;
+         &lt;input type=&quot;password&quot; class=&quot;form-control&quot; placeholder=&quot;Password&quot; required=&quot;&quot;&gt;
+         &lt;div class=&quot;checkbox mb-3&quot;&gt;
+            &lt;label&gt;
+          &lt;input type=&quot;checkbox&quot; value=&quot;remember-me&quot;&gt; Remember me
+        &lt;/label&gt;
+         &lt;/div&gt;
+         &lt;button class=&quot;btn btn-lg btn-primary btn-block&quot; type=&quot;submit&quot;&gt;Sign in&lt;/button&gt;
+         &lt;p class=&quot;mt-5 mb-3 text-muted&quot;&gt;© 2017-2018&lt;/p&gt;
+         &lt;a class=&quot;btn btn-sm&quot;&gt;中文&lt;/a&gt;
+         &lt;a class=&quot;btn btn-sm&quot;&gt;English&lt;/a&gt;
+      &lt;/form&gt;
+
+   &lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p>controller：</p>
+<pre><code class="java">package com.xiaoliu.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/15 21:17
+ * @description:
+ */
+//扩展 springmvc  dispatcherservlet
+@Configuration
+
+public class MyMvcConfig implements WebMvcConfigurer &#123;
+
+    //视图跳转
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) &#123;
+        registry.addViewController(&quot;/&quot;).setViewName(&quot;index&quot;);
+        registry.addViewController(&quot;/index.html&quot;).setViewName(&quot;index&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2、页面国际化"><a href="#2、页面国际化" class="headerlink" title="2、页面国际化"></a>2、页面国际化</h2><p>i18n</p>
+<p>设置login.properties文件，</p>
+<p>login.tip</p>
+<p>login.password</p>
+<p>login.username</p>
+<p>login.remember</p>
+<p>怎么识别国际化</p>
+<p>通过SpirngBoot——MessageSourceAutofiguration类</p>
+<p>在配置application.properties</p>
+<p><code>spring.messages.basename=i18n.login</code></p>
+<p>thymeleaf国际化消息语法：<code>#&#123;&#125;</code></p>
+<pre><code class="html">th:text=&quot;#&#123;login.password&#125;&quot;
+</code></pre>
+<p>实现语言切换</p>
+<pre><code class="html">th:href=&quot;@&#123;/index.html(l=&#39;zh_CN&#39;)&#125;&quot;&gt;中文
+</code></pre>
+<pre><code class="html">th:href=&quot;@&#123;/index.html(l=&#39;en_US&#39;)&#125;&quot;&gt;Englis
+</code></pre>
+<p>div自己的组件在config中的MyMvcConfig类中</p>
+<p>并将其配置到springboot容器中 <code>@Bean</code></p>
+<pre><code class="java">//    向容器中注入组件，自定义的国际化组件
+    @Bean
+    public LocaleResolver localeResolver()&#123;
+        return new MylocalResolver();
+    &#125;
+</code></pre>
+<p>自定义的组件</p>
+<pre><code class="java">package com.xiaoliu.config;
+
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.LocaleResolver;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/16 15:22
+ * @description:
+ */
+public class MylocalResolver implements LocaleResolver &#123;
+    @Override
+    public Locale resolveLocale(HttpServletRequest httpServletRequest) &#123;
+//      获取语言参数
+        String language = httpServletRequest.getParameter(&quot;l&quot;);
+        Locale locale = Locale.getDefault(); //如果没有就使用默认的
+//        如果请求中携带了地区化的参数
+        if (!StringUtils.isEmpty(language))&#123;
+//            分割 zh_CN
+            String[] split = language.split(&quot;_&quot;);
+//           国家 地区
+             locale = new Locale(split[0], split[1]);
+        &#125;
+        return locale;
+    &#125;
+
+    @Override
+    public void setLocale(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Locale locale) &#123;
+
+    &#125;
+&#125;
+</code></pre>
+<h1 id="修改返回的url"><a href="#修改返回的url" class="headerlink" title="修改返回的url"></a>修改返回的url</h1><p>在自定义的视图跳转MyMvcConfig中</p>
+<p>视图跳转到dashboard的时候 名字为：main.html</p>
+<pre><code class="java">registry.addViewController(&quot;/main.html&quot;).setViewName(&quot;dashboard&quot;);
+</code></pre>
+<p>在controller返回重定向的页面为&#x2F;main.html</p>
+<pre><code class="java">if (!StringUtils.isEmpty(username) &amp;&amp; &quot;123&quot;.equals(password)) &#123;
+    return &quot;redirect:/main.html&quot;;
+</code></pre>
+<h1 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h1><p>在config中 编写LoginHandlerInterceptor拦截器</p>
+<pre><code class="java">package com.xiaoliu.config;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/16 16:14
+ * @description:
+ */
+public class LoginHandlerInterceptor implements HandlerInterceptor &#123;
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123;
+//        登录之后应该有用户的session
+        Object loginUser = request.getSession().getAttribute(&quot;loginUser&quot;);
+
+        if (loginUser==null)&#123;
+            request.setAttribute(&quot;msg&quot;,&quot;没有权限，请先登录！&quot;);
+            request.getRequestDispatcher(&quot;/index.html&quot;).forward(request,response);
+            return false;
+        &#125;else return true;
+    &#125;
+
+
+&#125;
+</code></pre>
+<p>在mvc类中重写拦截器</p>
+<pre><code class="java">@Override
+public void addInterceptors(InterceptorRegistry registry) &#123;
+    registry.addInterceptor(new LoginHandlerInterceptor())
+            .addPathPatterns(&quot;/**&quot;)//拦截的页面
+            .excludePathPatterns(&quot;/&quot;,&quot;/index.html&quot;,&quot;/user/login&quot;,&quot;/css/**&quot;,&quot;/js/**&quot;,&quot;/img/**&quot;);//不能被拦截的页面
+&#125;
+</code></pre>
+<h1 id="员工列表展示"><a href="#员工列表展示" class="headerlink" title="员工列表展示"></a>员工列表展示</h1><ul>
+<li>提前公共页面<ul>
+<li>&#96;th:replace&#x3D;”~{commons&#x2F;commons::sidebar&#96;&#96;</li>
+<li>&#96;&#96;<div th:replace="~{commons/commons::tobbar}"></div>&#96;</li>
+<li>如果要传参，可以直接使用（）传参，接受判断</li>
+</ul>
+</li>
+<li>列表循坏展示</li>
+</ul>
+<p>&#96;&#96;&#96;html</p>
+<tbody>
+   <tr th:each="emp:${emps}">
+      <td th:text="${emp.getId()}"></td>
+      <td th:text="${emp.getLastName()}"></td>
+      <td th:text="${emp.getEmail()}"></td>
+      <td th:text="${emp.getGender()==0?'女':'男'}"></td>
+      <td th:text="${emp.department.getDepartment()}"></td>
+      </tr></tbody>
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/16/4-16/springboot-web开发/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/16/4-16/在javav中建立数据表/">
         <h2>
             通过java自建数据表
@@ -1257,227 +1486,6 @@ public class popSort &#123;
     </div>
 
     <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/11/2022-4-11/Mybatis/">
-        <h2>
-            Mybatis初学
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/11
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h2 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h2><h2 id="1、什么是Mybatis"><a href="#1、什么是Mybatis" class="headerlink" title="1、什么是Mybatis"></a>1、什么是Mybatis</h2><p>​    MyBatis本是apache的一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/3406069">开源项目</a>iBatis，2010年这个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%A1%B9%E7%9B%AE/477803">项目</a>由apache software foundation迁移到了[google code](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/google">https://baike.baidu.com/item/google</a> code&#x2F;2346604)，并且改名为MyBatis。2013年11月迁移到<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Github/10145341">Github</a>。</p>
-<p>​    iBATIS一词来源于“internet”和“abatis”的组合，是一个基于Java的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8C%81%E4%B9%85%E5%B1%82/3584971">持久层</a>框架。iBATIS提供的持久层框架包括SQL Maps和Data Access Objects（DAOs）。</p>
-<p>​    当前，最新版本是MyBatis 3.5.9，其发布时间是2021年12月26日。</p>
-<h2 id="2、持久化"><a href="#2、持久化" class="headerlink" title="2、持久化"></a>2、持久化</h2><p>​    持久化是将程序数据在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8C%81%E4%B9%85/5702771">持久</a>状态和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%9E%AC%E6%97%B6/3471916">瞬时</a>状态间转换的机制。通俗的讲，就是瞬时数据（比如内存中的数据，是不能永久保存的）持久化为持久数据（比如持久化至数据库中，能够长久保存）。</p>
-<h2 id="3、持久层"><a href="#3、持久层" class="headerlink" title="3、持久层"></a>3、持久层</h2><p>​    可以理解成数据 保存在 数据库或者 硬盘一类可以保存很长时间的设备里面，不像放在内存中那样断电就消失了，也就是把数据存在持久化设备上，mybatis就是持久层。</p>
-<p>内存：断点即失</p>
-<h2 id="4、Maven项目下创建第一个mybatis程序"><a href="#4、Maven项目下创建第一个mybatis程序" class="headerlink" title="4、Maven项目下创建第一个mybatis程序"></a>4、Maven项目下创建第一个mybatis程序</h2><h3 id="4-1-导入依赖：mysql驱动、mybatis、lombok。"><a href="#4-1-导入依赖：mysql驱动、mybatis、lombok。" class="headerlink" title="4.1 导入依赖：mysql驱动、mybatis、lombok。"></a>4.1 导入依赖：mysql驱动、mybatis、lombok。</h3><h3 id="注意：maven资源导出问题：最好，父类，子类都添加"><a href="#注意：maven资源导出问题：最好，父类，子类都添加" class="headerlink" title="注意：maven资源导出问题：最好，父类，子类都添加"></a>注意：maven资源导出问题：最好，父类，子类都添加</h3><pre><code class="xml">&lt;build&gt;
-    &lt;resources&gt;
-        &lt;resource&gt;
-            &lt;directory&gt;src/main/resources&lt;/directory&gt;
-            &lt;includes&gt;
-                &lt;include&gt;**/*.properties&lt;/include&gt;
-                &lt;include&gt;**/*.xml&lt;/include&gt;
-            &lt;/includes&gt;
-            &lt;filtering&gt;true&lt;/filtering&gt;
-        &lt;/resource&gt;
-        &lt;resource&gt;
-            &lt;directory&gt;src/main/java&lt;/directory&gt;
-            &lt;includes&gt;
-                &lt;include&gt;**/*.properties&lt;/include&gt;
-                &lt;include&gt;**/*.xml&lt;/include&gt;
-            &lt;/includes&gt;
-            &lt;filtering&gt;true&lt;/filtering&gt;
-        &lt;/resource&gt;
-    &lt;/resources&gt;
-&lt;/build&gt;
-</code></pre>
-<p>搭好项目结构：</p>
-<h3 id="4-3、去mybatis中文文档-粘贴需要用到的核心配置文件"><a href="#4-3、去mybatis中文文档-粘贴需要用到的核心配置文件" class="headerlink" title="4.3、去mybatis中文文档 粘贴需要用到的核心配置文件"></a>4.3、去mybatis中文文档 粘贴需要用到的核心配置文件</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE configuration
-        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
-&lt;configuration&gt;
-    &lt;environments default=&quot;development&quot;&gt;
-        &lt;environment id=&quot;development&quot;&gt;
-            &lt;transactionManager type=&quot;JDBC&quot;/&gt;
-            &lt;dataSource type=&quot;POOLED&quot;&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;
-                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/mybatis?userSSL=true&amp;amp;userUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;serverTimezone=UTC&quot;/&gt;
-                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
-                &lt;property name=&quot;password&quot; value=&quot;123456&quot;/&gt;
-            &lt;/dataSource&gt;
-        &lt;/environment&gt;
-    &lt;/environments&gt;
-&lt;!--    注册Mapper--&gt;
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;com/xiaoliu/Mapper/UserMapper.xml&quot;/&gt;
-    &lt;/mappers&gt;
-&lt;/configuration&gt;
-</code></pre>
-<p><strong>注意：注册mapper</strong></p>
-<h3 id="4-4、编写实体类User"><a href="#4-4、编写实体类User" class="headerlink" title="4.4、编写实体类User"></a>4.4、编写实体类User</h3><pre><code class="java">package com.xiaoliu.pojo;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-/**
- * @author: 61分
- * @date: 2022/4/11 17:35
- * @description:
- */
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User &#123;
-    private int id;
-    private String name;
-    private String password;
-
-&#125;
-</code></pre>
-<h3 id="4-5、编写Mapper接口及实现的配置文件"><a href="#4-5、编写Mapper接口及实现的配置文件" class="headerlink" title="4.5、编写Mapper接口及实现的配置文件"></a>4.5、编写Mapper接口及实现的配置文件</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE mapper
-        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-&lt;!--namespace=绑定对应的Mapper接口--&gt;
-&lt;mapper namespace=&quot;com.xiaoliu.Mapper.UserMapper&quot;&gt;
-&lt;!--    id对应的是方法名称--&gt;
-    &lt;select id=&quot;getUserList&quot; resultType=&quot;com.xiaoliu.pojo.User&quot;&gt;
-        select * from mybatis.user
-    &lt;/select&gt;
-&lt;/mapper&gt;
-</code></pre>
-<p>配置文件</p>
-<p>UserMappe接口</p>
-<pre><code class="java">package com.xiaoliu.Mapper;
-
-import com.xiaoliu.pojo.User;
-
-import java.util.List;
-
-/**
- * @author: 61分
- * @date: 2022/4/11 17:41
- * @description:
- */
-public interface UserMapper &#123;
-    List&lt;User&gt; getUserList();
-
-&#125;
-</code></pre>
-<p>​    </p>
-<h3 id="4-6、编写MybatisUtil类"><a href="#4-6、编写MybatisUtil类" class="headerlink" title="4.6、编写MybatisUtil类"></a>4.6、编写MybatisUtil类</h3><p>获取SQLSession</p>
-<p>执行SQLSession</p>
-<pre><code class="java">package com.xiaoliu.utils;
-
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-/**
- * @author: 61分
- * @date: 2022/4/11 15:55
- * @description:获取SQLSessionFactory
- */
-public class MybatisUtils &#123;
-    private static SqlSessionFactory sqlSessionFactory;
-    static &#123;
-
-        try &#123;
-//            获取SQLSessionFactory-》SQLSession
-            String resource = &quot;mybatis-config.xml&quot;;
-            InputStream  inputStream = Resources.getResourceAsStream(resource);
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        &#125; catch (IOException e) &#123;
-            e.printStackTrace();
-        &#125;
-    &#125;
-    //        既然有了 SqlSessionFactory，顾名思义，我们可以从中获得 SqlSession 的实例。
-    //        SqlSession 提供了在数据库执行 SQL 命令所需的所有方法。
-//        你可以通过 SqlSession 实例来直接执行已映射的 SQL 语句。
-    public static SqlSession getSqlSession()&#123;
-        return sqlSessionFactory.openSession();
-
-    &#125;
-&#125;
-</code></pre>
-<h3 id="4-7、编写Test类进行测试"><a href="#4-7、编写Test类进行测试" class="headerlink" title="4.7、编写Test类进行测试"></a>4.7、编写Test类进行测试</h3><pre><code class="java">package com.xiaoliu.Mapper;
-
-import com.xiaoliu.pojo.User;
-import com.xiaoliu.utils.MybatisUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Test;
-
-import java.util.List;
-
-/**
- * @author: 61分
- * @date: 2022/4/11 18:00
- * @description:
- */
-public class UserMapperTest &#123;
-    @Test
-    public void test()&#123;
-//        第一步：获得sqlSession对象
-        SqlSession sqlSession = MybatisUtils.getSqlSession();
-        System.out.println(&quot;getsqlSession&quot;);
-
-//        第二步，方式一：getMapper
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        List&lt;User&gt; userList = mapper.getUserList();
-        System.out.println(&quot;getMapper&quot;);
-        for (User user : userList) &#123;
-            System.out.println(user);
-        &#125;
-//        关闭sqlSession
-        System.out.println(&quot;close&quot;);
-
-        sqlSession.close();
-
-    &#125;
-&#125;
-</code></pre>
-<p><strong>测试成功：</strong></p>
-<h2 id="5、学习总结"><a href="#5、学习总结" class="headerlink" title="5、学习总结"></a>5、学习总结</h2><p>​    <strong>注意注册Mapper，及maven资源导出的问题</strong></p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        
-    </div>
-
-    <a href="/2022/04/11/2022-4-11/Mybatis/ " class="go-post">
         阅读全文
     </a>
 </div>
