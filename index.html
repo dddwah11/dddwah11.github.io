@@ -181,9 +181,9 @@
 
 <div class="post">
 
-    <a href="/2022/04/18/4-18/整合Mybatis/">
+    <a href="/2022/04/18/4-18/springsecurity/">
         <h2>
-            整合Druid
+            Spring Shiro(安全)
         </h2>
     </a>
 
@@ -204,7 +204,47 @@
         <div class="content" v-pre>
             
             
-            <p>准备工作：搭建环境并测试</p>
+            
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/18/4-18/springsecurity/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/18/4-18/整合中Mybatis/">
+        <h2>
+            整合Mybatis
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/18
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <p>准备工作：搭建环境并测试（导入包，配置文件，myabtis配置，编写sql）</p>
 <h1 id="1、编写实体类"><a href="#1、编写实体类" class="headerlink" title="1、编写实体类"></a>1、编写实体类</h1><pre><code class="java">package com.xiaoliu.pojo;
 
 import lombok.AllArgsConstructor;
@@ -274,6 +314,24 @@ mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
         password = #&#123;password&#125;
     where id = #&#123;id&#125;;
 </code></pre>
+<p>配置文件：</p>
+<pre><code class="properties"># 应用名称
+spring.application.name=mybatisSpringboot
+# 数据库驱动：
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+# 数据源名称
+spring.datasource.name=defaultDataSource
+# 数据库连接地址
+spring.datasource.url=jdbc:mysql://localhost:3306/mybatis?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8
+# 数据库用户名&amp;密码：
+spring.datasource.username=root
+spring.datasource.password=123456
+# 应用服务 WEB 访问端口
+server.port=8080
+
+mybatis.type-aliases-package=com.xiaoliu.pojo
+mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
+</code></pre>
 
             
         </div>
@@ -284,7 +342,7 @@ mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
         
     </div>
 
-    <a href="/2022/04/18/4-18/整合Mybatis/ " class="go-post">
+    <a href="/2022/04/18/4-18/整合中Mybatis/ " class="go-post">
         阅读全文
     </a>
 </div>
@@ -1255,98 +1313,6 @@ public class quickSort &#123;
     </div>
 
     <a href="/2022/04/13/2022-4-13/每日算法-quicksort/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/13/2022-4-13/springboot/">
-        <h2>
-            spirngboot初学
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/13
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h1 id="SpringBoot原理"><a href="#SpringBoot原理" class="headerlink" title="SpringBoot原理"></a>SpringBoot原理</h1><h2 id="1、自动装配原理"><a href="#1、自动装配原理" class="headerlink" title="1、自动装配原理"></a>1、自动装配原理</h2><p><strong>pom.xml</strong></p>
-<ul>
-<li>spring-boot-dependencies:核心依赖在父工程中</li>
-<li>我们在引入一些spring依赖的时候，不需要指定版本，因为有这些版本仓库</li>
-</ul>
-<p><strong>启动器</strong></p>
-<ul>
-<li><pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
-</li>
-<li><p>是springboot的启动场景</p>
-<ul>
-<li>比如springbootwb 就帮我们自动导入web环境所需的所有依赖！</li>
-</ul>
-</li>
-<li><p>将所有的功能场景变成一个个启动器</p>
-</li>
-</ul>
-<p><strong>springboot主程序</strong> </p>
-<pre><code class="java">@SpringBootApplication
-public class HelloWorldApplication &#123;
-
-    public static void main(String[] args) &#123;
-        SpringApplication.run(HelloWorldApplication.class, args);
-    &#125;
-
-&#125;
-</code></pre>
-<p><strong>注解</strong></p>
-<pre><code class="java">@SpringBootConfiguration
-@SpringBootConfiguration
-</code></pre>
-<p>自动配置的核心文件</p>
-<p><code>WEB-INF/spring.factories</code> </p>
-<p>所有的资源加载到配置类中</p>
-<pre><code class="java">Properties properties = PropertiesLoaderUtils.loadProperties(resource)
-</code></pre>
-<p>核心注解</p>
-<pre><code class="java">@ConditionalOnXXX    在满足所有条件才会生效 
-</code></pre>
-<p>springboot自动配置都在启动的时候扫描并加载 <code>spirng.properties</code> 所有的自动配置类都在这个配置文件中，通过判断核心注解是否满足条件才能生效</p>
-<ul>
-<li>springboot在启动的时候，通过类路径下的 <code>WEB-INF/spirng.properties</code> 获得指定的值</li>
-<li>将这些自动配置的类导入容器，自动配置就会生效</li>
-<li>即完成自动配置<ul>
-<li>整合javaEE 解决方案和自动配置的东西都在 <code>spring-boot-test-autoconfigure-2.3.7.RELEASE.jar</code> 中</li>
-</ul>
-</li>
-</ul>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        
-    </div>
-
-    <a href="/2022/04/13/2022-4-13/springboot/ " class="go-post">
         阅读全文
     </a>
 </div>

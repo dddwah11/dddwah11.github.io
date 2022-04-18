@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || 整合Druid</title>
+    <title>61分 || 整合Mybatis</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -153,7 +153,7 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>整合Druid </h1>
+        <h1>整合Mybatis </h1>
     </div>
     <div class="info">
         <span class="date">
@@ -169,7 +169,7 @@
     </div>
 
     <div class="content" v-pre>
-        <p>准备工作：搭建环境并测试</p>
+        <p>准备工作：搭建环境并测试（导入包，配置文件，myabtis配置，编写sql）</p>
 <h1 id="1、编写实体类"><a href="#1、编写实体类" class="headerlink" title="1、编写实体类"></a>1、编写实体类</h1><pre><code class="java">package com.xiaoliu.pojo;
 
 import lombok.AllArgsConstructor;
@@ -238,6 +238,24 @@ mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
     set name = #&#123;name&#125;,
         password = #&#123;password&#125;
     where id = #&#123;id&#125;;
+</code></pre>
+<p>配置文件：</p>
+<pre><code class="properties"># 应用名称
+spring.application.name=mybatisSpringboot
+# 数据库驱动：
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+# 数据源名称
+spring.datasource.name=defaultDataSource
+# 数据库连接地址
+spring.datasource.url=jdbc:mysql://localhost:3306/mybatis?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8
+# 数据库用户名&amp;密码：
+spring.datasource.username=root
+spring.datasource.password=123456
+# 应用服务 WEB 访问端口
+server.port=8080
+
+mybatis.type-aliases-package=com.xiaoliu.pojo
+mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
 </code></pre>
 
     </div>
