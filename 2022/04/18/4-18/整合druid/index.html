@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || springWeb-02开发</title>
+    <title>61分 || 整合Druid</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -153,14 +153,14 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>springWeb-02开发 </h1>
+        <h1>整合Druid </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/4/16
+            2022/4/18
         </span>
 
         
@@ -169,16 +169,130 @@
     </div>
 
     <div class="content" v-pre>
-        <h1 id="员工列表展示"><a href="#员工列表展示" class="headerlink" title="员工列表展示"></a>员工列表展示</h1><ul>
-<li>提前公共页面<ul>
-<li>&#96;th:replace&#x3D;”~{commons&#x2F;commons::sidebar&#96;&#96;</li>
-<li>&#96;&#96;<div th:replace="~{commons/commons::tobbar}"></div>&#96;</li>
-<li>如果要传参，可以直接使用（）传参，接受判断</li>
-</ul>
-</li>
-<li>列表循坏展示</li>
-</ul>
-<p>&#96;<tbody><br>   <tr th:each="emp:${emps}"><br>      <td th:text="${emp.getId()}"></td><br>      <td th:text="${emp.getLastName()}"></td><br>      <td th:text="${emp.getEmail()}"></td><br>      <td th:text="${emp.getGender()==0?'女':'男'}"></td><br>      <td th:text="${emp.department.getDepartment()}"></td><br>      &lt;td th:text&#x3D;”$</tr></tbody></p>
+        <h1 id="1、导入相关依赖"><a href="#1、导入相关依赖" class="headerlink" title="1、导入相关依赖"></a>1、导入相关依赖</h1><pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;log4j&lt;/groupId&gt;
+    &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+    &lt;version&gt;1.2.12&lt;/version&gt;
+&lt;/dependency&gt;
+
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;druid&lt;/artifactId&gt;
+    &lt;version&gt;1.2.9&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h1 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h1><pre><code class="yml">type: com.alibaba.druid.pool.DruidDataSource
+
+  #SpringBoot默认是不注入这些的，需要自己绑定
+  #druid数据源专有配置
+  initialSize: 5
+  minIdle: 5
+  maxActive: 20
+  maxWait: 60000
+  timeBetweenEvictionRunsMillis: 60000
+  minEvictableIdleTimeMillis: 300000
+  validationQuery: SELECT 1 FROM DUAL
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  poolPreparedStatements: true
+
+  #配置监控统计拦截的filters，stat：监控统计、log4j：日志记录、wall：防御sql注入
+  #如果允许报错，java.lang.ClassNotFoundException: org.apache.Log4j.Properity
+  #则导入log4j 依赖就行
+  filters: stat,wall,log4j
+  maxPoolPreparedStatementPerConnectionSize: 20
+  useGlobalDataSourceStat: true
+  connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+</code></pre>
+<p><strong>配置进去没用，也能进去，先放着</strong></p>
+<h1 id="3、绑定配置文件"><a href="#3、绑定配置文件" class="headerlink" title="3、绑定配置文件"></a>3、绑定配置文件</h1><pre><code class="java">package com.xiaoliu.config;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/18 14:33
+ * @description:
+ */
+@Configuration
+public class DruidConfig &#123;
+
+    @ConfigurationProperties(prefix = &quot;spring.datasource&quot;)
+    @Bean
+    public DataSource DruidDataSource()&#123;
+        return new DruidDataSource();
+    &#125;
+&#125;
+</code></pre>
+<h1 id="4、DruidConfig"><a href="#4、DruidConfig" class="headerlink" title="4、DruidConfig"></a>4、DruidConfig</h1><pre><code class="java">package com.xiaoliu.config;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+import java.util.HashMap;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/18 14:33
+ * @description:
+ */
+@Configuration
+public class DruidConfig &#123;
+
+    @ConfigurationProperties(prefix = &quot;spring.datasource&quot;)
+    @Bean
+    public DataSource DruidDataSource()&#123;
+        return new DruidDataSource();
+    &#125;
+
+//    后台监控:web.xml
+//    springboot集成了servlet，没有web.xml 可以使用ServletRegistrationBean，注册
+    @Bean
+    public ServletRegistrationBean statViewServlet()&#123;
+        ServletRegistrationBean&lt;StatViewServlet&gt; bean = new ServletRegistrationBean&lt;&gt;(new StatViewServlet(), &quot;/druid/*&quot;);
+//        后台有人登陆，账号密码配置
+        HashMap&lt;String, String&gt; initParameter = new HashMap&lt;&gt;();
+//        设置参数
+        initParameter.put(&quot;loginUsername&quot;, &quot;admin&quot;);//默认的数值
+        initParameter.put(&quot;loginPassword&quot;,&quot;123456&quot;);//默认的数值
+
+//        允许谁访问
+        initParameter.put(&quot;allow&quot;,&quot;&quot;);//后面参数不写，任何人都能访问
+//        禁止谁访问         initParameter.put(&quot;xxx&quot;,&quot;ip地址&quot;);
+
+
+        bean.setInitParameters(initParameter);//设置初始化参数
+        return bean;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>过滤器</strong></p>
+<pre><code class="java">//    filter
+    @Bean
+    public FilterRegistrationBean filterStart()&#123;
+        FilterRegistrationBean&lt;Filter&gt; bean = new FilterRegistrationBean&lt;&gt;();
+        bean.setFilter(new WebStatFilter());
+//        设置过滤请求
+        HashMap&lt;String, String&gt; initParameters = new HashMap&lt;&gt;();
+//        设置不统计的东西
+        initParameters.put(&quot;exclusions&quot;,&quot;*.js,*.css,/druid/*&quot;);
+        bean.setInitParameters(initParameters);
+        return bean;
+
+    &#125;
+</code></pre>
 
     </div>
 

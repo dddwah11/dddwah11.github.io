@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>61分 || springWeb-02开发</title>
+    <title>61分 || 整合Druid</title>
     <meta name="author" content="小刘">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -153,14 +153,14 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>springWeb-02开发 </h1>
+        <h1>整合Druid </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/4/16
+            2022/4/18
         </span>
 
         
@@ -169,16 +169,76 @@
     </div>
 
     <div class="content" v-pre>
-        <h1 id="员工列表展示"><a href="#员工列表展示" class="headerlink" title="员工列表展示"></a>员工列表展示</h1><ul>
-<li>提前公共页面<ul>
-<li>&#96;th:replace&#x3D;”~{commons&#x2F;commons::sidebar&#96;&#96;</li>
-<li>&#96;&#96;<div th:replace="~{commons/commons::tobbar}"></div>&#96;</li>
-<li>如果要传参，可以直接使用（）传参，接受判断</li>
-</ul>
-</li>
-<li>列表循坏展示</li>
-</ul>
-<p>&#96;<tbody><br>   <tr th:each="emp:${emps}"><br>      <td th:text="${emp.getId()}"></td><br>      <td th:text="${emp.getLastName()}"></td><br>      <td th:text="${emp.getEmail()}"></td><br>      <td th:text="${emp.getGender()==0?'女':'男'}"></td><br>      <td th:text="${emp.department.getDepartment()}"></td><br>      &lt;td th:text&#x3D;”$</tr></tbody></p>
+        <p>准备工作：搭建环境并测试</p>
+<h1 id="1、编写实体类"><a href="#1、编写实体类" class="headerlink" title="1、编写实体类"></a>1、编写实体类</h1><pre><code class="java">package com.xiaoliu.pojo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/18 15:29
+ * @description:
+ */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User &#123;
+    private Integer id;
+    private String name;
+    private String password;
+&#125;
+</code></pre>
+<h1 id="2、编写接口"><a href="#2、编写接口" class="headerlink" title="2、编写接口"></a>2、编写接口</h1><pre><code class="java">package com.xiaoliu.mapper;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/18 15:32
+ * @description:
+ */
+
+@org.apache.ibatis.annotations.Mapper
+public interface Mapper &#123;
+&#125;
+</code></pre>
+<pre><code class="java">@Repository //Dao层 用该注解
+</code></pre>
+<p>再到resource目录下配置xml文件</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.xiaoliu.mapper&quot;&gt;
+  &lt;select id=&quot;selectBlog&quot; resultType=&quot;User&quot;&gt;
+    select * from Blog where id = #&#123;id&#125;
+  &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<p>在springboot中配置文件别名及mapper.xml文件</p>
+<pre><code class="yaml">mybatis.type-aliases-package=com.xiaoliu.pojo
+mybatis.mapper-locations=classpath:/mybatis/mapper/*.xml
+</code></pre>
+<p>增删改查</p>
+<pre><code class="xml">&lt;select id=&quot;queryUserListById&quot; resultType=&quot;User&quot;&gt;
+    select * from mybatis.user where id = #&#123;id&#125;
+&lt;/select&gt;
+
+&lt;select id=&quot;queryUserList&quot; resultType=&quot;User&quot;&gt;
+    select * from mybatis.user
+&lt;/select&gt;
+
+&lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot;&gt;
+    insert into mybatis.user (id, name, password) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;password&#125;);
+&lt;/insert&gt;
+
+&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot;&gt;
+    update mybatis.user
+    set name = #&#123;name&#125;,
+        password = #&#123;password&#125;
+    where id = #&#123;id&#125;;
+</code></pre>
 
     </div>
 
