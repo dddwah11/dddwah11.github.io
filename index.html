@@ -181,9 +181,9 @@
 
 <div class="post">
 
-    <a href="/2022/04/18/4-18/springsecurity/">
+    <a href="/2022/04/21/4-21/shiro/">
         <h2>
-            Spring Shiro(安全)
+            shiro安全框架 -springboot中集成
         </h2>
     </a>
 
@@ -195,7 +195,7 @@
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/4/18
+            2022/4/21
         </span>
 
     </div>
@@ -204,7 +204,237 @@
         <div class="content" v-pre>
             
             
-            
+            <p>1、导入依赖</p>
+<p>2、配置文件</p>
+<p>3、应用程序</p>
+<pre><code class="java">获取当前对象
+Subject currentUser = SecurityUtils.getSubject();
+获取当前session
+Session session = currentUser.getSession();
+判断用户是否被认证
+currentUser.isAuthenticated()
+获取当前认证
+currentUser.getPrincipal()    
+用户角色
+currentUser.hasRole  
+粗粒度    
+currentUser.isPermitted(&quot;lightsaber:wield&quot;)
+细粒度    
+currentUser.isPermitted(&quot;winnebago:drive:eagle5&quot;)
+登出
+currentUser.logout()    
+</code></pre>
+<h1 id="shiro登录认证"><a href="#shiro登录认证" class="headerlink" title="shiro登录认证"></a>shiro登录认证</h1><p>1、创建realm对象，需要自定义类：</p>
+<pre><code class="java">public class UserRealm extends AuthorizingRealm &#123;
+
+//授权
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) &#123;
+        System.out.println(&quot;授权doGetAuthorizationInfo&quot;);
+        return null;
+    &#125;
+//认证
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException &#123;
+        System.out.println(&quot;认证doGetAuthenticationInfo&quot;);
+        return null;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">@Configuration
+public class shiroConfig &#123;
+
+//    ShiroFilterFactoryBean
+//    Manager
+//    创建realm对象
+    @Bean
+    public UserRealm userRealm()&#123;
+        return new UserRealm();
+    &#125;
+&#125;
+</code></pre>
+<p>2、defaultWebSecurityManager</p>
+<pre><code class="java">@Bean
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier(&quot;userRealm&quot;) UserRealm userRealm)&#123;
+        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+        defaultWebSecurityManager.setRealm(userRealm);
+//        关联realm
+        return defaultWebSecurityManager;
+    &#125;
+</code></pre>
+<p>3、shiroFiterFactoryBean</p>
+<pre><code class="java">    @Bean(name = &quot;DefaultWebSecurityManager&quot;)
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier(&quot;DefaultWebSecurityManager&quot;) DefaultWebSecurityManager defaultWebSecurityManager)&#123;
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+//        关联webSecurityManager
+        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
+        return shiroFilterFactoryBean;
+    &#125;
+</code></pre>
+<p>ShiroFilterFactoryBean </p>
+<pre><code class="java">@Bean
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier(&quot;securityManager&quot;) DefaultWebSecurityManager defaultWebSecurityManager)&#123;
+        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+//        关联webSecurityManager
+//        设置安全管理器
+        bean.setSecurityManager(defaultWebSecurityManager);
+//        添加shiro的内置过滤器
+        /*
+            anon:无需认证
+            authc: 必须认证
+            user: 必须拥有 记住我 功能才能实现
+            perms: 拥有对某个资源权限功能才能能访问
+            role: 拥有某个角色权限
+         */
+
+        Map&lt;String, String&gt; filterMap = new LinkedHashMap&lt;&gt;();
+
+
+        filterMap.put(&quot;/user/add&quot;,&quot;authc&quot;);
+        filterMap.put(&quot;/user/update&quot;,&quot;authc&quot;);
+        System.out.println(&quot;filterMap&quot;);
+
+       bean.setFilterChainDefinitionMap(filterMap);
+        return bean;
+    &#125;
+</code></pre>
+<p>可在ShiroFilterFactoryBean 设置登录</p>
+<p><code>bean.setLoginUrl(&quot;/toLogin&quot;);</code>                        </p>
+<h1 id="shiro实现用户认证"><a href="#shiro实现用户认证" class="headerlink" title="shiro实现用户认证"></a>shiro实现用户认证</h1><p>在Controller中</p>
+<pre><code class="java">@RequestMapping(&quot;/login&quot;)
+    public String login(String username,String password)&#123;
+        //        获取对象
+        Subject subject = SecurityUtils.getSubject();
+
+//        封装登录对象的数据为token
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+                subject.login(token);
+        try &#123;
+            subject.login(token);//执行登录方法，无异常就执行
+            return &quot;index&quot;;
+        &#125; catch (UnknownAccountException e) &#123;//用户名不存在
+            model.addAttribute(&quot;msg&quot;,&quot;用户名错误&quot;);
+            return &quot;login&quot;;
+        &#125; catch (IncorrectCredentialsException e)&#123;//密码不存在
+            model.addAttribute(&quot;msg&quot;,&quot;密码错误&quot;);
+            return &quot;login&quot;;
+        &#125; catch (LockedAccountException e)&#123;
+            model.addAttribute(&quot;msg&quot;,&quot;账号被锁定&quot;);
+            return &quot;login&quot;;
+        &#125;
+    &#125;
+</code></pre>
+<p>UserRealm类中</p>
+<pre><code class="java">@Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException &#123;
+        System.out.println(&quot;认证doGetAuthenticationInfo&quot;);
+
+//        用户名，密码，数据库中取
+        String username= &quot;root&quot;;
+        String password= &quot;123456&quot;;
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        if (!token.getUsername().equals(username))&#123;
+            return null;//抛出异常UnknownAccountException
+        &#125;
+//        密码认证shiro做
+        return new SimpleAuthenticationInfo(&quot;&quot;,password,&quot;&quot;);
+    &#125;
+</code></pre>
+<h1 id="Shiro整合Mybatis"><a href="#Shiro整合Mybatis" class="headerlink" title="Shiro整合Mybatis"></a>Shiro整合Mybatis</h1><p>搭建脚手架并测试，通过再进行下面的测试</p>
+<p>在UserRealm中导入业务层接口</p>
+<pre><code class="java">@Autowired
+UserService userService;
+</code></pre>
+<pre><code class="java">//      连接数据库
+        UsernamePasswordToken userToken = (UsernamePasswordToken) authenticationToken;
+        User user = userService.queryUserByName(userToken.getUsername());
+
+        if (user==null)&#123;
+            //查无此人
+            return null;//UnknownAccountException
+        &#125;
+
+//        密码认证shiro做
+        return new SimpleAuthenticationInfo(&quot;&quot;,user.getPassword(),&quot;&quot;);
+    &#125;
+</code></pre>
+<p>UserRealm类中</p>
+<pre><code class="java">//      连接数据库
+        UsernamePasswordToken userToken = (UsernamePasswordToken) authenticationToken;
+        User user = userService.queryUserByName(userToken.getUsername());
+
+        if (user==null)&#123;
+            //查无此人
+            return null;//UnknownAccountException
+        &#125;
+
+//        加密：MD5加密，MD5盐值加密
+//        md5：xwefqbrb134513451223qwer md5+盐值： xwefqbrb134513451223qwerusername
+//        密码认证shiro做，加密了
+//        密码认证shiro做
+        return new SimpleAuthenticationInfo(&quot;&quot;,user.getPassword(),&quot;&quot;);
+    &#125;
+</code></pre>
+<h1 id="Shiro请求授权实现"><a href="#Shiro请求授权实现" class="headerlink" title="Shiro请求授权实现"></a>Shiro请求授权实现</h1><p> 在shiroConfig类中</p>
+<pre><code class="java">//        授权
+        filterMap.put(&quot;/user/add&quot;,&quot;perms[user:add]&quot;);
+</code></pre>
+<p>设置未授权的请求</p>
+<pre><code class="java">//       设置未授权的请求
+       bean.setUnauthorizedUrl(&quot;/noauth&quot;);
+</code></pre>
+<p>设置Controller</p>
+<pre><code class="java">@RequestMapping(&quot;/noauth&quot;)
+@ResponseBody
+public String unauthorized()&#123;
+        return &quot;未经授权无法访问该页面&quot;;
+&#125;
+</code></pre>
+<p>编写controller层</p>
+<pre><code class="java">@RequestMapping(&quot;/noauth&quot;)
+@ResponseBody
+public String unauthorized()&#123;
+        return &quot;未经授权无法访问该页面&quot;;
+&#125;
+</code></pre>
+<h2 id="授权、"><a href="#授权、" class="headerlink" title="授权、"></a>授权、</h2><pre><code class="java">//授权
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) &#123;
+        System.out.println(&quot;授权doGetAuthorizationInfo&quot;);
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addStringPermission(&quot;user:add&quot;);//这行是全部人都获取授权，想指定的人获得授权就注释这行
+        return info;
+    &#125;
+</code></pre>
+<p>指定数据库中的某些用户获取数据</p>
+<p>数据库中设定权限</p>
+<p>UserRealm类中</p>
+<pre><code class="java">//      拿到当前登录的对象
+        Subject subject = SecurityUtils.getSubject();
+        User currentUser = (User)subject.getPrincipal();//拿到user对象
+
+        info.addStringPermission(currentUser.getPerms());
+        return info;
+</code></pre>
+<p>shiroConfig类中</p>
+<pre><code class="java">filterMap.put(&quot;/user/add&quot;,&quot;perms[user:add]&quot;);
+filterMap.put(&quot;/user/update&quot;,&quot;perms[user:update]&quot;);
+</code></pre>
+<h1 id="Shiro整合Thymeleaf"><a href="#Shiro整合Thymeleaf" class="headerlink" title="Shiro整合Thymeleaf"></a>Shiro整合Thymeleaf</h1><p>导入依赖 shiro-thymeleaf</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.github.theborakompanioni&lt;/groupId&gt;
+  &lt;artifactId&gt;thymeleaf-extras-shiro&lt;/artifactId&gt;
+  &lt;version&gt;2.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>在UserRealm类中</p>
+<pre><code class="java">//    整合shirodialect：整合 th 和 shiro
+    @Bean
+    public ShiroDialect getshiroDialect()&#123;
+        return new ShiroDialect();
+    &#125;
+</code></pre>
+
             
         </div>
     </div>
@@ -214,7 +444,7 @@
         
     </div>
 
-    <a href="/2022/04/18/4-18/springsecurity/ " class="go-post">
+    <a href="/2022/04/21/4-21/shiro/ " class="go-post">
         阅读全文
     </a>
 </div>
