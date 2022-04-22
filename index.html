@@ -181,6 +181,170 @@
 
 <div class="post">
 
+    <a href="/2022/04/22/4-22/swagger/">
+        <h2>
+            swagger
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/22
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <p>Swagger简介</p>
+<p>前后端分离</p>
+<p>Vue + SpringBoot</p>
+<h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h1><p>最流行的API框架</p>
+<p>在项目中使用swagger需要springfox；</p>
+<ul>
+<li>swagger2</li>
+<li>ui</li>
+</ul>
+<h1 id="spirngboot集成swagger"><a href="#spirngboot集成swagger" class="headerlink" title="spirngboot集成swagger"></a>spirngboot集成swagger</h1><p>1、新建springweb项目</p>
+<p>2、导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+  &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+  &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+  &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+  &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>3、配置swagger</p>
+<pre><code class="JAVA">@Configuration
+@EnableSwagger2//开启swagger2
+public class SwaggerConfig &#123;
+&#125;
+</code></pre>
+<p>测试页面</p>
+<p><strong><a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></strong></p>
+<p>swagger的bean实例 Docket</p>
+<p>SwaggerConfig</p>
+<pre><code class="java">package com.xiaoliu.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.RequestHandler;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+
+/**
+ * @author: 61分
+ * @date: 2022/4/22 17:39
+ * @description:
+ */
+
+@Configuration
+@EnableSwagger2//开启swagger2
+public class SwaggerConfig &#123;
+
+//    配置swagger的Docket bean实例
+    @Bean
+    public Docket docket()&#123;
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+    &#125;
+
+//    配置swagger信息=apiinfo
+    private ApiInfo apiInfo()&#123;
+        System.out.println(&quot;doswagger&quot;);
+//        作者信息
+        Contact contact = new Contact(&quot;xiaoliu&quot;, &quot;https://dddwah11.github.io/&quot;, &quot;1937589397@qq.com&quot;);
+
+        return new ApiInfo(
+                &quot;APIInfo&quot;,
+                &quot;swagger配置&quot;,
+                &quot;v1.0&quot;,
+                &quot;https://dddwah11.github.io/&quot;,
+                contact,
+                &quot;Apache 2.0&quot;,
+                &quot;http://www.apache.org/licenses/LINCENSE-2.0&quot;,
+                new ArrayList&lt;&gt;()
+        );
+    &#125;
+&#125;
+</code></pre>
+<h1 id="Swagger配置扫描接口"><a href="#Swagger配置扫描接口" class="headerlink" title="Swagger配置扫描接口"></a>Swagger配置扫描接口</h1><p>Docket.select()</p>
+<pre><code class="java">                .enable(false);//
+                .select()
+//                RequestHandlerSelectors配置需要扫描接口的方式
+//                basePackage指定要扫描的包
+//                any()扫描全部
+//                none()都不扫描
+//               withClassAnnotation;扫描类上的注解，参数是一个注解的反射对象
+//                withMethodAnnotation;扫描方法上的注解
+                    .apis(RequestHandlerSelectors.basePackage(&quot;com.xiaoliu.helloController&quot;))
+//                path()过滤路径
+
+                .build();
+</code></pre>
+<p>配置是否启动swagger</p>
+<pre><code class="java">            .enable(false);//不启动swagger
+            .select()
+</code></pre>
+<p>我们希望swagger在生产环境中使用，在发布时不使用</p>
+<ul>
+<li>判断是不是生产环境 </li>
+<li>注入 enable()</li>
+</ul>
+<pre><code class="java">    @Bean
+    public Docket docket(Environment environment)&#123;
+//        设置要显示的flag环境
+        Profiles profiles =Profiles.of(&quot;dev&quot;,&quot;test&quot;);
+//        获取项目环境
+//        通过environment.acceptsProfiles判断是否处在自己设定的环境
+        boolean b = environment.acceptsProfiles(profiles);
+
+
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .enable(b)
+</code></pre>
+<p>配置文件中设置生产和发布环境</p>
+<p>主配置文件设置</p>
+<pre><code class="xml">spring.profiles.active=当前环境
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/22/4-22/swagger/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/21/4-21/shiro/">
         <h2>
             shiro安全框架 -springboot中集成
@@ -1449,100 +1613,6 @@ public class Person &#123;
     </div>
 
     <a href="/2022/04/14/4-14/springboot主启动类运行/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
-        <h2>
-            每日算法-quicksort
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/13
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <p>有没有既不浪费空间又可以快一点的排序算法呢？那就是快速排啦！</p>
-<pre><code class="java">/**
- * @author: 61分
- * @date: 2022/4/14 0:05
- * @description:
- */
-public class quickSort &#123;
-    public static void quickSort(int [] arr,int low,int high)&#123;
-
-        int i,j,tmp,t;
-        if (low&gt;high)&#123;
-            return;
-        &#125;
-        i = low;
-        j = high;
-
-        tmp = arr[low];
-        while (i&lt;j)&#123;
-            //        先看右边,从最右边递减
-
-            while (tmp&lt;=arr[j]&amp;&amp;i&lt;j)&#123;
-                j--;
-            &#125;
-//            再看左边，递加
-            while (tmp&gt;=arr[i]&amp;&amp;i&lt;j)&#123;
-                i++;
-            &#125;
-//            满足条件的话，交换他们的值
-            if (i&lt;j)&#123;
-                t = arr[j];
-                arr[j] = arr[i];
-                arr[i] = t;
-            &#125;
-        &#125;
-        arr[low] = arr[i];
-        arr[i] = tmp;
-//            之后递归调用 处理左边的
-        quickSort(arr,low,j-1);
-//            处理右边的
-        quickSort(arr,j+1,high);
-
-
-    &#125;
-
-    public static void main(String[] args) &#123;
-        int [] num= &#123;10,54,21,42,78,65,48&#125;;
-        quickSort(num,0,num.length-1);
-        for (int i = 0; i &lt; num.length; i++) &#123;
-            System.out.println(num[i]);
-
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        
-    </div>
-
-    <a href="/2022/04/13/2022-4-13/每日算法-quicksort/ " class="go-post">
         阅读全文
     </a>
 </div>
