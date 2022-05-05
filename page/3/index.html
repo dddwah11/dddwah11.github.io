@@ -181,6 +181,544 @@
 
 <div class="post">
 
+    <a href="/2022/04/13/2022-4-13/springboot/">
+        <h2>
+            spirngboot初学
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="SpringBoot原理"><a href="#SpringBoot原理" class="headerlink" title="SpringBoot原理"></a>SpringBoot原理</h1><h2 id="1、自动装配原理"><a href="#1、自动装配原理" class="headerlink" title="1、自动装配原理"></a>1、自动装配原理</h2><p><strong>pom.xml</strong></p>
+<ul>
+<li>spring-boot-dependencies:核心依赖在父工程中</li>
+<li>我们在引入一些spring依赖的时候，不需要指定版本，因为有这些版本仓库</li>
+</ul>
+<p><strong>启动器</strong></p>
+<ul>
+<li><pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+<li><p>是springboot的启动场景</p>
+<ul>
+<li>比如springbootwb 就帮我们自动导入web环境所需的所有依赖！</li>
+</ul>
+</li>
+<li><p>将所有的功能场景变成一个个启动器</p>
+</li>
+</ul>
+<p><strong>springboot主程序</strong> </p>
+<pre><code class="java">@SpringBootApplication
+public class HelloWorldApplication &#123;
+
+    public static void main(String[] args) &#123;
+        SpringApplication.run(HelloWorldApplication.class, args);
+    &#125;
+
+&#125;
+</code></pre>
+<p><strong>注解</strong></p>
+<pre><code class="java">@SpringBootConfiguration
+@SpringBootConfiguration
+</code></pre>
+<p>自动配置的核心文件</p>
+<p><code>WEB-INF/spring.factories</code> </p>
+<p>所有的资源加载到配置类中</p>
+<pre><code class="java">Properties properties = PropertiesLoaderUtils.loadProperties(resource)
+</code></pre>
+<p>核心注解</p>
+<pre><code class="java">@ConditionalOnXXX    在满足所有条件才会生效 
+</code></pre>
+<p>springboot自动配置都在启动的时候扫描并加载 <code>spirng.properties</code> 所有的自动配置类都在这个配置文件中，通过判断核心注解是否满足条件才能生效</p>
+<ul>
+<li>springboot在启动的时候，通过类路径下的 <code>WEB-INF/spirng.properties</code> 获得指定的值</li>
+<li>将这些自动配置的类导入容器，自动配置就会生效</li>
+<li>即完成自动配置<ul>
+<li>整合javaEE 解决方案和自动配置的东西都在 <code>spring-boot-test-autoconfigure-2.3.7.RELEASE.jar</code> 中</li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/13/2022-4-13/springboot/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/13/2022-4-13/Mybatis-03/">
+        <h2>
+            Mybatis-03
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="Mybatis-03"><a href="#Mybatis-03" class="headerlink" title="Mybatis-03"></a>Mybatis-03</h1><h2 id="设置（settings）"><a href="#设置（settings）" class="headerlink" title="设置（settings）"></a>设置（settings）</h2><p>这是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为。 下表描述了设置中各项设置的含义、默认值等。</p>
+<table>
+<thead>
+<tr>
+<th align="left">设置名</th>
+<th align="left">描述</th>
+<th align="left">有效值</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">cacheEnabled</td>
+<td align="left">全局性地开启或关闭所有映射器配置文件中已配置的任何缓存。</td>
+<td align="left">true | false</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left">lazyLoadingEnabled</td>
+<td align="left">延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 特定关联关系中可通过设置 <code>fetchType</code> 属性来覆盖该项的开关状态。</td>
+<td align="left">true | false</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">aggressiveLazyLoading</td>
+<td align="left">开启时，任一方法的调用都会加载该对象的所有延迟加载属性。 否则，每个延迟加载属性会按需加载（参考 <code>lazyLoadTriggerMethods</code>)。</td>
+<td align="left">true | false</td>
+<td align="left">false （在 3.4.1 及之前的版本中默认为 true）</td>
+</tr>
+<tr>
+<td align="left">multipleResultSetsEnabled</td>
+<td align="left">是否允许单个语句返回多结果集（需要数据库驱动支持）。</td>
+<td align="left">true | false</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left">useColumnLabel</td>
+<td align="left">使用列标签代替列名。实际表现依赖于数据库驱动，具体可参考数据库驱动的相关文档，或通过对比测试来观察。</td>
+<td align="left">true | false</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left">useGeneratedKeys</td>
+<td align="left">允许 JDBC 支持自动生成主键，需要数据库驱动支持。如果设置为 true，将强制使用自动生成主键。尽管一些数据库驱动不支持此特性，但仍可正常工作（如 Derby）。</td>
+<td align="left">true | false</td>
+<td align="left">False</td>
+</tr>
+<tr>
+<td align="left">autoMappingBehavior</td>
+<td align="left">指定 MyBatis 应如何自动映射列到字段或属性。 NONE 表示关闭自动映射；PARTIAL 只会自动映射没有定义嵌套结果映射的字段。 FULL 会自动映射任何复杂的结果集（无论是否嵌套）。</td>
+<td align="left">NONE, PARTIAL, FULL</td>
+<td align="left">PARTIAL</td>
+</tr>
+<tr>
+<td align="left">autoMappingUnknownColumnBehavior</td>
+<td align="left">指定发现自动映射目标未知列（或未知属性类型）的行为。<code>NONE</code>: 不做任何反应<code>WARNING</code>: 输出警告日志（<code>&#39;org.apache.ibatis.session.AutoMappingUnknownColumnBehavior&#39;</code> 的日志等级必须设置为 <code>WARN</code>）<code>FAILING</code>: 映射失败 (抛出 <code>SqlSessionException</code>)</td>
+<td align="left">NONE, WARNING, FAILING</td>
+<td align="left">NONE</td>
+</tr>
+<tr>
+<td align="left">defaultExecutorType</td>
+<td align="left">配置默认的执行器。SIMPLE 就是普通的执行器；REUSE 执行器会重用预处理语句（PreparedStatement）； BATCH 执行器不仅重用语句还会执行批量更新。</td>
+<td align="left">SIMPLE REUSE BATCH</td>
+<td align="left">SIMPLE</td>
+</tr>
+<tr>
+<td align="left">defaultStatementTimeout</td>
+<td align="left">设置超时时间，它决定数据库驱动等待数据库响应的秒数。</td>
+<td align="left">任意正整数</td>
+<td align="left">未设置 (null)</td>
+</tr>
+<tr>
+<td align="left">defaultFetchSize</td>
+<td align="left">为驱动的结果集获取数量（fetchSize）设置一个建议值。此参数只可以在查询设置中被覆盖。</td>
+<td align="left">任意正整数</td>
+<td align="left">未设置 (null)</td>
+</tr>
+<tr>
+<td align="left">defaultResultSetType</td>
+<td align="left">指定语句默认的滚动策略。（新增于 3.5.2）</td>
+<td align="left">FORWARD_ONLY | SCROLL_SENSITIVE | SCROLL_INSENSITIVE | DEFAULT（等同于未设置）</td>
+<td align="left">未设置 (null)</td>
+</tr>
+<tr>
+<td align="left">safeRowBoundsEnabled</td>
+<td align="left">是否允许在嵌套语句中使用分页（RowBounds）。如果允许使用则设置为 false。</td>
+<td align="left">true | false</td>
+<td align="left">False</td>
+</tr>
+<tr>
+<td align="left">safeResultHandlerEnabled</td>
+<td align="left">是否允许在嵌套语句中使用结果处理器（ResultHandler）。如果允许使用则设置为 false。</td>
+<td align="left">true | false</td>
+<td align="left">True</td>
+</tr>
+<tr>
+<td align="left">mapUnderscoreToCamelCase</td>
+<td align="left">是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。</td>
+<td align="left">true | false</td>
+<td align="left">False</td>
+</tr>
+<tr>
+<td align="left">localCacheScope</td>
+<td align="left">MyBatis 利用本地缓存机制（Local Cache）防止循环引用和加速重复的嵌套查询。 默认值为 SESSION，会缓存一个会话中执行的所有查询。 若设置值为 STATEMENT，本地缓存将仅用于执行语句，对相同 SqlSession 的不同查询将不会进行缓存。</td>
+<td align="left">SESSION | STATEMENT</td>
+<td align="left">SESSION</td>
+</tr>
+<tr>
+<td align="left">jdbcTypeForNull</td>
+<td align="left">当没有为参数指定特定的 JDBC 类型时，空值的默认 JDBC 类型。 某些数据库驱动需要指定列的 JDBC 类型，多数情况直接用一般类型即可，比如 NULL、VARCHAR 或 OTHER。</td>
+<td align="left">JdbcType 常量，常用值：NULL、VARCHAR 或 OTHER。</td>
+<td align="left">OTHER</td>
+</tr>
+<tr>
+<td align="left">lazyLoadTriggerMethods</td>
+<td align="left">指定对象的哪些方法触发一次延迟加载。</td>
+<td align="left">用逗号分隔的方法列表。</td>
+<td align="left">equals,clone,hashCode,toString</td>
+</tr>
+<tr>
+<td align="left">defaultScriptingLanguage</td>
+<td align="left">指定动态 SQL 生成使用的默认脚本语言。</td>
+<td align="left">一个类型别名或全限定类名。</td>
+<td align="left">org.apache.ibatis.scripting.xmltags.XMLLanguageDriver</td>
+</tr>
+<tr>
+<td align="left">defaultEnumTypeHandler</td>
+<td align="left">指定 Enum 使用的默认 <code>TypeHandler</code> 。（新增于 3.4.5）</td>
+<td align="left">一个类型别名或全限定类名。</td>
+<td align="left">org.apache.ibatis.type.EnumTypeHandler</td>
+</tr>
+<tr>
+<td align="left">callSettersOnNulls</td>
+<td align="left">指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，这在依赖于 Map.keySet() 或 null 值进行初始化时比较有用。注意基本类型（int、boolean 等）是不能设置成 null 的。</td>
+<td align="left">true | false</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">returnInstanceForEmptyRow</td>
+<td align="left">当返回行的所有列都是空时，MyBatis默认返回 <code>null</code>。 当开启这个设置时，MyBatis会返回一个空实例。 请注意，它也适用于嵌套的结果集（如集合或关联）。（新增于 3.4.2）</td>
+<td align="left">true | false</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">logPrefix</td>
+<td align="left">指定 MyBatis 增加到日志名称的前缀。</td>
+<td align="left">任何字符串</td>
+<td align="left">未设置</td>
+</tr>
+<tr>
+<td align="left">logImpl</td>
+<td align="left">指定 MyBatis 所用日志的具体实现，未指定时将自动查找。</td>
+<td align="left">SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING</td>
+<td align="left">未设置</td>
+</tr>
+<tr>
+<td align="left">proxyFactory</td>
+<td align="left">指定 Mybatis 创建可延迟加载对象所用到的代理工具。</td>
+<td align="left">CGLIB | JAVASSIST</td>
+<td align="left">JAVASSIST （MyBatis 3.3 以上）</td>
+</tr>
+<tr>
+<td align="left">vfsImpl</td>
+<td align="left">指定 VFS 的实现</td>
+<td align="left">自定义 VFS 的实现的类全限定名，以逗号分隔。</td>
+<td align="left">未设置</td>
+</tr>
+<tr>
+<td align="left">useActualParamName</td>
+<td align="left">允许使用方法签名中的名称作为语句参数名称。 为了使用该特性，你的项目必须采用 Java 8 编译，并且加上 <code>-parameters</code> 选项。（新增于 3.4.1）</td>
+<td align="left">true | false</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left">configurationFactory</td>
+<td align="left">指定一个提供 <code>Configuration</code> 实例的类。 这个被返回的 Configuration 实例用来加载被反序列化对象的延迟加载属性值。 这个类必须包含一个签名为<code>static Configuration getConfiguration()</code> 的方法。（新增于 3.2.3）</td>
+<td align="left">一个类型别名或完全限定类名。</td>
+<td align="left">未设置</td>
+</tr>
+</tbody></table>
+<p>一个配置完整的 settings 元素的示例如下：</p>
+<pre><code>&lt;settings&gt;
+  &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;
+  &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt;
+  &lt;setting name=&quot;multipleResultSetsEnabled&quot; value=&quot;true&quot;/&gt;
+  &lt;setting name=&quot;useColumnLabel&quot; value=&quot;true&quot;/&gt;
+  &lt;setting name=&quot;useGeneratedKeys&quot; value=&quot;false&quot;/&gt;
+  &lt;setting name=&quot;autoMappingBehavior&quot; value=&quot;PARTIAL&quot;/&gt;
+  &lt;setting name=&quot;autoMappingUnknownColumnBehavior&quot; value=&quot;WARNING&quot;/&gt;
+  &lt;setting name=&quot;defaultExecutorType&quot; value=&quot;SIMPLE&quot;/&gt;
+  &lt;setting name=&quot;defaultStatementTimeout&quot; value=&quot;25&quot;/&gt;
+  &lt;setting name=&quot;defaultFetchSize&quot; value=&quot;100&quot;/&gt;
+  &lt;setting name=&quot;safeRowBoundsEnabled&quot; value=&quot;false&quot;/&gt;
+  &lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;false&quot;/&gt;
+  &lt;setting name=&quot;localCacheScope&quot; value=&quot;SESSION&quot;/&gt;
+  &lt;setting name=&quot;jdbcTypeForNull&quot; value=&quot;OTHER&quot;/&gt;
+  &lt;setting name=&quot;lazyLoadTriggerMethods&quot; value=&quot;equals,clone,hashCode,toString&quot;/&gt;
+&lt;/settings&gt;
+</code></pre>
+<pre><code class="xml">&lt;settings&gt;
+    &lt;setting name=&quot;logImpl&quot; value=&quot;STDOUT_LOGGING&quot;/&gt;
+&lt;/settings&gt;
+</code></pre>
+<h3 id="STDOUT-LOGGING标准日志输出："><a href="#STDOUT-LOGGING标准日志输出：" class="headerlink" title="STDOUT_LOGGING标准日志输出："></a>STDOUT_LOGGING标准日志输出：</h3><p>Logging initialized using ‘class org.apache.ibatis.logging.stdout.StdOutImpl’ adapter.<br>PooledDataSource forcefully closed&#x2F;removed all connections.<br>PooledDataSource forcefully closed&#x2F;removed all connections.<br>PooledDataSource forcefully closed&#x2F;removed all connections.<br>PooledDataSource forcefully closed&#x2F;removed all connections.<br>Opening JDBC Connection<br>Created connection 775386112.<br>Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@2e377400]<br>&#x3D;&#x3D;&gt;  Preparing: select id,name,password from mybatis.user where id &#x3D; ?<br>&#x3D;&#x3D;&gt; Parameters: 2(Integer)<br>&lt;&#x3D;&#x3D;    Columns: id, name, password<br>&lt;&#x3D;&#x3D;        Row: 2, 大刘哥, 1234<br>&lt;&#x3D;&#x3D;      Total: 1<br>User{id&#x3D;2, name&#x3D;’大刘哥’, pwd&#x3D;’1234’}<br>Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@2e377400]<br>Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@2e377400]<br>Returned connection 775386112 to pool.</p>
+<p>Process finished with exit code 0</p>
+<h2 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h2><ul>
+<li>控制日志信息输送的目的地是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8E%A7%E5%88%B6%E5%8F%B0/2438626">控制台</a>、文件、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/GUI">GUI</a>组件，甚至是套接口服务器、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/NT/3443842">NT</a>的事件记录器、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/UNIX">UNIX</a> <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Syslog">Syslog</a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/966835">守护进程</a>等；</li>
+<li>我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。</li>
+<li>最令人感兴趣的就是，这些可以通过一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/286550">配置文件</a>来灵活地进行配置，而不需要修改应用的代码。</li>
+</ul>
+<p>​    导入相关依赖</p>
+<p>log4j.properties</p>
+<pre><code class="properties">#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+
+#控制台输出的相关设置
+log4j.appender.console = org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target = System.out
+log4j.appender.console.Threshold=DEBUG
+log4j.appender.console.layout = org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=[%c]-%m%n
+
+#文件输出的相关设置
+log4j.appender.file = org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=./log/xiaoliu.log
+log4j.appender.file.MaxFileSize=10mb
+log4j.appender.file.Threshold=DEBUG
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=[%p][%d&#123;yy-MM-dd&#125;][%c]%m%n
+
+#日志输出级别
+log4j.logger.org.mybatis=DEBUG
+log4j.logger.java.sql=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.ResultSet=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG
+</code></pre>
+<p>配置文件的实现：</p>
+<pre><code class="xml">&lt;settings&gt;
+        &lt;setting name=&quot;logImpl&quot; value=&quot;LOG4J&quot;/&gt;
+    &lt;/settings&gt;
+</code></pre>
+<p>D:\Java\jdk1.8.0_191\bin\java.exe -ea -Didea.test.cyclic.buffer.size&#x3D;1048576 “-javaagent:D:\IntelliJ<br>?org.apache.ibatis.transaction.jdbc.JdbcTransaction?-Opening JDBC Connection<br>?org.apache.ibatis.datasource.pooled.PooledDataSource?-Created connection 1151844284.<br>?org.apache.ibatis.transaction.jdbc.JdbcTransaction?-Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@44a7bfbc]<br>?com.xiaoliu.Dao.UserMapper.getUserById?-&#x3D;&#x3D;&gt;  Preparing: select id,name,password from mybatis.user where id &#x3D; ?<br>?com.xiaoliu.Dao.UserMapper.getUserById?-&#x3D;&#x3D;&gt; Parameters: 2(Integer)<br>?com.xiaoliu.Dao.UserMapper.getUserById?-&lt;&#x3D;&#x3D;      Total: 1<br>User{id&#x3D;2, name&#x3D;’大刘哥’, pwd&#x3D;’1234’}<br>?org.apache.ibatis.transaction.jdbc.JdbcTransaction?-Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@44a7bfbc]<br>?org.apache.ibatis.transaction.jdbc.JdbcTransaction?-Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@44a7bfbc]<br>?org.apache.ibatis.datasource.pooled.PooledDataSource?-Returned connection 1151844284 to pool.</p>
+<p>Process finished with exit code 0</p>
+<p>在使用时要记得到入包</p>
+<pre><code class="java">import org.apache.log4j.Logger;
+</code></pre>
+<p>并在要使用的类下面使用当前的class</p>
+<pre><code class="java">static Logger logger = Logger.getLogger(UserMapperTest.class);
+</code></pre>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2>
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/13/2022-4-13/Mybatis-03/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/13/2022-4-12/---/">
+        <h2>
+            每日算法
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <pre><code class="java">
+/**
+ * @author: 61分
+ * @date: 2022/4/13 0:23
+ * @description:
+ */
+public class popSort &#123;
+    public static void main(String[] args) &#123;
+        int[] nums=&#123;1,2,3,4,5,6,89,77&#125;;
+        int tmp = 0;
+        for (int i = 0; i &lt; nums.length-1; i++) &#123;
+            for (int j = 0; j &lt; nums.length-i-1; j++) &#123;
+                if (nums[j]&lt;nums[j+1])&#123;
+                    tmp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = tmp;
+                &#125;
+
+            &#125;
+        &#125;
+        for (int k = 0; k &lt; nums.length; k++) &#123;
+            System.out.println(nums[k]);
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/13/2022-4-12/---/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/">
+        <h2>
+            Mybatis02
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/12
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h2 id="映射器"><a href="#映射器" class="headerlink" title="映射器"></a>映射器</h2><ul>
+<li>接口必须和Mapper配置文件同名</li>
+<li>接口必须和Mapper配置文件在同一个包下</li>
+</ul>
+<h2 id="生命周期及其作用域"><a href="#生命周期及其作用域" class="headerlink" title="生命周期及其作用域"></a>生命周期及其作用域</h2><ul>
+<li>生命周期类别是至关重要的，因为错误的使用会导致非常严重的并发问题。</li>
+</ul>
+<h2 id="属性名和字段名的不一致"><a href="#属性名和字段名的不一致" class="headerlink" title="属性名和字段名的不一致"></a>属性名和字段名的不一致</h2><ul>
+<li>利用resultMap（结果集映射）</li>
+</ul>
+<p><strong>UserMapper.xml：</strong></p>
+<pre><code class="java">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.xiaoliu.Dao.UserMapper&quot;&gt;
+&lt;!--    结果集映射--&gt;
+    &lt;!--    column为数据库中的字段名，property为实体类中的属性--&gt;
+
+    &lt;resultMap id=&quot;UserMap&quot; type=&quot;com.xiaoliu.pojo.User&quot;&gt;
+&lt;!--        &lt;result property=&quot;id&quot; column=&quot;id&quot;/&gt;--&gt;
+&lt;!--        &lt;result property=&quot;name&quot; column=&quot;name&quot;/&gt;--&gt;
+        &lt;result property=&quot;pwd&quot; column=&quot;password&quot;/&gt;
+    &lt;/resultMap&gt;
+
+    &lt;select id=&quot;getUserById&quot; resultMap=&quot;UserMap&quot;&gt;
+        select id,name,password from mybatis.user where id  = #&#123;id&#125;
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre>
+<p>测试类：</p>
+<pre><code class="java">public class UserMapperTest &#123;
+
+    @Test
+    public void getUserById()&#123;
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+//        获取接口
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        User user = mapper.getUserById(2);
+        System.out.println(user);
+        sqlSession.close();
+    &#125;
+
+&#125;
+</code></pre>
+<p>结果：</p>
+<p>User{id&#x3D;2, name&#x3D;’大刘哥’, pwd&#x3D;’1234’}</p>
+<p>Process finished with exit code 0</p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/12/2022-4-12/接口必须和Mapper配置文件同名接口必须和Mapper配置文件在同一个包下/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/11/2022-4-11/Mybatis/">
         <h2>
             Mybatis初学

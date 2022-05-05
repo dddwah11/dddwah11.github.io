@@ -249,6 +249,7 @@ mounted()&#123;
 <h1 id="vue-router"><a href="#vue-router" class="headerlink" title="vue_router"></a>vue_router</h1><p>安装vue-router到项目目录</p>
 <pre><code class="bash">npm install vue-router@4 -s/安装在本地项目，在packge.json中
 </code></pre>
+<p><code>use(router)</code>；</p>
 <p><strong>使用cdn</strong></p>
 <pre><code class="html">&lt;script src=&quot;https://unpkg.com/vue@3&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;https://unpkg.com/vue-router@4&quot;&gt;&lt;/script&gt;
@@ -266,15 +267,6 @@ mounted()&#123;
   &lt;!-- component matched by the route will render here --&gt;
   &lt;router-view&gt;&lt;/router-view&gt;
 &lt;/div&gt;
-</code></pre>
-<p><strong>报错</strong></p>
-<p><strong>error  Component name “About” should always be multi-word  vue&#x2F;multi-word-component-names</strong></p>
-<p>在vue.config.js文件中添加</p>
-<pre><code class="js">const &#123; defineConfig &#125; = require(&#39;@vue/cli-service&#39;)
-module.exports = defineConfig(&#123;
-    transpileDependencies: true,
-    lintOnSave:false
-&#125;)
 </code></pre>
 <p><strong>在Vue脚手架当中</strong></p>
 <p><strong>main.js中</strong></p>
@@ -379,8 +371,8 @@ export default router
 import App from &#39;./App.vue&#39;
 import router from &#39;./router&#39;
 // 根组件
-let app = createApp(App).use(router);
-app.mount(&#39;#app&#39;)
+app.use(router);
+
 </code></pre>
 <p>这样分工就十分明确了！</p>
 <h2 id="动态路由匹配"><a href="#动态路由匹配" class="headerlink" title="动态路由匹配"></a>动态路由匹配</h2><p>router下的index.js</p>
@@ -732,6 +724,117 @@ const router = createRouter(&#123;
 <p>不过，问题来了。由于我们的应用是一个单页的客户端应用，如果没有适当的服务器配置，用户在浏览器中直接访问 <code>https://example.com/user/id</code>，就会得到一个 404 错误。这就丑了。</p>
 <p>不用担心：要解决这个问题，你需要做的就是在你的服务器上添加一个简单的回退路由。如果 URL 不匹配任何静态资源，它应提供与你的应用程序中的 <code>index.html</code> 相同的页面。漂亮依旧!</p>
 <h2 id="导航卫士"><a href="#导航卫士" class="headerlink" title="导航卫士"></a>导航卫士</h2><h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p>Vuex 是一个为 Vue.js 应用程序开发的<strong>状态管理模式 + 库</strong>。它采用集中式存储管理应用程序的所有组件的状态，并以相应的规则保证以一种状态可发生变化的方式。</p>
+<p>安装</p>
+<pre><code class="bash">npm install vuex@next --save
+</code></pre>
+<p>使用npm6再进行安装</p>
+<pre><code class="bash">npx -p npm@6 npm i --legacy-peer-deps
+</code></pre>
+<p>可以定义全局使用的参数，组件都能使用</p>
+<pre><code class="js">// 创建一个新的 store 实例
+const store = createStore(&#123;
+    // 相当于一个data，所有组件全局都能访问
+    state () &#123;
+      return &#123;
+        count: 0
+      &#125;
+    &#125;,
+    mutations: &#123;
+      increment (state) &#123;
+        state.count++
+      &#125;
+    &#125;
+  &#125;)
+</code></pre>
+<p>但又因为对全部组件实现了共享，就不应该放在具体的组件里</p>
+<pre><code class="js">// 保存了对共享数据的修改逻辑
+    mutations: &#123;
+      increment (state) &#123;
+        state.count++
+      &#125;
+    &#125;
+  &#125;)
+</code></pre>
+<p>具体方法中</p>
+<pre><code class="vue">methods: &#123;
+  plus()&#123;
+   // 这就是对共享变量的一个操作逻辑
+   this.$store.commit(&#39;increment&#39;);
+  &#125;
+ &#125;
+</code></pre>
+<h2 id="async-和await"><a href="#async-和await" class="headerlink" title="async 和await"></a>async 和await</h2><p>await返回的是 return new promise 的函数并执行它</p>
+<p>await只能放在async函数里</p>
+<pre><code class="js">let fun1 = function()&#123;
+    let num = 10;
+    return new Promise((resolve,reject)=&gt;&#123;
+        
+        setTimeout(()=&gt;&#123;
+            num+=20;
+            resolve(num);    
+        &#125;,2000)
+    &#125;)
+&#125;
+
+let fun2 = async function()&#123;
+    let num = await fun1();
+    console.log(num);
+&#125;
+
+fun2();
+</code></pre>
+<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><p>map State函数</p>
+<p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 <code>mapState</code> 传一个字符串数组。</p>
+<p>里面可以添加多个</p>
+<pre><code class="js">computed: mapState([
+  // 映射 this.count 为 store.state.count
+  &#39;count&#39;
+])
+</code></pre>
+<p><img src="/.io//image-20220430213053568.png" alt="image-20220430213053568"></p>
+<p>可以拼接里面的对象</p>
+<h2 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h2><pre><code class="js">
+  getters: &#123;
+    // 这样可以完成复用
+      doneCount(state)&#123;
+          return state.todos.filter(todo =&gt; todo.done ===true).length
+      &#125;
+  &#125;,
+</code></pre>
+<p>属性多了，也可以像state那样，放在计算属性中，</p>
+<h2 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h2><p>提交载荷（Payload）</p>
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><p>分发action</p>
+<pre><code class="js"> actions: &#123;
+    increment (context) &#123;
+      context.commit(&#39;increment&#39;)
+    &#125;
+  &#125;
+</code></pre>
+<p>触发：</p>
+<p><code>   this.$store.dispatch(&#39;increment&#39;)</code></p>
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><pre><code class="js">const moduleA = &#123;
+  state: () =&gt; (&#123; ... &#125;),
+  mutations: &#123; ... &#125;,
+  actions: &#123; ... &#125;,
+  getters: &#123; ... &#125;
+&#125;
+
+const moduleB = &#123;
+  state: () =&gt; (&#123; ... &#125;),
+  mutations: &#123; ... &#125;,
+  actions: &#123; ... &#125;
+&#125;
+
+const store = createStore(&#123;
+  modules: &#123;
+    a: moduleA,
+    b: moduleB
+  &#125;
+&#125;)
+
+store.state.a // -&gt; moduleA 的状态
+store.state.b // -&gt; moduleB 的状态
+</code></pre>
 
     </div>
 
