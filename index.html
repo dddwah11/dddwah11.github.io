@@ -181,9 +181,917 @@
 
 <div class="post">
 
-    <a href="/2022/05/05/5-5/vue/">
+    <a href="/2022/05/07/5-5/项目_后端/">
         <h2>
             
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/7
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h1 id="1、配置"><a href="#1、配置" class="headerlink" title="1、配置"></a>1、配置</h1><h2 id="1-1、相关依赖"><a href="#1-1、相关依赖" class="headerlink" title="1.1、相关依赖"></a>1.1、相关依赖</h2><p>父项目pom.xml中的版本控制</p>
+<pre><code class="xml">    &lt;properties&gt;
+&lt;!--        mybatis-plus--&gt;
+        &lt;mp.version&gt;3.5.0&lt;/mp.version&gt;
+&lt;!--        mybatis-plus-generator--&gt;
+        &lt;mpg.version&gt;3.4.0&lt;/mpg.version&gt;
+&lt;!--        swagger--&gt;
+        &lt;swagger.version&gt;2.9.2&lt;/swagger.version&gt;
+&lt;!--        velocity模板引擎--&gt;
+        &lt;velocity.version&gt;2.3&lt;/velocity.version&gt;
+&lt;!--        mysql--&gt;
+        &lt;mysql-java.version&gt;8.0.28&lt;/mysql-java.version&gt;
+&lt;!--        lombok--&gt;
+        &lt;lombok.version&gt;1.18.22&lt;/lombok.version&gt;
+&lt;!--        knife4j增强文本--&gt;
+        &lt;knife4j.version&gt;2.0.7&lt;/knife4j.version&gt;
+            &lt;/properties&gt;
+</code></pre>
+<p><strong>依赖</strong></p>
+<pre><code class="xml">&lt;!--            mybatis-plus--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+                &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;mp.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            swagger ui--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+                &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;swagger.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            swagger2--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+                &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;swagger.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            mysql数据库--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;mysql&lt;/groupId&gt;
+                &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;mysql-java.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            mybatis-plus模板引擎--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.velocity&lt;/groupId&gt;
+                &lt;artifactId&gt;velocity-engine-core&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;velocity.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+&lt;!--            代码自动生成--&gt;
+            &lt;dependency&gt;
+            &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-plus-generator&lt;/artifactId&gt;
+            &lt;version&gt;$&#123;mpg.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            lombok--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;lombok.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+
+&lt;!--            knife4j--&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.github.xiaoymin&lt;/groupId&gt;
+                &lt;artifactId&gt;knife4j-spring-bootstarter&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;knife4j.version&#125;&lt;/version&gt;
+            &lt;/dependency&gt;
+</code></pre>
+<h2 id="1-2、创建两个子maven项目"><a href="#1-2、创建两个子maven项目" class="headerlink" title="1.2、创建两个子maven项目"></a>1.2、创建两个子maven项目</h2><h3 id="web（springboot项目）"><a href="#web（springboot项目）" class="headerlink" title="web（springboot项目）"></a>web（springboot项目）</h3><ul>
+<li><strong>依赖于commons项目</strong></li>
+</ul>
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.xiaoliu&lt;/groupId&gt;
+        &lt;artifactId&gt;helovue-base-common&lt;/artifactId&gt;
+        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<ul>
+<li><strong>配置文件</strong></li>
+</ul>
+<pre><code class="yaml">spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xinguan?useUnicode=true&amp;serveTimezone=UTC&amp;useSSL=false&amp;characterEncoding=utf8
+    username: root
+    password: 123456
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+
+
+
+
+server:
+  port: 8081
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath*:/mapper/*.xml
+</code></pre>
+<p>启动类：</p>
+<pre><code class="java">@SpringBootApplication
+@MapperScan(&quot;com.xiaoliu.system.mapper&quot;)
+@EnableSwagger2
+public class xitongApplication &#123;
+    public static void main(String[] args) &#123;
+        SpringApplication.run(xitongApplication.class,args);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="base-common-设置配置等统一处理"><a href="#base-common-设置配置等统一处理" class="headerlink" title="base-common(设置配置等统一处理)"></a>base-common(设置配置等统一处理)</h3><p>依赖于父项目</p>
+<pre><code class="xml">&lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;!--            controller层--&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        数据访问层--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        mybatis自动代码生成--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-plus-generator&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        mybatis-plus模板引擎--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.velocity&lt;/groupId&gt;
+            &lt;artifactId&gt;velocity-engine-core&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        java连接mysql--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        swagger2--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+            &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        swaggerui--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+            &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--        lombok--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+&lt;!--        knife4j--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.github.xiaoymin&lt;/groupId&gt;
+            &lt;artifactId&gt;knife4j-spring-boot-starter&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre>
+<h1 id="2、自动生成代码"><a href="#2、自动生成代码" class="headerlink" title="2、自动生成代码"></a>2、自动生成代码</h1><h2 id="2-1、需要依赖（配置时已导入）"><a href="#2-1、需要依赖（配置时已导入）" class="headerlink" title="2.1、需要依赖（配置时已导入）"></a>2.1、需要依赖（配置时已导入）</h2><p>mybatis-plus(持久层框架)、velocity(mybatis-plus模板引擎)、mybatis-plus-generator(代码自动生成)</p>
+<p><strong>CodeGenerator.java</strong></p>
+<pre><code class="java">public class CodeGenerator &#123;
+
+    /**
+     * &lt;p&gt;
+     * 读取控制台内容
+     * &lt;/p&gt;
+     */
+    public static String scanner(String tip) &#123;
+        Scanner scanner = new Scanner(System.in);
+        StringBuilder help = new StringBuilder();
+        help.append(&quot;请输入&quot; + tip + &quot;：&quot;);
+        System.out.println(help.toString());
+        if (scanner.hasNext()) &#123;
+            String ipt = scanner.next();
+            if (StringUtils.isNotBlank(ipt)) &#123;
+                return ipt;
+            &#125;
+        &#125;
+        throw new MybatisPlusException(&quot;正确的&quot; + tip + &quot;！&quot;);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        // 创建代码生成器对象
+        AutoGenerator mpg = new AutoGenerator();
+
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        gc.setOutputDir(scanner(&quot;你的项目路径&quot;) + &quot;/src/main/java&quot;);
+        gc.setAuthor(&quot;xiaoliu&quot;);
+//        生成之后是否打开资源管理器
+        gc.setOpen(false);
+//        是否覆盖文件
+        gc.setFileOverride(false);
+//        %s占位符
+//        mp生成service层代码，默认的接口名称第一张字母是有I
+        gc.setServiceName(&quot;%sService&quot;);
+//        设置主键生成策略 自动增长
+        gc.setIdType(IdType.AUTO);
+//        设置date的类型 默认只使用 java.util.date 代替
+        gc.setDateType(DateType.ONLY_DATE);
+        //开启实体属性 Swagger2 注解
+         gc.setSwagger2(true);
+        mpg.setGlobalConfig(gc);
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl(&quot;jdbc:mysql://localhost:3306/xinguan?useUnicode=true&amp;serveTimezone=UTC&amp;useSSL=false&amp;characterEncoding=utf8&quot;);
+        dsc.setDriverName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+        dsc.setUsername(&quot;root&quot;);
+        dsc.setPassword(&quot;123456&quot;);
+//        设置数据库类型
+        dsc.setDbType(DbType.MYSQL);
+        mpg.setDataSource(dsc);
+
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setModuleName(scanner(&quot;模块名&quot;));
+        pc.setParent(&quot;com.xiaoliu&quot;);
+        //        设置包
+        pc.setController(&quot;controller&quot;);
+        pc.setService(&quot;service&quot;);
+        pc.setServiceImpl(&quot;service.impl&quot;);
+        pc.setMapper(&quot;mapper&quot;);
+        pc.setEntity(&quot;pojo&quot;);
+        pc.setXml(&quot;mapper&quot;);
+        mpg.setPackageInfo(pc);
+
+
+
+
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+//设置哪些表需要自动生成
+        strategy.setInclude(scanner(&quot;表名，多个英文逗号分割&quot;).split(&quot;,&quot;));
+//实体类名称驼峰命名
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+//        列名驼峰命名
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+//        使用lombok模型
+        strategy.setEntityLombokModel(true);
+//        使用restful风格设置api
+        strategy.setRestControllerStyle(true);
+
+//驼峰转连字符
+        strategy.setControllerMappingHyphenStyle(true);
+//        strategy.getFieldPrefix(&quot;前缀&quot;); 可忽略表中的前缀
+        mpg.setStrategy(strategy);
+        mpg.execute();
+    &#125;
+
+&#125;
+</code></pre>
+<h1 id="3、统一返回结果"><a href="#3、统一返回结果" class="headerlink" title="3、统一返回结果"></a>3、统一返回结果</h1><p>在common项目的response目录下</p>
+<p><strong>接口</strong></p>
+<p><strong>CustomizeResultCode</strong></p>
+<pre><code class="java">package com.xiaoliu.response;
+
+/**
+ * @author: 61分
+ * @date: 2022/5/7 12:52
+ * @description:
+ */
+public interface CustomizeResultCode &#123;
+    /**
+     * 返回错误码
+     * @return
+     */
+    Integer getCode();
+
+    /**
+     * 返回错误信息
+     * @return
+     */
+    String  getMessage();
+&#125;
+</code></pre>
+<p><strong>枚举类</strong>（保护属性）</p>
+<p><strong>ResultCode</strong></p>
+<pre><code class="java">public enum ResultCode implements CustomizeResultCode&#123;
+    /**
+     * 20000，成功
+     */
+    SUCCESS(20000,&quot;成功&quot;),
+
+    /**
+     * 20001，失败
+     */
+    ERROR(20001,&quot;失败&quot;),
+
+    /**
+     * 20002，算术异常
+     */
+    ARITHMETICEXCEPTION(20002,&quot;算术异常&quot;),
+
+    /**
+     * 20003，用户不存在
+     */
+    USER_NOFOUND_EXCEPTION(20003,&quot;用户不存在&quot;),
+
+
+    ;
+
+    private Integer code;
+    private String message;
+
+    ResultCode(Integer code,String message)&#123;
+        this.code = code;
+        this.message = message;
+    &#125;
+
+    @Override
+    public Integer getCode() &#123;
+        return code;
+    &#125;
+
+    @Override
+    public String getMessage() &#123;
+        return message;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>实现类</strong></p>
+<p><strong>Result</strong></p>
+<pre><code class="java">/**
+ * @author: 61分
+ * @date: 2022/5/7 13:00
+ * @description:公共返回结果
+ */
+@Data
+public class Result &#123;
+
+    @ApiModelProperty(value = &quot;是否成功&quot;)
+    private boolean success;
+
+    @ApiModelProperty(value = &quot;返回码&quot;)
+    private Integer code;
+
+    @ApiModelProperty(value = &quot;返回消息&quot;)
+    private String message;
+
+    @ApiModelProperty(value = &quot;返回的数据&quot;)
+    private Map&lt;String,Object&gt; data =  new HashMap&lt;&gt;();
+
+    /**
+     * 构造方法私有，保护属性
+     */
+    private Result()&#123;&#125;;
+
+    public static Result ok()&#123;
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setCode(ResultCode.SUCCESS.getCode());
+        result.setMessage(ResultCode.SUCCESS.getMessage());
+        return result;
+    &#125;
+
+//    使用链式编程
+    public static Result error()&#123;
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(ResultCode.ERROR.getCode());
+        result.setMessage(ResultCode.ERROR.getMessage());
+        return result;
+    &#125;
+
+    /**
+     * 自定义返回
+     * @param success
+     * @return
+     */
+    public Result success(Boolean success)&#123;
+        this.setSuccess(success);
+        return this;
+    &#125;
+
+    public Result message(String message)&#123;
+        this.setMessage(message);
+        return this;
+    &#125;
+
+    public Result code(Integer code)&#123;
+        this.setCode(code);
+        return this;
+    &#125;
+
+    public Result data(String key,Object value)&#123;
+        this.data.put(key, value);
+        return this;
+    &#125;
+
+    public Result data(Map&lt;String,Object&gt; map)&#123;
+        this.setData(map);
+        return this;
+    &#125;
+
+&#125;
+</code></pre>
+<h1 id="4、统一异常处理"><a href="#4、统一异常处理" class="headerlink" title="4、统一异常处理"></a>4、统一异常处理</h1><p>common项目的handler目录下</p>
+<p><strong>全局的异常处理</strong></p>
+<p><strong>GlobalExceptionHandler</strong></p>
+<pre><code class="java">/**
+ * @author: 61分
+ * @date: 2022/5/7 14:52
+ * @description:统一异常处理
+ */
+@ControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler &#123;
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Result error(Exception e) &#123;
+        log.error(e.getMessage());
+        return Result.error();
+    &#125;
+
+    @ExceptionHandler(ArithmeticException.class)
+    @ResponseBody
+    public Result error(ArithmeticException e) &#123;
+        log.error(e.getMessage());
+        return Result.error().code(ResultCode.ARITHMETICEXCEPTION.getCode())
+                .message(ResultCode.ARITHMETICEXCEPTION.getMessage());
+    &#125;
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseBody
+    public Result error(BusinessException e) &#123;
+        log.error(e.getErrMsg());
+        return Result.error().code(e.getCode())
+                .message(e.getErrMsg());
+    &#125;
+&#125;
+</code></pre>
+<p>返回状态码接口的信息</p>
+<p><strong>BusinessException</strong></p>
+<pre><code class="java">@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class BusinessException extends RuntimeException&#123;
+    @ApiModelProperty(value = &quot;状态码&quot;)
+    private Integer code;
+
+    @ApiModelProperty(value = &quot;错误信息&quot;)
+    private String errMsg;
+&#125;
+</code></pre>
+<h1 id="5、统一日志处理（knife4j美化swagger2）"><a href="#5、统一日志处理（knife4j美化swagger2）" class="headerlink" title="5、统一日志处理（knife4j美化swagger2）"></a>5、统一日志处理（knife4j美化swagger2）</h1><p>需要knife4j依赖，</p>
+<p>在common项目的config目录下</p>
+<p><strong>Knife4jConfiguration</strong></p>
+<pre><code class="java">@Configuration
+public class Knife4jConfiguration &#123;
+
+    @Bean(value = &quot;defaultApi2&quot;)
+    public Docket defaultApi2() &#123;
+        Docket docket=new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(new ApiInfoBuilder()
+                        //.title(&quot;swagger-bootstrap-ui-demo RESTful APIs&quot;)
+                        .description(&quot;# swagger-bootstrap-ui-demo RESTful APIs&quot;)
+                        .termsOfServiceUrl(&quot;http://www.xx.com/&quot;)
+                        .contact(&quot;xx@qq.com&quot;)
+                        .version(&quot;1.0&quot;)
+                        .build())
+                //分组名称
+                .groupName(&quot;2.X版本&quot;)
+                .select()
+                //这里指定Controller扫描包路径
+                .apis(RequestHandlerSelectors.basePackage(&quot;com.xiaoliu.system.controller&quot;))
+                .paths(PathSelectors.any())
+                .build();
+        return docket;
+    &#125;
+&#125;
+</code></pre>
+<p>之后访问xxx&#x2F;<strong>doc.html</strong></p>
+<h1 id="6、统一生成的日志管理"><a href="#6、统一生成的日志管理" class="headerlink" title="6、统一生成的日志管理"></a>6、统一生成的日志管理</h1><p>LogBack</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+
+&lt;!-- 级别从高到低 OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL --&gt;
+&lt;!-- 日志输出规则 根据当前ROOT 级别，日志输出时，级别高于root默认的级别时 会输出 --&gt;
+&lt;!-- 以下 每个配置的 filter 是过滤掉输出文件里面，会出现高级别文件，依然出现低级别的日志信息，通过filter 过滤只记录本级别的日志 --&gt;
+&lt;!-- scan 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。 --&gt;
+&lt;!-- scanPeriod 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 --&gt;
+&lt;!-- debug 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 --&gt;
+&lt;configuration scan=&quot;true&quot; scanPeriod=&quot;60 seconds&quot; debug=&quot;false&quot;&gt;
+
+    &lt;!-- 动态日志级别 --&gt;
+    &lt;jmxConfigurator/&gt;
+
+    &lt;!--*****************************************************************************--&gt;
+    &lt;!--自定义项 开始--&gt;
+    &lt;!--*****************************************************************************--&gt;
+
+    &lt;!-- 定义日志文件 输出位置 --&gt;
+    &lt;property name=&quot;log.home_dir&quot; value=&quot;E:/BliBli/xinguan/logs&quot;/&gt;
+    &lt;property name=&quot;log.app_name&quot; value=&quot;http-demo&quot;/&gt;
+    &lt;!-- 日志最大的历史 30天 --&gt;
+    &lt;property name=&quot;log.maxHistory&quot; value=&quot;30&quot;/&gt;
+    &lt;property name=&quot;log.maxSize&quot; value=&quot;5MB&quot;/&gt;
+    &lt;!-- 日志界别 --&gt;
+    &lt;property name=&quot;log.level&quot; value=&quot;info&quot;/&gt;
+    &lt;!-- 打印sql语句 需要指定dao/mapper层包的位置 --&gt;
+    &lt;property name=&quot;mapper.package&quot; value=&quot;com.xiaoge.system.mapper&quot;/&gt;
+
+    &lt;!-- 彩色日志 --&gt;
+    &lt;!-- 配置格式变量：CONSOLE_LOG_PATTERN 彩色日志格式 --&gt;
+    &lt;!-- magenta:洋红 --&gt;
+    &lt;!-- boldMagenta:粗红--&gt;
+    &lt;!-- cyan:青色 --&gt;
+    &lt;!-- white:白色 --&gt;
+    &lt;!-- magenta:洋红 --&gt;
+    &lt;property name=&quot;CONSOLE_LOG_PATTERN&quot;
+              value=&quot;%yellow(%date&#123;yyyy-MM-dd HH:mm:ss&#125;) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)&quot;/&gt;
+
+    &lt;!--*****************************************************************************--&gt;
+    &lt;!--自定义项 结束--&gt;
+    &lt;!--*****************************************************************************--&gt;
+
+    &lt;!-- ConsoleAppender 控制台输出日志 --&gt;
+    &lt;appender name=&quot;CONSOLE&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;
+                &lt;!-- 设置日志输出格式 --&gt;
+                $&#123;CONSOLE_LOG_PATTERN&#125;
+            &lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;!-- ERROR级别日志 --&gt;
+    &lt;!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender --&gt;
+    &lt;appender name=&quot;ERROR&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;!-- 过滤器，只记录WARN级别的日志 --&gt;
+        &lt;!-- 果日志级别等于配置级别，过滤器会根据onMath 和 onMismatch接收或拒绝日志。 --&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;!-- 设置过滤级别 --&gt;
+            &lt;level&gt;ERROR&lt;/level&gt;
+            &lt;!-- 用于配置符合过滤条件的操作 --&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;!-- 用于配置不符合过滤条件的操作 --&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;!-- 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发滚动 --&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;!--日志输出位置 可相对、和绝对路径 --&gt;
+            &lt;fileNamePattern&gt;
+                $&#123;log.home_dir&#125;/error/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log
+            &lt;/fileNamePattern&gt;
+            &lt;!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件,假设设置每个月滚动，且&lt;maxHistory&gt;是6，
+            则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是，那些为了归档而创建的目录也会被删除 --&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;!--日志文件最大的大小--&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;
+                &lt;!-- 设置日志输出格式 --&gt;
+                %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;50&#125; - %msg%n
+            &lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!-- WARN级别日志 appender --&gt;
+    &lt;appender name=&quot;WARN&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;!-- 过滤器，只记录WARN级别的日志 --&gt;
+        &lt;!-- 果日志级别等于配置级别，过滤器会根据onMath 和 onMismatch接收或拒绝日志。 --&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;!-- 设置过滤级别 --&gt;
+            &lt;level&gt;WARN&lt;/level&gt;
+            &lt;!-- 用于配置符合过滤条件的操作 --&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;!-- 用于配置不符合过滤条件的操作 --&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;!--日志输出位置 可相对、和绝对路径 --&gt;
+            &lt;fileNamePattern&gt;$&#123;log.home_dir&#125;/warn/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;!--当天的日志大小 超过MaxFileSize时,压缩日志并保存--&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;50&#125; - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!-- INFO级别日志 appender --&gt;
+    &lt;appender name=&quot;INFO&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;INFO&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;$&#123;log.home_dir&#125;/info/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%-5level] %logger - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!-- DEBUG级别日志 appender --&gt;
+    &lt;appender name=&quot;DEBUG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;DEBUG&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;$&#123;log.home_dir&#125;/debug/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%-5level] %logger - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!-- TRACE级别日志 appender --&gt;
+    &lt;appender name=&quot;TRACE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;TRACE&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;$&#123;log.home_dir&#125;/trace/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%-5level] %logger - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!--设置一个向上传递的appender,所有级别的日志都会输出--&gt;
+    &lt;appender name=&quot;app&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;$&#123;log.home_dir&#125;/app/%d&#123;yyyy-MM-dd&#125;/$&#123;log.app_name&#125;-%i.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;$&#123;log.maxHistory&#125;&lt;/maxHistory&gt;
+            &lt;MaxFileSize&gt;$&#123;log.maxSize&#125;&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%-5level] %logger - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;!--org.springframework.web包下的类的日志输出--&gt;
+    &lt;logger name=&quot;org.springframework.web&quot; additivity=&quot;false&quot; level=&quot;WARN&quot;&gt;
+        &lt;appender-ref ref=&quot;WARN&quot;/&gt;
+    &lt;/logger&gt;
+    &lt;!--dao层包下的类的日志输出--&gt;
+    &lt;logger name=&quot;$&#123;mapper.package&#125;&quot; additivity=&quot;false&quot; level=&quot;DEBUG&quot;&gt;
+        &lt;appender-ref ref=&quot;app&quot;/&gt;
+        &lt;appender-ref ref=&quot;ERROR&quot;/&gt;
+        &lt;!--打印控制台--&gt;
+        &lt;appender-ref ref=&quot;CONSOLE&quot;/&gt;
+    &lt;/logger&gt;
+
+
+    &lt;!-- root级别   DEBUG --&gt;
+    &lt;root&gt;
+        &lt;!-- 打印debug级别日志及以上级别日志 --&gt;
+        &lt;level value=&quot;$&#123;log.level&#125;&quot;/&gt;
+        &lt;!-- 控制台输出 --&gt;
+        &lt;appender-ref ref=&quot;CONSOLE&quot;/&gt;
+        &lt;!-- 不管什么包下的日志都输出文件 --&gt;
+        &lt;appender-ref ref=&quot;ERROR&quot;/&gt;
+        &lt;appender-ref ref=&quot;INFO&quot;/&gt;
+        &lt;appender-ref ref=&quot;WARN&quot;/&gt;
+        &lt;appender-ref ref=&quot;DEBUG&quot;/&gt;
+        &lt;appender-ref ref=&quot;TRACE&quot;/&gt;
+    &lt;/root&gt;
+
+&lt;/configuration&gt;
+</code></pre>
+<h1 id="7、后台数据分页查询"><a href="#7、后台数据分页查询" class="headerlink" title="7、后台数据分页查询"></a>7、后台数据分页查询</h1><p>需要mybatis-plus的<strong>分页插件</strong></p>
+<p>在common项目下的config目录下</p>
+<pre><code class="java">@Configuration
+public class MybatisPlusConfig &#123;
+
+    /**
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+     */
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() &#123;
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        return interceptor;
+    &#125;
+
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() &#123;
+        return configuration -&gt; configuration.setUseDeprecatedExecutor(false);
+    &#125;
+&#125;
+</code></pre>
+<p>分页查询的controller</p>
+<pre><code class="java">@GetMapping(&quot;/findUserList&quot;)
+    public Result findUserList(@RequestParam(defaultValue = &quot;1&quot;)Integer current,
+                               @RequestParam(defaultValue = &quot;7&quot;)Integer size)&#123;
+//        对用户分页，泛型中注入的是用户实体类
+        Page&lt;User&gt; page = new Page&lt;&gt;(current,size);
+        Page&lt;User&gt; userPage = userService.page(page);
+        long total = userPage.getTotal();
+        List&lt;User&gt; records = userPage.getRecords();
+        return Result.ok().data(&quot;total&quot;,total).data(&quot;records&quot;,records);
+    &#125;;
+</code></pre>
+<h1 id="8、使用axios请求后台接口"><a href="#8、使用axios请求后台接口" class="headerlink" title="8、使用axios请求后台接口"></a>8、使用axios请求后台接口</h1><p>引入axios</p>
+<p><code>npm install axios</code></p>
+<p>在前端项目中新建一个utils包</p>
+<p>request.js</p>
+<pre><code class="js">import axios from &#39;axios&#39;
+
+const instance = axios.create(&#123;
+    baseURL: &#39;http://localhost:8081&#39;,
+    timeout: 3000,
+  &#125;);
+
+  export default instance
+</code></pre>
+<p>新建api包</p>
+<p>users.js</p>
+<pre><code class="js">import request from &#39;../utils/request&#39;
+
+// 后面每次请求都是携带token的
+export const findUserList =()=&gt;&#123;
+    return request(&#123;
+        url: &quot;/user/findUserList&quot;,
+        method: &#39;get&#39;,
+
+    &#125;)
+&#125;   
+</code></pre>
+<p>在Uses.vue组件中</p>
+<p>添加获取用户列表的方法,并在控制台打印</p>
+<pre><code class="vue">async getUserList()&#123;
+       const &#123;data&#125;  = await findUserList()
+       console.log(data);
+      &#125;
+</code></pre>
+<p>钩子函数加载</p>
+<pre><code class="vue">created()&#123;
+    this.getUserList();
+  &#125;,
+</code></pre>
+<h1 id="9、跨域问题-Access-Control-Allow-Origin"><a href="#9、跨域问题-Access-Control-Allow-Origin" class="headerlink" title="9、跨域问题 Access-Control-Allow-Origin"></a>9、跨域问题 Access-Control-Allow-Origin</h1><p><img src="/.io//image-20220507234028635.png" alt="image-20220507234028635"></p>
+<h2 id="9-1、nginx反向代理解决跨域"><a href="#9-1、nginx反向代理解决跨域" class="headerlink" title="9.1、nginx反向代理解决跨域"></a>9.1、nginx反向代理解决跨域</h2><h2 id="9-2、jsonp解决跨域（axios不支持）"><a href="#9-2、jsonp解决跨域（axios不支持）" class="headerlink" title="9.2、jsonp解决跨域（axios不支持）"></a>9.2、jsonp解决跨域（axios不支持）</h2><h2 id="9-3、springboot的-CrossOrign"><a href="#9-3、springboot的-CrossOrign" class="headerlink" title="9.3、springboot的@CrossOrign"></a>9.3、springboot的@CrossOrign</h2><h2 id="9-4、配置webmvcconfigure解决跨域"><a href="#9-4、配置webmvcconfigure解决跨域" class="headerlink" title="9.4、配置webmvcconfigure解决跨域"></a>9.4、配置webmvcconfigure解决跨域</h2><pre><code class="java">@Configuration
+public class CrosConfig implements WebMvcConfigurer &#123;
+    /**
+     *
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) &#123;
+        registry.addMapping(&quot;/**&quot;).allowedOrigins(&quot;*&quot;)
+                .allowedMethods(&quot;GET&quot;,&quot;POST&quot;,&quot;PUT&quot;,&quot;OPTIONS&quot;,&quot;HEAD&quot;)
+                .allowCredentials(true)
+                .maxAge(3600)
+                .allowedHeaders(&quot;*&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="10、用户数据绑定及分页展示"><a href="#10、用户数据绑定及分页展示" class="headerlink" title="10、用户数据绑定及分页展示"></a>10、用户数据绑定及分页展示</h1><h1 id="11、mybatisplus实现多表联查（用户部门）"><a href="#11、mybatisplus实现多表联查（用户部门）" class="headerlink" title="11、mybatisplus实现多表联查（用户部门）"></a>11、mybatisplus实现多表联查（用户部门）</h1><h1 id="12、编写添加用户界面"><a href="#12、编写添加用户界面" class="headerlink" title="12、编写添加用户界面"></a>12、编写添加用户界面</h1><h1 id="13、实现头像上传"><a href="#13、实现头像上传" class="headerlink" title="13、实现头像上传"></a>13、实现头像上传</h1><p>阿里云的OSS 需要joda-time依赖</p>
+<pre><code class="java">           //获取上传的文件流
+            InputStream inputStream = file.getInputStream();
+//            保证文件名不相同 uuid redis分布式ID 雪花算法 方便区分 文件格式 yyyy/MM/dd+uuid
+//              构建日期文件夹的路径 avatar/2022/5/14 文件名
+            String datePath = new DateTime().toString(&quot;yyyy/MM/dd&quot;);
+
+//            获取文件的名称
+            String original = file.getOriginalFilename();
+
+//            获取uuid
+            String fileName = UUID.randomUUID().toString().replaceAll(&quot;-&quot;, &quot;/&quot;);
+
+//            获得文件上传的扩展名 .jpg
+            String fileType = original.substring(original.lastIndexOf(&quot;.&quot;));
+
+//            拼接文件名称 cfbf6d34d3e4465386f0e33d4595d52b.jpg
+            String newName = fileName + fileType;
+
+//            生成文件夹 avatar/2022/5/14 + cfbf6d34d3e4465386f0e33d4595d52b.jpg
+            fileName = datePath + &quot;/&quot; + newName;
+//            上传文件
+            ossClient.putObject(bucketName, fileName,inputStream);
+
+
+            //默认十年不过期
+            Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
+
+            //bucket名称  文件名   过期时间
+            uploadUrl = ossClient.generatePresignedUrl(bucketName, fileName, expiration).toString();
+
+            //获取url地址
+            //uploadUrl = &quot;https://&quot; + bucketName + &quot;.&quot; + endPoint + &quot;/&quot; + fileName;
+        return uploadUrl.substring(0, uploadUrl.indexOf(&quot;?&quot;));
+        不能直接返回uploadUrl 需要去除？后面的签名信息
+            
+            /**
+     * Description: 判断OSS服务文件上传时文件的contentType
+     *
+     * @param FilenameExtension 文件后缀
+     * @return String
+     */
+    public static String getcontentType(String FilenameExtension) &#123;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.bmp&quot;)) &#123;
+            return &quot;image/bmp&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.gif&quot;)) &#123;
+            return &quot;image/gif&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.jpeg&quot;) ||
+                FilenameExtension.equalsIgnoreCase(&quot;.jpg&quot;) ||
+                FilenameExtension.equalsIgnoreCase(&quot;.png&quot;)) &#123;
+            return &quot;image/jpg&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.html&quot;)) &#123;
+            return &quot;text/html&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.txt&quot;)) &#123;
+            return &quot;text/plain&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.vsd&quot;)) &#123;
+            return &quot;application/vnd.visio&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.pptx&quot;) ||
+                FilenameExtension.equalsIgnoreCase(&quot;.ppt&quot;)) &#123;
+            return &quot;application/vnd.ms-powerpoint&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.docx&quot;) ||
+                FilenameExtension.equalsIgnoreCase(&quot;.doc&quot;)) &#123;
+            return &quot;application/msword&quot;;
+        &#125;
+        if (FilenameExtension.equalsIgnoreCase(&quot;.xml&quot;)) &#123;
+            return &quot;text/xml&quot;;
+        &#125;
+        return &quot;image/jpg&quot;;
+    &#125;
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/05/07/5-5/项目_后端/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/05/5-5/项目_前端/">
+        <h2>
+            项目-前端
         </h2>
     </a>
 
@@ -204,7 +1112,8 @@
         <div class="content" v-pre>
             
             
-            <h1 id="搭好前端脚手架"><a href="#搭好前端脚手架" class="headerlink" title="搭好前端脚手架"></a>搭好前端脚手架</h1><h1 id="配置全局样式"><a href="#配置全局样式" class="headerlink" title="配置全局样式"></a>配置全局样式</h1><p>css文件下</p>
+            <h1 id="搭好前端脚手架"><a href="#搭好前端脚手架" class="headerlink" title="搭好前端脚手架"></a>搭好前端脚手架</h1><p>router,vuex,elementpuls,</p>
+<h1 id="配置全局样式"><a href="#配置全局样式" class="headerlink" title="配置全局样式"></a>配置全局样式</h1><p>css文件下</p>
 <pre><code class="css">/* 全局样式表 */
 html,body，#app&#123;
     height: 100%;
@@ -230,7 +1139,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) &#123;
   app.component(key, component)
 &#125;
 </code></pre>
-<p>使用icon的方法</p>
+<p>直接引用 </p>
+<p><strong>使用icon的方法</strong></p>
 <pre><code class="js">import &#123; Avatar, Lock &#125; from &quot;@element-plus/icons-vue&quot;;
 </code></pre>
 <pre><code class="js">setup()&#123;
@@ -244,7 +1154,670 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) &#123;
 <pre><code class="js">账号 prefix-icon=&quot;Avatar&quot;
 密码 prefix-icon=&quot;Lock&quot;
 </code></pre>
+<p><strong>login.vue登录页面</strong></p>
+<pre><code class="vue">&lt;template&gt;
+  &lt;!-- 登录容器 --&gt;
+  &lt;div class=&quot;login_container&quot;&gt;
+    &lt;!-- 登录区域 --&gt;
+    &lt;div class=&quot;login_box&quot;&gt;
+      &lt;!-- 头像 --&gt;
+      &lt;div class=&quot;avatar_box&quot;&gt;
+        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 表单 --&gt;
+      &lt;el-form
+        :model=&quot;loginForm&quot;
+        :rules=&quot;loginrules&quot;
+        ref=&quot;loginForm&quot;
+        label-width=&quot;0px&quot;
+        class=&quot;login_form&quot;
+      &gt;
+        &lt;el-form-item prop=&quot;username&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.username&quot;
+            prefix-icon=&quot;Avatar&quot;
+          &gt;&lt;/el-input&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item prop=&quot;password&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.password&quot;
+            prefix-icon=&quot;Lock&quot;
+            type=&quot;password&quot;
+          &gt;&lt;/el-input&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item prop=&quot;verifyCode&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.verifyCode&quot;
+            prefix-icon=&quot;Iphone&quot;
+            class=&quot;verify_code&quot;
+          &gt;&lt;/el-input&gt;
+          &lt;img src=&quot;@/assets/msFvb6.gif&quot; class=&quot;verify_img&quot; /&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item class=&quot;login_btn&quot;&gt;
+          &lt;el-button type=&quot;primary&quot; @click=&quot;submitForm(&#39;loginForm&#39;)&quot;
+            &gt;登录&lt;/el-button
+          &gt;
+          &lt;el-button @click=&quot;resetForm(&#39;loginForm&#39;)&quot;&gt;重置&lt;/el-button&gt;
+        &lt;/el-form-item&gt;
+      &lt;/el-form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
+&lt;script&gt;
+import &#123; Avatar, Lock, Iphone &#125; from &quot;@element-plus/icons-vue&quot;;
+export default &#123;
+  setup() &#123;
+    return &#123;
+      Avatar,
+      Lock,
+      Iphone,
+    &#125;;
+  &#125;,
+  data() &#123;
+    return &#123;
+      loginForm: &#123;
+        username: &quot;&quot;,
+        password: &quot;&quot;,
+        verifyCode: &quot;&quot;,
+      &#125;,
+      loginrules: &#123;
+        username: [
+          &#123; required: true, message: &quot;请输入账号&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            message: &quot;长度在 3 到 16 个字符&quot;,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+        password: [
+          &#123; required: true, message: &quot;请输入密码&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            message: &quot;长度在 3 到 16  个字符&quot;,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+        verifyCode: [
+          &#123; required: true, message: &quot;请输入验证码&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+      &#125;,
+    &#125;;
+  &#125;,
+  methods: &#123;
+    submitForm(formName) &#123;
+      this.$refs[formName].validate((valid) =&gt; &#123;
+        if (valid) &#123;
+          alert(&quot;submit!&quot;);
+        &#125; else &#123;
+          console.log(&quot;error submit!!&quot;);
+          return false;
+        &#125;
+      &#125;);
+    &#125;,
+    resetForm(formName) &#123;
+      this.$refs[formName].resetFields();
+    &#125;,
+  &#125;,
+&#125;;
+&lt;/script&gt;
+&lt;style lang=&#39;less&#39; scoped&gt;
+.login_container &#123;
+  height: 100%;
+  background-color: aquamarine;
+&#125;
+.login_box &#123;
+  width: 450px;
+  height: 380px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .avatar_box &#123;
+    width: 130px;
+    height: 130px;
+    border: 1px solid #eeeeee;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    margin: -65px auto;
+    background: #ffffff;
+    img &#123;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #eeeeee;
+    &#125;
+  &#125;
+  .login_form &#123;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  &#125;
+  .login_btn &#123;
+    display: flex;
+    justify-content: flex-end;
+  &#125;
+  .verify_code &#123;
+    width: 60%;
+  &#125;
+&#125;
+&lt;/style&gt;
+</code></pre>
+<h1 id="2、Main页面"><a href="#2、Main页面" class="headerlink" title="2、Main页面"></a>2、Main页面</h1><p>鼠标放上图片拉下菜单</p>
+<pre><code class="css">.el-dropdown-menu,img&#123;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+
+    &#125;
+</code></pre>
+<pre><code class="css">&lt;el-dropdown&gt;
+          &lt;!-- 右边头像 --&gt;
+          &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+          &lt;!-- 下拉菜单 --&gt;
+          &lt;template #dropdown&gt;
+            &lt;el-dropdown-menu&gt;
+              &lt;el-dropdown-item icon=&quot;HomeFilled&quot;&gt;系统主页&lt;/el-dropdown-item&gt;
+              &lt;el-dropdown-item icon=&quot;Warning&quot;&gt;退出登录&lt;/el-dropdown-item&gt;
+            &lt;/el-dropdown-menu&gt;
+          &lt;/template&gt;
+        &lt;/el-dropdown&gt;
+</code></pre>
+<p><strong>注意：</strong>去除侧边栏展开多出的边缘，</p>
+<pre><code class="css">.el-menu-vertical-demo&#123;
+ border-right: none;
+&#125;
+</code></pre>
+<p><strong>Main.vue</strong>页面</p>
+<pre><code class="vue">&lt;template&gt;
+  &lt;el-container class=&quot;main_container&quot;&gt;
+    &lt;el-header&gt;
+      &lt;div class=&quot;left_box&quot;&gt;
+        &lt;!-- 左边头像 --&gt;
+        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+        &lt;span&gt;系统&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;right_box&quot;&gt;
+        &lt;el-dropdown&gt;
+          &lt;!-- 右边头像 --&gt;
+          &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+          &lt;!-- 下拉菜单 --&gt;
+          &lt;template #dropdown&gt;
+            &lt;el-dropdown-menu&gt;
+              &lt;el-dropdown-item icon=&quot;HomeFilled&quot;&gt;系统主页&lt;/el-dropdown-item&gt;
+              &lt;el-dropdown-item icon=&quot;Warning&quot;&gt;退出登录&lt;/el-dropdown-item&gt;
+            &lt;/el-dropdown-menu&gt;
+          &lt;/template&gt;
+        &lt;/el-dropdown&gt;
+      &lt;/div&gt;
+    &lt;/el-header&gt;
+    &lt;el-container&gt;
+      &lt;!-- 侧边栏 --&gt;
+      &lt;el-aside :width=&quot;iscollapse?&#39;60px&#39;:&#39;200px&#39;&quot;&gt;
+        &lt;!-- 展开收起 --&gt;
+      &lt;div class=&quot;toggle_box&quot; @click=&quot;toggleiscollapse&quot;&gt;|||&lt;/div&gt;
+      &lt;el-menu
+        active-text-color=&quot;#ffd04b&quot;
+        background-color=&quot;#001529&quot;
+        class=&quot;el-menu-vertical-demo&quot;
+        :collapse=&quot;iscollapse&quot;
+        :collapse-transition=&quot;iscollapsetransition&quot;
+        :router=&quot;true&quot;
+        default-active=&quot;2&quot;
+        text-color=&quot;#fff&quot;
+        @open=&quot;handleOpen&quot;
+        @close=&quot;handleClose&quot;
+      &gt;
+        &lt;MenuTree :menuList=&quot;this.MenuList&quot;&gt;&lt;/MenuTree&gt;
+      &lt;/el-menu&gt;
+
+      &lt;/el-aside&gt;
+      &lt;el-main&gt;
+        &lt;router-view/&gt;
+      &lt;/el-main&gt;
+    &lt;/el-container&gt;
+  &lt;/el-container&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import MenuTree from &#39;@/components/MenuTree.vue&#39;
+export default &#123;
+  name: &quot;Main&quot;,
+  data() &#123;
+    return &#123;
+      iscollapse: false,
+      iscollapsetransition: false,
+      MenuList: [
+        &#123;
+            &quot;id&quot;: 1,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;系统管理&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-setting&quot;,
+            &quot;orderNum&quot;: 1,
+            &quot;open&quot;: 1,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: null,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 253,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;欢迎页面&quot;,
+                &quot;url&quot;: &quot;/welcome&quot;,
+                &quot;icon&quot;: &quot;el-icon-star-off&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;welcome:view&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 226,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;用户管理&quot;,
+                &quot;url&quot;: &quot;/users&quot;,
+                &quot;icon&quot;: &quot;el-icon-user&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;users&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 321,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;附件管理&quot;,
+                &quot;url&quot;: &quot;/attachments&quot;,
+                &quot;icon&quot;: &quot;el-icon-picture-outline&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 4,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;菜单权限&quot;,
+                &quot;url&quot;: &quot;/menus&quot;,
+                &quot;icon&quot;: &quot;el-icon-help&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 235,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;角色管理&quot;,
+                &quot;url&quot;: &quot;/roles&quot;,
+                &quot;icon&quot;: &quot;el-icon-postcard&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 261,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;部门管理&quot;,
+                &quot;url&quot;: &quot;/departments&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-home&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 319,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;公告管理&quot;,
+                &quot;url&quot;: &quot;/notices&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-flag&quot;,
+                &quot;orderNum&quot;: 4,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: true,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+         
+          &#123;
+            &quot;id&quot;: 303,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;健康报备&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-platform-eleme&quot;,
+            &quot;orderNum&quot;: 3,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: &quot;&quot;,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 273,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;全国疫情&quot;,
+                &quot;url&quot;: &quot;/map&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-opportunity&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;map:view&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 304,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;健康打卡&quot;,
+                &quot;url&quot;: &quot;/health&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-cooperation&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 305,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;查看情况&quot;,
+                &quot;url&quot;: null,
+                &quot;icon&quot;: &quot;el-icon-c-scale-to-original&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 272,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;疫情辟谣&quot;,
+                &quot;url&quot;: &quot;/rumors&quot;,
+                &quot;icon&quot;: &quot;el-icon-help&quot;,
+                &quot;orderNum&quot;: 5,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+          &#123;
+            &quot;id&quot;: 295,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;其他管理&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-s-marketing&quot;,
+            &quot;orderNum&quot;: 5,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: &quot;&quot;,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 297,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;监控管理&quot;,
+                &quot;url&quot;: &quot;&quot;,
+                &quot;icon&quot;: &quot;el-icon-warning&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: [
+                  &#123;
+                    &quot;id&quot;: 298,
+                    &quot;parentId&quot;: 297,
+                    &quot;menuName&quot;: &quot;SQL监控&quot;,
+                    &quot;url&quot;: &quot;/druid&quot;,
+                    &quot;icon&quot;: &quot;el-icon-view&quot;,
+                    &quot;orderNum&quot;: 1,
+                    &quot;open&quot;: 0,
+                    &quot;disabled&quot;: false,
+                    &quot;perms&quot;: null,
+                    &quot;type&quot;: 0,
+                    &quot;children&quot;: []
+                  &#125;
+                ]
+              &#125;,
+              &#123;
+                &quot;id&quot;: 341,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;个人博客&quot;,
+                &quot;url&quot;: &quot;/blog&quot;,
+                &quot;icon&quot;: &quot;el-icon-view&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 296,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;swagger文档&quot;,
+                &quot;url&quot;: &quot;/swagger&quot;,
+                &quot;icon&quot;: &quot;el-icon-document&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 318,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;图标管理&quot;,
+                &quot;url&quot;: &quot;/icons&quot;,
+                &quot;icon&quot;: &quot;el-icon-star-off&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+          &#123;
+            &quot;id&quot;: 5,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;日志管理&quot;,
+            &quot;url&quot;: &quot;/logs&quot;,
+            &quot;icon&quot;: &quot;el-icon-camera&quot;,
+            &quot;orderNum&quot;: 6,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: null,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 271,
+                &quot;parentId&quot;: 5,
+                &quot;menuName&quot;: &quot;登入日志&quot;,
+                &quot;url&quot;: &quot;/loginLog&quot;,
+                &quot;icon&quot;: &quot;el-icon-date&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;login:log&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 307,
+                &quot;parentId&quot;: 5,
+                &quot;menuName&quot;: &quot;操作日志&quot;,
+                &quot;url&quot;: &quot;/logs&quot;,
+                &quot;icon&quot;: &quot;el-icon-edit&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;
+      ]
+    &#125;;
+  &#125;,
+  methods: &#123;
+    toggleiscollapse() &#123;
+      this.iscollapse = !this.iscollapse;
+    &#125;,
+  &#125;,
+  components: &#123;
+    MenuTree,
+&#125;,
+&#125;;
+&lt;/script&gt;
+&lt;style  lang=&#39;less&#39; scoped&gt;
+// 头部布局
+.el-header &#123;
+  background-color: #001529;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  color: #ffffff;
+  align-items: center;
+  font-size: 20px;
+  // 左边头像样式
+  .left_box &#123;
+    display: flex;
+    align-items: center; //文本居中
+
+    img &#123;
+      width: 60px;
+      height: 60px;
+      margin: 0px 0px 10px 15px; //边缘
+    &#125;
+    // 文本
+    span &#123;
+      margin-left: 15px;
+    &#125;
+  &#125;
+  // 右边头像样式
+  .right_box &#123;
+    .el-dropdown-menu,
+    img &#123;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      background-size: contain; //容器包裹头像
+    &#125;
+  &#125;
+&#125;
+// 侧边栏
+.el-aside &#123;
+  background-color: #001529;
+
+  .el-menu-vertical-demo&#123;
+    border-right: none;
+  &#125;
+  // 收起功能样式
+  .toggle_box &#123;
+    background-color: #001529;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 24px;
+  &#125;
+&#125;
+// 主体布局
+.el-main &#123;
+  background-color: #e9eef3;
+&#125;
+
+// 整个容器高度
+.main_container &#123;
+  height: 100%;
+&#125;
+&lt;/style&gt;
+</code></pre>
+<h2 id="2-1、MenuTree-vue组件"><a href="#2-1、MenuTree-vue组件" class="headerlink" title="2.1、MenuTree.vue组件"></a><strong>2.1、MenuTree.vue组件</strong></h2><pre><code class="vue">&lt;template &gt;
+  &lt;div&gt;
+    &lt;template v-for=&quot;item in this.menuList&quot;&gt;
+      &lt;el-sub-menu
+        :disabled=&quot;item.disabled&quot;
+        :index=&quot;item.id + &#39;&#39;&quot;
+        :key=&quot;item.id + &#39;&#39;&quot;
+        v-if=&quot;item.children.length &gt; 0&quot;
+      &gt;
+        &lt;template #title&gt;
+          &lt;el-icon class=&quot;is-loading&quot;&gt;
+    &lt;loading /&gt;
+  &lt;/el-icon&gt;
+          &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;
+        &lt;/template&gt;
+        &lt;MenuTree :menuList=&quot;item.children&quot;&gt;&lt;/MenuTree&gt;
+      &lt;/el-sub-menu&gt;
+
+      &lt;el-menu-item v-else :disabled=&quot;item.disabled&quot; :index=&quot;item.url+&#39;&#39;&quot; :router=&quot;true&quot; :key=&quot;item.id+&#39;&#39;&quot;&gt;
+        &lt;el-icon class=&quot;is-loading&quot;&gt;
+    &lt;loading /&gt;
+  &lt;/el-icon&gt;
+        &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;
+      &lt;/el-menu-item&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+
+&lt;script&gt;
+export default &#123;
+  name: &quot;MenuTree&quot;,
+  props: [&quot;menuList&quot;],
+&#125;;
+&lt;/script&gt;
+&lt;style  &gt;
+/* 溢出效果解决 */
+  .el-menu--collapse span,
+  .el-menu--collapse i.el-sub-menu__icon-arrow&#123;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+  &#125;
+
+&lt;/style&gt;
+</code></pre>
+<h1 id="3、用户管理界面"><a href="#3、用户管理界面" class="headerlink" title="3、用户管理界面"></a>3、用户管理界面</h1><h1 id="4、用户数据绑定及分页展示"><a href="#4、用户数据绑定及分页展示" class="headerlink" title="4、用户数据绑定及分页展示"></a>4、用户数据绑定及分页展示</h1><h1 id="5、前端绑定部门信息"><a href="#5、前端绑定部门信息" class="headerlink" title="5、前端绑定部门信息"></a>5、前端绑定部门信息</h1><h1 id="6、用户列表查询"><a href="#6、用户列表查询" class="headerlink" title="6、用户列表查询"></a>6、用户列表查询</h1>
             
         </div>
     </div>
@@ -254,7 +1827,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) &#123;
         
     </div>
 
-    <a href="/2022/05/05/5-5/vue/ " class="go-post">
+    <a href="/2022/05/05/5-5/项目_前端/ " class="go-post">
         阅读全文
     </a>
 </div>
@@ -1984,180 +3557,6 @@ public class ScheduleService &#123;
     </div>
 
     <a href="/2022/04/23/4-23/异步任务/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/22/4-22/swagger/">
-        <h2>
-            swagger
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <p>Swagger简介</p>
-<p>前后端分离</p>
-<p>Vue + SpringBoot</p>
-<h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h1><p>最流行的API框架</p>
-<p>在项目中使用swagger需要springfox；</p>
-<ul>
-<li>swagger2</li>
-<li>ui</li>
-</ul>
-<h1 id="spirngboot集成swagger"><a href="#spirngboot集成swagger" class="headerlink" title="spirngboot集成swagger"></a>spirngboot集成swagger</h1><p>1、新建springweb项目</p>
-<p>2、导入依赖</p>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;io.springfox&lt;/groupId&gt;
-  &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
-  &lt;version&gt;3.0.0&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<pre><code class="xml">&lt;dependency&gt;
-  &lt;groupId&gt;io.springfox&lt;/groupId&gt;
-  &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
-  &lt;version&gt;3.0.0&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>3、配置swagger</p>
-<pre><code class="JAVA">@Configuration
-@EnableSwagger2//开启swagger2
-public class SwaggerConfig &#123;
-&#125;
-</code></pre>
-<p>测试页面</p>
-<p><strong><a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></strong></p>
-<p>swagger的bean实例 Docket</p>
-<p>SwaggerConfig</p>
-<pre><code class="java">package com.xiaoliu.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.RequestHandler;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.ArrayList;
-
-/**
- * @author: 61分
- * @date: 2022/4/22 17:39
- * @description:
- */
-
-@Configuration
-@EnableSwagger2//开启swagger2
-public class SwaggerConfig &#123;
-
-//    配置swagger的Docket bean实例
-    @Bean
-    public Docket docket()&#123;
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-    &#125;
-
-//    配置swagger信息=apiinfo
-    private ApiInfo apiInfo()&#123;
-        System.out.println(&quot;doswagger&quot;);
-//        作者信息
-        Contact contact = new Contact(&quot;xiaoliu&quot;, &quot;https://dddwah11.github.io/&quot;, &quot;1937589397@qq.com&quot;);
-
-        return new ApiInfo(
-                &quot;APIInfo&quot;,
-                &quot;swagger配置&quot;,
-                &quot;v1.0&quot;,
-                &quot;https://dddwah11.github.io/&quot;,
-                contact,
-                &quot;Apache 2.0&quot;,
-                &quot;http://www.apache.org/licenses/LINCENSE-2.0&quot;,
-                new ArrayList&lt;&gt;()
-        );
-    &#125;
-&#125;
-</code></pre>
-<h1 id="Swagger配置扫描接口"><a href="#Swagger配置扫描接口" class="headerlink" title="Swagger配置扫描接口"></a>Swagger配置扫描接口</h1><p>Docket.select()</p>
-<pre><code class="java">                .enable(false);//
-                .select()
-//                RequestHandlerSelectors配置需要扫描接口的方式
-//                basePackage指定要扫描的包
-//                any()扫描全部
-//                none()都不扫描
-//               withClassAnnotation;扫描类上的注解，参数是一个注解的反射对象
-//                withMethodAnnotation;扫描方法上的注解
-                    .apis(RequestHandlerSelectors.basePackage(&quot;com.xiaoliu.helloController&quot;))
-//                path()过滤路径
-
-                .build();
-</code></pre>
-<p>配置是否启动swagger</p>
-<pre><code class="java">            .enable(false);//不启动swagger
-            .select()
-</code></pre>
-<p>我们希望swagger在生产环境中使用，在发布时不使用</p>
-<ul>
-<li>判断是不是生产环境 </li>
-<li>注入 enable()</li>
-</ul>
-<pre><code class="java">    @Bean
-    public Docket docket(Environment environment)&#123;
-//        设置要显示的flag环境
-        Profiles profiles =Profiles.of(&quot;dev&quot;,&quot;test&quot;);
-//        获取项目环境
-//        通过environment.acceptsProfiles判断是否处在自己设定的环境
-        boolean b = environment.acceptsProfiles(profiles);
-
-
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .enable(b)
-</code></pre>
-<p>配置文件中设置生产和发布环境</p>
-<p>主配置文件设置</p>
-<pre><code class="xml">spring.profiles.active=当前环境
-</code></pre>
-<h1 id="swagger配置API文档分组"><a href="#swagger配置API文档分组" class="headerlink" title="swagger配置API文档分组"></a>swagger配置API文档分组</h1><pre><code class="java">.apiInfo(apiInfo())
-.groupName(&quot;hello&quot;)
-</code></pre>
-<p>如何配置多个分组</p>
-<pre><code class="java">@Bean
-public Docket docket1()&#123;
-    return new Docket(DocumentationType.SWAGGER_2).groupName(&quot;A&quot;);
-&#125;
-</code></pre>
-<p><code>@ApiModel()//文档注释</code></p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        
-    </div>
-
-    <a href="/2022/04/22/4-22/swagger/ " class="go-post">
         阅读全文
     </a>
 </div>

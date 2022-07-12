@@ -1,0 +1,948 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>61分 || 项目-前端</title>
+    <meta name="author" content="小刘">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/src.jpeg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">61分</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>首页</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="about" theme="filled" />
+            </span>
+            <span>关于</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="archives" theme="filled" />
+            </span>
+            <span>文档</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="categories" theme="filled" />
+            </span>
+            <span>类别</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>标签</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>61分</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">首页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="about" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="archives" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">文档</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="categories" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">类别</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>项目-前端 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/5
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="搭好前端脚手架"><a href="#搭好前端脚手架" class="headerlink" title="搭好前端脚手架"></a>搭好前端脚手架</h1><p>router,vuex,elementpuls,</p>
+<h1 id="配置全局样式"><a href="#配置全局样式" class="headerlink" title="配置全局样式"></a>配置全局样式</h1><p>css文件下</p>
+<pre><code class="css">/* 全局样式表 */
+html,body，#app&#123;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+&#125;
+</code></pre>
+<p>main.js下</p>
+<pre><code class="js">import &#39;@/assets/css/global.css&#39;
+</code></pre>
+<h1 id="1、登录页面"><a href="#1、登录页面" class="headerlink" title="1、登录页面"></a>1、登录页面</h1><p>使用less</p>
+<p><strong>安装</strong></p>
+<pre><code>npm install --save-dev less-loader less
+</code></pre>
+<pre><code class="js">&lt;style lang=&quot;less&quot;&gt;&lt;/style&gt;
+</code></pre>
+<p>vue3使用图标需要全局注册组件</p>
+<pre><code class="bash">npm install @element-plus/icons-vue
+</code></pre>
+<p>main.js中</p>
+<pre><code class="js">import * as ElementPlusIconsVue from &#39;@element-plus/icons-vue&#39;
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) &#123;
+  app.component(key, component)
+&#125;
+</code></pre>
+<p>直接引用 </p>
+<p><strong>使用icon的方法</strong></p>
+<pre><code class="js">import &#123; Avatar, Lock &#125; from &quot;@element-plus/icons-vue&quot;;
+</code></pre>
+<pre><code class="js">setup()&#123;
+  return &#123;
+     Avatar,
+     Lock
+   &#125;
+  &#125;
+</code></pre>
+<p>输入框中引用</p>
+<pre><code class="js">账号 prefix-icon=&quot;Avatar&quot;
+密码 prefix-icon=&quot;Lock&quot;
+</code></pre>
+<p><strong>login.vue登录页面</strong></p>
+<pre><code class="vue">&lt;template&gt;
+  &lt;!-- 登录容器 --&gt;
+  &lt;div class=&quot;login_container&quot;&gt;
+    &lt;!-- 登录区域 --&gt;
+    &lt;div class=&quot;login_box&quot;&gt;
+      &lt;!-- 头像 --&gt;
+      &lt;div class=&quot;avatar_box&quot;&gt;
+        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+      &lt;/div&gt;
+      &lt;!-- 表单 --&gt;
+      &lt;el-form
+        :model=&quot;loginForm&quot;
+        :rules=&quot;loginrules&quot;
+        ref=&quot;loginForm&quot;
+        label-width=&quot;0px&quot;
+        class=&quot;login_form&quot;
+      &gt;
+        &lt;el-form-item prop=&quot;username&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.username&quot;
+            prefix-icon=&quot;Avatar&quot;
+          &gt;&lt;/el-input&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item prop=&quot;password&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.password&quot;
+            prefix-icon=&quot;Lock&quot;
+            type=&quot;password&quot;
+          &gt;&lt;/el-input&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item prop=&quot;verifyCode&quot;&gt;
+          &lt;el-input
+            v-model=&quot;loginForm.verifyCode&quot;
+            prefix-icon=&quot;Iphone&quot;
+            class=&quot;verify_code&quot;
+          &gt;&lt;/el-input&gt;
+          &lt;img src=&quot;@/assets/msFvb6.gif&quot; class=&quot;verify_img&quot; /&gt;
+        &lt;/el-form-item&gt;
+        &lt;el-form-item class=&quot;login_btn&quot;&gt;
+          &lt;el-button type=&quot;primary&quot; @click=&quot;submitForm(&#39;loginForm&#39;)&quot;
+            &gt;登录&lt;/el-button
+          &gt;
+          &lt;el-button @click=&quot;resetForm(&#39;loginForm&#39;)&quot;&gt;重置&lt;/el-button&gt;
+        &lt;/el-form-item&gt;
+      &lt;/el-form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import &#123; Avatar, Lock, Iphone &#125; from &quot;@element-plus/icons-vue&quot;;
+export default &#123;
+  setup() &#123;
+    return &#123;
+      Avatar,
+      Lock,
+      Iphone,
+    &#125;;
+  &#125;,
+  data() &#123;
+    return &#123;
+      loginForm: &#123;
+        username: &quot;&quot;,
+        password: &quot;&quot;,
+        verifyCode: &quot;&quot;,
+      &#125;,
+      loginrules: &#123;
+        username: [
+          &#123; required: true, message: &quot;请输入账号&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            message: &quot;长度在 3 到 16 个字符&quot;,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+        password: [
+          &#123; required: true, message: &quot;请输入密码&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            message: &quot;长度在 3 到 16  个字符&quot;,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+        verifyCode: [
+          &#123; required: true, message: &quot;请输入验证码&quot;, trigger: &quot;blur&quot; &#125;,
+          &#123;
+            min: 3,
+            max: 16,
+            trigger: &quot;blur&quot;,
+          &#125;,
+        ],
+      &#125;,
+    &#125;;
+  &#125;,
+  methods: &#123;
+    submitForm(formName) &#123;
+      this.$refs[formName].validate((valid) =&gt; &#123;
+        if (valid) &#123;
+          alert(&quot;submit!&quot;);
+        &#125; else &#123;
+          console.log(&quot;error submit!!&quot;);
+          return false;
+        &#125;
+      &#125;);
+    &#125;,
+    resetForm(formName) &#123;
+      this.$refs[formName].resetFields();
+    &#125;,
+  &#125;,
+&#125;;
+&lt;/script&gt;
+&lt;style lang=&#39;less&#39; scoped&gt;
+.login_container &#123;
+  height: 100%;
+  background-color: aquamarine;
+&#125;
+.login_box &#123;
+  width: 450px;
+  height: 380px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .avatar_box &#123;
+    width: 130px;
+    height: 130px;
+    border: 1px solid #eeeeee;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    margin: -65px auto;
+    background: #ffffff;
+    img &#123;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #eeeeee;
+    &#125;
+  &#125;
+  .login_form &#123;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  &#125;
+  .login_btn &#123;
+    display: flex;
+    justify-content: flex-end;
+  &#125;
+  .verify_code &#123;
+    width: 60%;
+  &#125;
+&#125;
+&lt;/style&gt;
+</code></pre>
+<h1 id="2、Main页面"><a href="#2、Main页面" class="headerlink" title="2、Main页面"></a>2、Main页面</h1><p>鼠标放上图片拉下菜单</p>
+<pre><code class="css">.el-dropdown-menu,img&#123;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+
+    &#125;
+</code></pre>
+<pre><code class="css">&lt;el-dropdown&gt;
+          &lt;!-- 右边头像 --&gt;
+          &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+          &lt;!-- 下拉菜单 --&gt;
+          &lt;template #dropdown&gt;
+            &lt;el-dropdown-menu&gt;
+              &lt;el-dropdown-item icon=&quot;HomeFilled&quot;&gt;系统主页&lt;/el-dropdown-item&gt;
+              &lt;el-dropdown-item icon=&quot;Warning&quot;&gt;退出登录&lt;/el-dropdown-item&gt;
+            &lt;/el-dropdown-menu&gt;
+          &lt;/template&gt;
+        &lt;/el-dropdown&gt;
+</code></pre>
+<p><strong>注意：</strong>去除侧边栏展开多出的边缘，</p>
+<pre><code class="css">.el-menu-vertical-demo&#123;
+ border-right: none;
+&#125;
+</code></pre>
+<p><strong>Main.vue</strong>页面</p>
+<pre><code class="vue">&lt;template&gt;
+  &lt;el-container class=&quot;main_container&quot;&gt;
+    &lt;el-header&gt;
+      &lt;div class=&quot;left_box&quot;&gt;
+        &lt;!-- 左边头像 --&gt;
+        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+        &lt;span&gt;系统&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;right_box&quot;&gt;
+        &lt;el-dropdown&gt;
+          &lt;!-- 右边头像 --&gt;
+          &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;
+          &lt;!-- 下拉菜单 --&gt;
+          &lt;template #dropdown&gt;
+            &lt;el-dropdown-menu&gt;
+              &lt;el-dropdown-item icon=&quot;HomeFilled&quot;&gt;系统主页&lt;/el-dropdown-item&gt;
+              &lt;el-dropdown-item icon=&quot;Warning&quot;&gt;退出登录&lt;/el-dropdown-item&gt;
+            &lt;/el-dropdown-menu&gt;
+          &lt;/template&gt;
+        &lt;/el-dropdown&gt;
+      &lt;/div&gt;
+    &lt;/el-header&gt;
+    &lt;el-container&gt;
+      &lt;!-- 侧边栏 --&gt;
+      &lt;el-aside :width=&quot;iscollapse?&#39;60px&#39;:&#39;200px&#39;&quot;&gt;
+        &lt;!-- 展开收起 --&gt;
+      &lt;div class=&quot;toggle_box&quot; @click=&quot;toggleiscollapse&quot;&gt;|||&lt;/div&gt;
+      &lt;el-menu
+        active-text-color=&quot;#ffd04b&quot;
+        background-color=&quot;#001529&quot;
+        class=&quot;el-menu-vertical-demo&quot;
+        :collapse=&quot;iscollapse&quot;
+        :collapse-transition=&quot;iscollapsetransition&quot;
+        :router=&quot;true&quot;
+        default-active=&quot;2&quot;
+        text-color=&quot;#fff&quot;
+        @open=&quot;handleOpen&quot;
+        @close=&quot;handleClose&quot;
+      &gt;
+        &lt;MenuTree :menuList=&quot;this.MenuList&quot;&gt;&lt;/MenuTree&gt;
+      &lt;/el-menu&gt;
+
+      &lt;/el-aside&gt;
+      &lt;el-main&gt;
+        &lt;router-view/&gt;
+      &lt;/el-main&gt;
+    &lt;/el-container&gt;
+  &lt;/el-container&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import MenuTree from &#39;@/components/MenuTree.vue&#39;
+export default &#123;
+  name: &quot;Main&quot;,
+  data() &#123;
+    return &#123;
+      iscollapse: false,
+      iscollapsetransition: false,
+      MenuList: [
+        &#123;
+            &quot;id&quot;: 1,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;系统管理&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-setting&quot;,
+            &quot;orderNum&quot;: 1,
+            &quot;open&quot;: 1,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: null,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 253,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;欢迎页面&quot;,
+                &quot;url&quot;: &quot;/welcome&quot;,
+                &quot;icon&quot;: &quot;el-icon-star-off&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;welcome:view&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 226,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;用户管理&quot;,
+                &quot;url&quot;: &quot;/users&quot;,
+                &quot;icon&quot;: &quot;el-icon-user&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;users&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 321,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;附件管理&quot;,
+                &quot;url&quot;: &quot;/attachments&quot;,
+                &quot;icon&quot;: &quot;el-icon-picture-outline&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 4,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;菜单权限&quot;,
+                &quot;url&quot;: &quot;/menus&quot;,
+                &quot;icon&quot;: &quot;el-icon-help&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 235,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;角色管理&quot;,
+                &quot;url&quot;: &quot;/roles&quot;,
+                &quot;icon&quot;: &quot;el-icon-postcard&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 261,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;部门管理&quot;,
+                &quot;url&quot;: &quot;/departments&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-home&quot;,
+                &quot;orderNum&quot;: 3,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 319,
+                &quot;parentId&quot;: 1,
+                &quot;menuName&quot;: &quot;公告管理&quot;,
+                &quot;url&quot;: &quot;/notices&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-flag&quot;,
+                &quot;orderNum&quot;: 4,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: true,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+         
+          &#123;
+            &quot;id&quot;: 303,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;健康报备&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-platform-eleme&quot;,
+            &quot;orderNum&quot;: 3,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: &quot;&quot;,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 273,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;全国疫情&quot;,
+                &quot;url&quot;: &quot;/map&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-opportunity&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;map:view&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 304,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;健康打卡&quot;,
+                &quot;url&quot;: &quot;/health&quot;,
+                &quot;icon&quot;: &quot;el-icon-s-cooperation&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 305,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;查看情况&quot;,
+                &quot;url&quot;: null,
+                &quot;icon&quot;: &quot;el-icon-c-scale-to-original&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 272,
+                &quot;parentId&quot;: 303,
+                &quot;menuName&quot;: &quot;疫情辟谣&quot;,
+                &quot;url&quot;: &quot;/rumors&quot;,
+                &quot;icon&quot;: &quot;el-icon-help&quot;,
+                &quot;orderNum&quot;: 5,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+          &#123;
+            &quot;id&quot;: 295,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;其他管理&quot;,
+            &quot;url&quot;: &quot;&quot;,
+            &quot;icon&quot;: &quot;el-icon-s-marketing&quot;,
+            &quot;orderNum&quot;: 5,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: &quot;&quot;,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 297,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;监控管理&quot;,
+                &quot;url&quot;: &quot;&quot;,
+                &quot;icon&quot;: &quot;el-icon-warning&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: [
+                  &#123;
+                    &quot;id&quot;: 298,
+                    &quot;parentId&quot;: 297,
+                    &quot;menuName&quot;: &quot;SQL监控&quot;,
+                    &quot;url&quot;: &quot;/druid&quot;,
+                    &quot;icon&quot;: &quot;el-icon-view&quot;,
+                    &quot;orderNum&quot;: 1,
+                    &quot;open&quot;: 0,
+                    &quot;disabled&quot;: false,
+                    &quot;perms&quot;: null,
+                    &quot;type&quot;: 0,
+                    &quot;children&quot;: []
+                  &#125;
+                ]
+              &#125;,
+              &#123;
+                &quot;id&quot;: 341,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;个人博客&quot;,
+                &quot;url&quot;: &quot;/blog&quot;,
+                &quot;icon&quot;: &quot;el-icon-view&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 296,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;swagger文档&quot;,
+                &quot;url&quot;: &quot;/swagger&quot;,
+                &quot;icon&quot;: &quot;el-icon-document&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: null,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 318,
+                &quot;parentId&quot;: 295,
+                &quot;menuName&quot;: &quot;图标管理&quot;,
+                &quot;url&quot;: &quot;/icons&quot;,
+                &quot;icon&quot;: &quot;el-icon-star-off&quot;,
+                &quot;orderNum&quot;: 2,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;,
+          &#123;
+            &quot;id&quot;: 5,
+            &quot;parentId&quot;: 0,
+            &quot;menuName&quot;: &quot;日志管理&quot;,
+            &quot;url&quot;: &quot;/logs&quot;,
+            &quot;icon&quot;: &quot;el-icon-camera&quot;,
+            &quot;orderNum&quot;: 6,
+            &quot;open&quot;: 0,
+            &quot;disabled&quot;: false,
+            &quot;perms&quot;: null,
+            &quot;type&quot;: 0,
+            &quot;children&quot;: [
+              &#123;
+                &quot;id&quot;: 271,
+                &quot;parentId&quot;: 5,
+                &quot;menuName&quot;: &quot;登入日志&quot;,
+                &quot;url&quot;: &quot;/loginLog&quot;,
+                &quot;icon&quot;: &quot;el-icon-date&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 0,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;login:log&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;,
+              &#123;
+                &quot;id&quot;: 307,
+                &quot;parentId&quot;: 5,
+                &quot;menuName&quot;: &quot;操作日志&quot;,
+                &quot;url&quot;: &quot;/logs&quot;,
+                &quot;icon&quot;: &quot;el-icon-edit&quot;,
+                &quot;orderNum&quot;: 1,
+                &quot;open&quot;: 1,
+                &quot;disabled&quot;: false,
+                &quot;perms&quot;: &quot;&quot;,
+                &quot;type&quot;: 0,
+                &quot;children&quot;: []
+              &#125;
+            ]
+          &#125;
+      ]
+    &#125;;
+  &#125;,
+  methods: &#123;
+    toggleiscollapse() &#123;
+      this.iscollapse = !this.iscollapse;
+    &#125;,
+  &#125;,
+  components: &#123;
+    MenuTree,
+&#125;,
+&#125;;
+&lt;/script&gt;
+&lt;style  lang=&#39;less&#39; scoped&gt;
+// 头部布局
+.el-header &#123;
+  background-color: #001529;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  color: #ffffff;
+  align-items: center;
+  font-size: 20px;
+  // 左边头像样式
+  .left_box &#123;
+    display: flex;
+    align-items: center; //文本居中
+
+    img &#123;
+      width: 60px;
+      height: 60px;
+      margin: 0px 0px 10px 15px; //边缘
+    &#125;
+    // 文本
+    span &#123;
+      margin-left: 15px;
+    &#125;
+  &#125;
+  // 右边头像样式
+  .right_box &#123;
+    .el-dropdown-menu,
+    img &#123;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      background-size: contain; //容器包裹头像
+    &#125;
+  &#125;
+&#125;
+// 侧边栏
+.el-aside &#123;
+  background-color: #001529;
+
+  .el-menu-vertical-demo&#123;
+    border-right: none;
+  &#125;
+  // 收起功能样式
+  .toggle_box &#123;
+    background-color: #001529;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 24px;
+  &#125;
+&#125;
+// 主体布局
+.el-main &#123;
+  background-color: #e9eef3;
+&#125;
+
+// 整个容器高度
+.main_container &#123;
+  height: 100%;
+&#125;
+&lt;/style&gt;
+</code></pre>
+<h2 id="2-1、MenuTree-vue组件"><a href="#2-1、MenuTree-vue组件" class="headerlink" title="2.1、MenuTree.vue组件"></a><strong>2.1、MenuTree.vue组件</strong></h2><pre><code class="vue">&lt;template &gt;
+  &lt;div&gt;
+    &lt;template v-for=&quot;item in this.menuList&quot;&gt;
+      &lt;el-sub-menu
+        :disabled=&quot;item.disabled&quot;
+        :index=&quot;item.id + &#39;&#39;&quot;
+        :key=&quot;item.id + &#39;&#39;&quot;
+        v-if=&quot;item.children.length &gt; 0&quot;
+      &gt;
+        &lt;template #title&gt;
+          &lt;el-icon class=&quot;is-loading&quot;&gt;
+    &lt;loading /&gt;
+  &lt;/el-icon&gt;
+          &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;
+        &lt;/template&gt;
+        &lt;MenuTree :menuList=&quot;item.children&quot;&gt;&lt;/MenuTree&gt;
+      &lt;/el-sub-menu&gt;
+
+      &lt;el-menu-item v-else :disabled=&quot;item.disabled&quot; :index=&quot;item.url+&#39;&#39;&quot; :router=&quot;true&quot; :key=&quot;item.id+&#39;&#39;&quot;&gt;
+        &lt;el-icon class=&quot;is-loading&quot;&gt;
+    &lt;loading /&gt;
+  &lt;/el-icon&gt;
+        &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;
+      &lt;/el-menu-item&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+
+&lt;script&gt;
+export default &#123;
+  name: &quot;MenuTree&quot;,
+  props: [&quot;menuList&quot;],
+&#125;;
+&lt;/script&gt;
+&lt;style  &gt;
+/* 溢出效果解决 */
+  .el-menu--collapse span,
+  .el-menu--collapse i.el-sub-menu__icon-arrow&#123;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+  &#125;
+
+&lt;/style&gt;
+</code></pre>
+<h1 id="3、用户管理界面"><a href="#3、用户管理界面" class="headerlink" title="3、用户管理界面"></a>3、用户管理界面</h1><h1 id="4、用户数据绑定及分页展示"><a href="#4、用户数据绑定及分页展示" class="headerlink" title="4、用户数据绑定及分页展示"></a>4、用户数据绑定及分页展示</h1><h1 id="5、前端绑定部门信息"><a href="#5、前端绑定部门信息" class="headerlink" title="5、前端绑定部门信息"></a>5、前端绑定部门信息</h1><h1 id="6、用户列表查询"><a href="#6、用户列表查询" class="headerlink" title="6、用户列表查询"></a>6、用户列表查询</h1>
+    </div>
+
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 61分
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @小刘
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

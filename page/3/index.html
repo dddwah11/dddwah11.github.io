@@ -181,6 +181,100 @@
 
 <div class="post">
 
+    <a href="/2022/04/13/2022-4-13/每日算法-quicksort/">
+        <h2>
+            每日算法-quicksort
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/13
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <p>有没有既不浪费空间又可以快一点的排序算法呢？那就是快速排啦！</p>
+<pre><code class="java">/**
+ * @author: 61分
+ * @date: 2022/4/14 0:05
+ * @description:
+ */
+public class quickSort &#123;
+    public static void quickSort(int [] arr,int low,int high)&#123;
+
+        int i,j,tmp,t;
+        if (low&gt;high)&#123;
+            return;
+        &#125;
+        i = low;
+        j = high;
+
+        tmp = arr[low];
+        while (i&lt;j)&#123;
+            //        先看右边,从最右边递减
+
+            while (tmp&lt;=arr[j]&amp;&amp;i&lt;j)&#123;
+                j--;
+            &#125;
+//            再看左边，递加
+            while (tmp&gt;=arr[i]&amp;&amp;i&lt;j)&#123;
+                i++;
+            &#125;
+//            满足条件的话，交换他们的值
+            if (i&lt;j)&#123;
+                t = arr[j];
+                arr[j] = arr[i];
+                arr[i] = t;
+            &#125;
+        &#125;
+        arr[low] = arr[i];
+        arr[i] = tmp;
+//            之后递归调用 处理左边的
+        quickSort(arr,low,j-1);
+//            处理右边的
+        quickSort(arr,j+1,high);
+
+
+    &#125;
+
+    public static void main(String[] args) &#123;
+        int [] num= &#123;10,54,21,42,78,65,48&#125;;
+        quickSort(num,0,num.length-1);
+        for (int i = 0; i &lt; num.length; i++) &#123;
+            System.out.println(num[i]);
+
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/04/13/2022-4-13/每日算法-quicksort/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/04/13/2022-4-13/springboot/">
         <h2>
             spirngboot初学
@@ -1003,8 +1097,7 @@ public class UserMapperTest &#123;
         <div class="content" v-pre>
             
             
-            <h2 id="暂时不知道写点啥"><a href="#暂时不知道写点啥" class="headerlink" title="暂时不知道写点啥"></a>暂时不知道写点啥</h2><div class="story post-story">
-</div>
+            <h2 id="暂时不知道写点啥"><a href="#暂时不知道写点啥" class="headerlink" title="暂时不知道写点啥"></a>暂时不知道写点啥</h2>
             
         </div>
     </div>
