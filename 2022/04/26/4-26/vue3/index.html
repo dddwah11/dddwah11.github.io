@@ -20,7 +20,7 @@
   <meta content="61分" name="apple-mobile-web-app-title">
   <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
   <meta content="telephone=no" name="format-detection">
-  <link rel="preload" href="/css/style.css?time=1660294173942" as="style">
+  <link rel="preload" href="/css/style.css?time=1747760894823" as="style">
   <link rel="preload" href="/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" href="/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
@@ -1659,8 +1659,8 @@ ul.list-v >li>a:hover {
 }
 
   </style>
-  <link rel="stylesheet" href="/css/style.css?time=1660294173942" media="print" onload="this.media='all';this.onload=null">
-  <noscript><link rel="stylesheet" href="/css/style.css?time=1660294173942"></noscript>
+  <link rel="stylesheet" href="/css/style.css?time=1747760894823" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1747760894823"></noscript>
   
 <script>
 if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
@@ -1731,9 +1731,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
 
   volantis.GLOBAL_CONFIG ={
-    cdn: {"js":{"app":"/js/app.js?time=1660294173942","sites":"/js/plugins/sites.js?time=1660294173942","friends":"/js/plugins/friends.js?time=1660294173942","parallax":"/js/plugins/parallax.js?time=1660294173942","rightMenu":"/js/plugins/rightMenu.js?time=1660294173942","contributors":"/js/plugins/contributors.js?time=1660294173942","message":"/js/thirdparty/message.js?time=1660294173942","valine":"https://npm.elemecdn.com/valine@1.4/dist/Valine.min.js?time=1660294173942","search":"/js/search/hexo.js?time=1660294173942"},"css":{"style":"/css/style.css?time=1660294173942","message":"/css/message.css?time=1660294173942"}},
+    cdn: {"js":{"app":"/js/app.js?time=1747760894823","sites":"/js/plugins/sites.js?time=1747760894823","friends":"/js/plugins/friends.js?time=1747760894823","parallax":"/js/plugins/parallax.js?time=1747760894823","rightMenu":"/js/plugins/rightMenu.js?time=1747760894823","contributors":"/js/plugins/contributors.js?time=1747760894823","message":"/js/thirdparty/message.js?time=1747760894823","valine":"https://npm.elemecdn.com/valine@1.4/dist/Valine.min.js?time=1747760894823","search":"/js/search/hexo.js?time=1747760894823"},"css":{"style":"/css/style.css?time=1747760894823","message":"/css/message.css?time=1747760894823"}},
     default: {"avatar":"/media/placeholder/avatar/round/3442075.svg","link":"/media/placeholder/link/8f277b4ee0ecd.svg","cover":"/media/placeholder/cover/76b86c0226ffd.svg","image":"/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date('Fri Aug 12 2022 16:49:33 GMT+0800 (中国标准时间)'),
+    lastupdate: new Date('Wed May 21 2025 01:08:14 GMT+0800 (中国标准时间)'),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2532,14 +2532,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </code></pre>
 <h1 id="创建一个vue项目"><a href="#创建一个vue项目" class="headerlink" title="创建一个vue项目"></a>创建一个vue项目</h1><pre><code class="bash">vue create project-name
 </code></pre>
-<h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><h2 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a><strong>main.js</strong></h2><pre><code class="js">import &#123; createApp &#125; from &#39;vue&#39;
+<h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><h2 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a><strong>main.js</strong></h2><div class="story post-story"><pre><code class="js">import &#123; createApp &#125; from &#39;vue&#39;
 import App from &#39;./App.vue&#39;
 
 // 根组件
 createApp(App).mount(&#39;#app&#39;)
 </code></pre>
 <p><strong>main.js 会创建我们vue的实例，挂载会帮我们创建根组件的实例vm</strong></p>
-<h2 id="APP-vue"><a href="#APP-vue" class="headerlink" title="APP.vue"></a>APP.vue</h2><pre><code class="js">&lt;template&gt;
+</div><h2 id="APP-vue"><a href="#APP-vue" class="headerlink" title="APP.vue"></a>APP.vue</h2><div class="story post-story"><pre><code class="js">&lt;template&gt;
   &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot;&gt;
   &lt;HelloWorld msg=&quot;Welcome to Your Vue.js App&quot;/&gt;
 &lt;/template&gt;
@@ -2734,7 +2734,7 @@ app.use(router);
 
 </code></pre>
 <p>这样分工就十分明确了！</p>
-<h2 id="动态路由匹配"><a href="#动态路由匹配" class="headerlink" title="动态路由匹配"></a>动态路由匹配</h2><p>router下的index.js</p>
+</div><h2 id="动态路由匹配"><a href="#动态路由匹配" class="headerlink" title="动态路由匹配"></a>动态路由匹配</h2><div class="story post-story"><p>router下的index.js</p>
 <pre><code class="js">&#123;path: &#39;/user/:id&#39;, component: use&#125;
 </code></pre>
 <p>通过组件传参</p>
@@ -2752,7 +2752,7 @@ app.use(router);
 <p><code>path: &#39;/user/:id(//d+)*&#39;</code> 在其后面加*符号，这提供了一个参数数组，而不是字符串    </p>
 <p><strong>可选的参数</strong></p>
 <p>在id后面加？ 可与可无</p>
-<h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><p>在user.vue组件中嵌套两个组件</p>
+</div><h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><div class="story post-story"><p>在user.vue组件中嵌套两个组件</p>
 <p>user.vue中</p>
 <pre><code class="vue">&lt;template&gt;
   &lt;div&gt;
@@ -2826,7 +2826,7 @@ app.use(router);
   ],
 &#125;)
 </code></pre>
-<h2 id="嵌套命名视图"><a href="#嵌套命名视图" class="headerlink" title="嵌套命名视图"></a>嵌套命名视图</h2><p>可以使用带有嵌套视图的命名视图来创建复杂的布局。这样做时，您还需要为嵌套<code>router-view</code>命名。让我们以设置面板为例：</p>
+</div><h2 id="嵌套命名视图"><a href="#嵌套命名视图" class="headerlink" title="嵌套命名视图"></a>嵌套命名视图</h2><div class="story post-story"><p>可以使用带有嵌套视图的命名视图来创建复杂的布局。这样做时，您还需要为嵌套<code>router-view</code>命名。让我们以设置面板为例：</p>
 <pre><code>/settings/emails                                       /settings/profile
 +-----------------------------------+                  +------------------------------+
 | UserSettings                      |                  | UserSettings                 |
@@ -2869,7 +2869,7 @@ app.use(router);
   &#125;]
 &#125;
 </code></pre>
-<h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><p>除了使用 <code>&lt;router-link&gt;</code> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。</p>
+</div><h2 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h2><div class="story post-story"><p>除了使用 <code>&lt;router-link&gt;</code> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。</p>
 <p>导航到不同的位置</p>
 <p><strong>注意：在 Vue 实例中，你可以通过 <code>$router</code> 访问路由实例。因此你可以调用 <code>this.$router.push</code>。</strong></p>
 <p>想要导航到不同的 URL，可以使用 <code>router.push</code> 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，会回到之前的 URL。</p>
@@ -2954,7 +2954,7 @@ router.go(100)
 <p>你可能已经注意到，<code>router.push</code>、<code>router.replace</code> 和 <code>router.go</code> 是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/History"><code>window.history.pushState</code>、<code>window.history.replaceState</code> 和 <code>window.history.go</code></a> 的翻版，它们确实模仿了 <code>window.history</code> 的 API。</p>
 <p>因此，如果你已经熟悉 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/History_API">Browser History APIs</a>，在使用 Vue Router 时，操作历史记录就会觉得很熟悉。</p>
 <p>值得一提的是，无论在创建路由器实例时传递什么样的<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/api/#history"><code>history</code> 配置</a>，Vue Router 的导航方法(<code>push</code>、<code>replace</code>、<code>go</code>)都能始终如一地工作。</p>
-<h2 id="重定向和别名"><a href="#重定向和别名" class="headerlink" title="重定向和别名"></a>重定向和别名</h2><h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向#"></a>重定向<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/redirect-and-alias.html#%E9%87%8D%E5%AE%9A%E5%90%91">#</a></h2><p>重定向也是通过 <code>routes</code> 配置来完成，下面例子是从 <code>/home</code> 重定向到 <code>/</code>：</p>
+</div><h2 id="重定向和别名"><a href="#重定向和别名" class="headerlink" title="重定向和别名"></a>重定向和别名</h2><div class="story post-story"><h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向#"></a>重定向<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/redirect-and-alias.html#%E9%87%8D%E5%AE%9A%E5%90%91">#</a></h2><p>重定向也是通过 <code>routes</code> 配置来完成，下面例子是从 <code>/home</code> 重定向到 <code>/</code>：</p>
 <pre><code class="js">const routes = [&#123; path: &#39;/home&#39;, redirect: &#39;/&#39; &#125;]
 </code></pre>
 <p>重定向的目标也可以是一个命名的路由：</p>
@@ -2990,7 +2990,7 @@ router.go(100)
   &#125;,
 ]
 </code></pre>
-<h2 id="别名"><a href="#别名" class="headerlink" title="别名#"></a>别名<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/redirect-and-alias.html#%E5%88%AB%E5%90%8D">#</a></h2><p>重定向是指当用户访问 <code>/home</code> 时，URL 会被 <code>/</code> 替换，然后匹配成 <code>/</code>。那么什么是别名呢？</p>
+</div><h2 id="别名"><a href="#别名" class="headerlink" title="别名#"></a>别名<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/redirect-and-alias.html#%E5%88%AB%E5%90%8D">#</a></h2><div class="story post-story"><p>重定向是指当用户访问 <code>/home</code> 时，URL 会被 <code>/</code> 替换，然后匹配成 <code>/</code>。那么什么是别名呢？</p>
 <p><strong>将 <code>/</code> 别名为 <code>/home</code>，意味着当用户访问 <code>/home</code> 时，URL 仍然是 <code>/home</code>，但会被匹配为用户正在访问 <code>/</code>。</strong></p>
 <p>上面对应的路由配置为：</p>
 <pre><code>const routes = [&#123; path: &#39;/&#39;, component: Homepage, alias: &#39;/home&#39; &#125;]
@@ -3025,7 +3025,7 @@ router.go(100)
   &#125;,
 ]
 </code></pre>
-<h2 id="路由组件传参"><a href="#路由组件传参" class="headerlink" title="路由组件传参"></a>路由组件传参</h2><p>将 props 传递给路由组件<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%B0%86-props-%E4%BC%A0%E9%80%92%E7%BB%99%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6">#</a></p>
+</div><h2 id="路由组件传参"><a href="#路由组件传参" class="headerlink" title="路由组件传参"></a>路由组件传参</h2><div class="story post-story"><p>将 props 传递给路由组件<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%B0%86-props-%E4%BC%A0%E9%80%92%E7%BB%99%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6">#</a></p>
 <p>在你的组件中使用 <code>$route</code> 会与路由紧密耦合，这限制了组件的灵活性，因为它只能用于特定的 URL。虽然这不一定是件坏事，但我们可以通过 <code>props</code> 配置来解除这种行为：</p>
 <p>我们可以将下面的代码</p>
 <pre><code class="js">const User = &#123;
@@ -3070,7 +3070,7 @@ const routes = [&#123; path: &#39;/user/:id&#39;, component: User, props: true &
 </code></pre>
 <p>URL <code>/search?q=vue</code> 将传递 <code>&#123;query: &#39;vue&#39;&#125;</code> 作为 props 传给 <code>SearchUser</code> 组件。</p>
 <p>请尽可能保持 <code>props</code> 函数为无状态的，因为它只会在路由发生变化时起作用。如果你需要状态来定义 props，请使用包装组件，这样 vue 才可以对状态变化做出反应。</p>
-<h2 id="不同的历史记录模式"><a href="#不同的历史记录模式" class="headerlink" title="不同的历史记录模式"></a>不同的历史记录模式</h2><h3 id="官方推荐HTML5模式"><a href="#官方推荐HTML5模式" class="headerlink" title="官方推荐HTML5模式"></a>官方推荐HTML5模式</h3><pre><code class="js">import &#123; createRouter, createWebHistory &#125; from &#39;vue-router&#39;
+</div><h2 id="不同的历史记录模式"><a href="#不同的历史记录模式" class="headerlink" title="不同的历史记录模式"></a>不同的历史记录模式</h2><div class="story post-story"><h3 id="官方推荐HTML5模式"><a href="#官方推荐HTML5模式" class="headerlink" title="官方推荐HTML5模式"></a>官方推荐HTML5模式</h3><pre><code class="js">import &#123; createRouter, createWebHistory &#125; from &#39;vue-router&#39;
 
 const router = createRouter(&#123;
   history: createWebHistory(),
@@ -3082,7 +3082,7 @@ const router = createRouter(&#123;
 <p>当使用这种历史模式时，URL 会看起来很 “正常”，例如 <code>https://example.com/user/id</code>。漂亮!</p>
 <p>不过，问题来了。由于我们的应用是一个单页的客户端应用，如果没有适当的服务器配置，用户在浏览器中直接访问 <code>https://example.com/user/id</code>，就会得到一个 404 错误。这就丑了。</p>
 <p>不用担心：要解决这个问题，你需要做的就是在你的服务器上添加一个简单的回退路由。如果 URL 不匹配任何静态资源，它应提供与你的应用程序中的 <code>index.html</code> 相同的页面。漂亮依旧!</p>
-<h2 id="导航卫士"><a href="#导航卫士" class="headerlink" title="导航卫士"></a>导航卫士</h2><h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p>Vuex 是一个为 Vue.js 应用程序开发的<strong>状态管理模式 + 库</strong>。它采用集中式存储管理应用程序的所有组件的状态，并以相应的规则保证以一种状态可发生变化的方式。</p>
+</div><h2 id="导航卫士"><a href="#导航卫士" class="headerlink" title="导航卫士"></a>导航卫士</h2><div class="story post-story"><h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p>Vuex 是一个为 Vue.js 应用程序开发的<strong>状态管理模式 + 库</strong>。它采用集中式存储管理应用程序的所有组件的状态，并以相应的规则保证以一种状态可发生变化的方式。</p>
 <p>安装</p>
 <pre><code class="bash">npm install vuex@next --save
 </code></pre>
@@ -3122,7 +3122,7 @@ const store = createStore(&#123;
   &#125;
  &#125;
 </code></pre>
-<h2 id="async-和await"><a href="#async-和await" class="headerlink" title="async 和await"></a>async 和await</h2><p>await返回的是 return new promise 的函数并执行它</p>
+</div><h2 id="async-和await"><a href="#async-和await" class="headerlink" title="async 和await"></a>async 和await</h2><div class="story post-story"><p>await返回的是 return new promise 的函数并执行它</p>
 <p>await只能放在async函数里</p>
 <pre><code class="js">let fun1 = function()&#123;
     let num = 10;
@@ -3142,7 +3142,7 @@ let fun2 = async function()&#123;
 
 fun2();
 </code></pre>
-<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><p>map State函数</p>
+</div><h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><div class="story post-story"><p>map State函数</p>
 <p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 <code>mapState</code> 传一个字符串数组。</p>
 <p>里面可以添加多个</p>
 <pre><code class="js">computed: mapState([
@@ -3152,7 +3152,7 @@ fun2();
 </code></pre>
 <p><img src="/.io//image-20220430213053568.png" class="lazyload" data-srcset="/.io//image-20220430213053568.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20220430213053568"></p>
 <p>可以拼接里面的对象</p>
-<h2 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h2><pre><code class="js">
+</div><h2 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h2><div class="story post-story"><pre><code class="js">
   getters: &#123;
     // 这样可以完成复用
       doneCount(state)&#123;
@@ -3161,8 +3161,8 @@ fun2();
   &#125;,
 </code></pre>
 <p>属性多了，也可以像state那样，放在计算属性中，</p>
-<h2 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h2><p>提交载荷（Payload）</p>
-<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><p>分发action</p>
+</div><h2 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h2><div class="story post-story"><p>提交载荷（Payload）</p>
+</div><h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><div class="story post-story"><p>分发action</p>
 <pre><code class="js"> actions: &#123;
     increment (context) &#123;
       context.commit(&#39;increment&#39;)
@@ -3171,7 +3171,7 @@ fun2();
 </code></pre>
 <p>触发：</p>
 <p><code>   this.$store.dispatch(&#39;increment&#39;)</code></p>
-<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><pre><code class="js">const moduleA = &#123;
+</div><h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><div class="story post-story"><pre><code class="js">const moduleA = &#123;
   state: () =&gt; (&#123; ... &#125;),
   mutations: &#123; ... &#125;,
   actions: &#123; ... &#125;,
@@ -3195,6 +3195,7 @@ store.state.a // -&gt; moduleA 的状态
 store.state.b // -&gt; moduleB 的状态
 </code></pre>
 
+</div>
   </div>
   
   
@@ -3535,7 +3536,7 @@ UI框架：iview Ant-Design、Bootstrap Amaz...</p>
 
 <!-- internal -->
 
-<script src="/js/app.js?time=1660294173942.js"></script>
+<script src="/js/app.js?time=1747760894823.js"></script>
 
 
 
@@ -3727,7 +3728,7 @@ UI框架：iview Ant-Design、Bootstrap Amaz...</p>
       
     </ul>
   </div>
-  <script>volantis.js('/js/plugins/rightMenu.js?time=1660294173942')</script>
+  <script>volantis.js('/js/plugins/rightMenu.js?time=1747760894823')</script>
 
 
 
@@ -3740,19 +3741,19 @@ UI框架：iview Ant-Design、Bootstrap Amaz...</p>
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("/js/plugins/sites.js?time=1660294173942")
+        volantis.js("/js/plugins/sites.js?time=1747760894823")
       }
     
     
       const friends_api = document.getElementById('friends-api');
       if (friends_api != undefined && typeof FriendsJS === 'undefined') {
-        volantis.js("/js/plugins/friends.js?time=1660294173942")
+        volantis.js("/js/plugins/friends.js?time=1747760894823")
       }
     
     
       const contributors_api = document.getElementById('contributors-api');
       if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
-        volantis.js("/js/plugins/contributors.js?time=1660294173942")
+        volantis.js("/js/plugins/contributors.js?time=1747760894823")
       }
     
   };
@@ -3877,7 +3878,7 @@ UI框架：iview Ant-Design、Bootstrap Amaz...</p>
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("/js/search/hexo.js?time=1660294173942");
+    return volantis.js("/js/search/hexo.js?time=1747760894823");
   }
 
   function loadSearchService() {
