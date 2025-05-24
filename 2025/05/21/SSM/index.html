@@ -403,7 +403,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>List<E> selectList(String statement,Object parameter)</td>
+<td>List<E> selectList(String statement,Object parameter)</E></td>
 <td>执行查询语句，返回List集合</td>
 </tr>
 <tr>
@@ -431,7 +431,7 @@
 <td>回滚事务</td>
 </tr>
 <tr>
-<td>T getMapper(Class<T> cls)</td>
+<td>T getMapper(Class<T> cls)</T></td>
 <td>获取指定接口的代理实现类对象</td>
 </tr>
 <tr>
@@ -448,15 +448,15 @@
 </li>
 <li><p>根标签：</p>
 <ul>
-<li><mapper>：核心根标签</li>
+<li><mapper>：核心根标签</mapper></li>
 <li>namespace：属性，名称空间</li>
 </ul>
 </li>
 <li><p>功能标签：</p>
 <ul>
 <li>&lt; select &gt;：查询功能标签</li>
-<li><insert>：新增功能标签</li>
-<li><update>：修改功能标签</li>
+<li><insert>：新增功能标签</insert></li>
+<li><update>：修改功能标签</update></li>
 <li><delete>：删除功能标签<ul>
 <li>id：属性，唯一标识，配合名称空间使用</li>
 <li>resultType：指定结果映射对象类型，和对应的方法的返回值类型（全限定名）保持一致，但是如果返回值是 List 则和其泛型保持一致</li>
@@ -468,7 +468,7 @@
 </ul>
 </li>
 </ul>
-</li>
+</delete></li>
 </ul>
 </li>
 <li><p>参数获取方式：</p>
@@ -488,12 +488,12 @@
 </li>
 <li><p>根标签：</p>
 <ul>
-<li><configuration>：核心根标签</li>
+<li><configuration>：核心根标签</configuration></li>
 </ul>
 </li>
 <li><p>引入连接配置文件：</p>
 <ul>
-<li><p><properties>： 引入数据库连接配置文件标签</p>
+<li><p><properties>： 引入数据库连接配置文件标签</properties></p>
 <ul>
 <li>resource：属性，指定配置文件名</li>
 </ul>
@@ -502,20 +502,20 @@
 </li>
 <li><p>调整设置</p>
 <ul>
-<li><settings>：可以改变 Mybatis 运行时行为</li>
+<li><settings>：可以改变 Mybatis 运行时行为</settings></li>
 </ul>
 </li>
 <li><p>起别名：</p>
 <ul>
-<li><p><typeAliases>：为全类名起别名的父标签</p>
+<li><p><typeAliases>：为全类名起别名的父标签</typeAliases></p>
 <ul>
-<li><p><typeAlias>：为全类名起别名的子标签</p>
+<li><p><typeAlias>：为全类名起别名的子标签</typeAlias></p>
 <ul>
 <li>type：指定全类名      </li>
 <li>alias：指定别名</li>
 </ul>
 </li>
-<li><p><package>：为指定包下所有类起别名的子标签，别名就是类名，首字母小写</p>
+<li><p><package>：为指定包下所有类起别名的子标签，别名就是类名，首字母小写</package></p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!--起别名--&gt;<br>&lt;typeAliases&gt;<br>	&lt;typeAlias type=&quot;bean.Student&quot; alias=&quot;student&quot;/&gt;<br>	&lt;package name=&quot;com.seazean.bean&quot;/&gt;<br>		&lt;!--二选一--&gt;<br>&lt;/typeAliase&gt;<br></code></pre></td></tr></table></figure>
@@ -558,30 +558,30 @@
 </li>
 <li><p>配置环境，可以配置多个标签</p>
 <ul>
-<li><environments>：配置数据库环境标签，default 属性指定哪个 environment</li>
-<li><environment>：配置数据库环境子标签，id 属性是唯一标识，与 default 对应</li>
-<li><transactionManager>：事务管理标签，type 属性默认 JDBC 事务</li>
+<li><environments>：配置数据库环境标签，default 属性指定哪个 environment</environments></li>
+<li><environment>：配置数据库环境子标签，id 属性是唯一标识，与 default 对应</environment></li>
+<li><transactionManager>：事务管理标签，type 属性默认 JDBC 事务</transactionManager></li>
 <li><dataSoure>：数据源标签<ul>
 <li>type 属性：POOLED 使用连接池（MyBatis 内置），UNPOOLED 不使用连接池</li>
 </ul>
-</li>
+</dataSoure></li>
 <li><property>：数据库连接信息标签。<ul>
 <li>name 属性取值：driver，url，username，password</li>
 <li>value 属性取值：与 name 对应</li>
 </ul>
-</li>
+</property></li>
 </ul>
 </li>
 <li><p>引入映射配置文件</p>
 <ul>
-<li><mappers>：引入映射配置文件标签</li>
+<li><mappers>：引入映射配置文件标签</mappers></li>
 <li><mapper>：引入映射配置文件子标签<ul>
 <li>resource：属性指定映射配置文件的名称</li>
 <li>url：引用网路路径或者磁盘路径下的 sql 映射文件</li>
 <li>class：指定映射配置类</li>
 </ul>
-</li>
-<li><package>：批量注册</li>
+</mapper></li>
+<li><package>：批量注册</package></li>
 </ul>
 </li>
 </ul>
@@ -639,7 +639,7 @@
 <hr>
 <h3 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h3><p>三种方式实现批量操作：</p>
 <ul>
-<li><p><settings> 标签属性：这种方式属于<strong>全局批量</strong></p>
+<li><p><settings> 标签属性：这种方式属于<strong>全局批量</strong></settings></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">settings</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">setting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;defaultExecutorType&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;BATCH&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>defaultExecutorType：配置默认的执行器</p>
@@ -687,37 +687,37 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Student <span class="hljs-title function_">selectById</span><span class="hljs-params">(Integer id)</span> &#123;<br>    <span class="hljs-type">Student</span> <span class="hljs-variable">stu</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span>&#123;<br>        <span class="hljs-comment">//1.加载核心配置文件</span><br>        is = Resources.getResourceAsStream(<span class="hljs-string">&quot;MyBatisConfig.xml&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取SqlSession工厂对象</span><br>        <span class="hljs-type">SqlSessionFactory</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>().build(is);<br><br>        <span class="hljs-comment">//3.通过工厂对象获取SqlSession对象</span><br>        sqlSession = s.openSession(<span class="hljs-literal">true</span>);<br><br>        <span class="hljs-comment">//4.获取StudentMapper接口的实现类对象</span><br>        <span class="hljs-type">StudentMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> sqlSession.getMapper(StudentMapper.class); <br><br>        <span class="hljs-comment">//5.通过实现类对象调用方法，接收结果</span><br>        stu = mapper.selectById(id);<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        e.getMessage();<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>        <span class="hljs-comment">//6.释放资源</span><br>        <span class="hljs-keyword">if</span>(sqlSession != <span class="hljs-literal">null</span>) &#123;<br>            sqlSession.close();<br>        &#125;<br>        <span class="hljs-keyword">if</span>(is != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                is.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//7.返回结果</span><br>    <span class="hljs-keyword">return</span> stu;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h2 id="结果映射"><a href="#结果映射" class="headerlink" title="结果映射"></a>结果映射</h2><h3 id="相关标签"><a href="#相关标签" class="headerlink" title="相关标签"></a>相关标签</h3><p><resultType>：返回结果映射对象类型，和对应方法的返回值类型保持一致，但是如果返回值是 List 则和其泛型保持一致</p>
-<p><resultMap>：返回一条记录的 Map，key 是列名，value 是对应的值，用来配置<strong>字段和对象属性</strong>的映射关系标签，结果映射（和 resultType 二选一）</p>
+<h2 id="结果映射"><a href="#结果映射" class="headerlink" title="结果映射"></a>结果映射</h2><h3 id="相关标签"><a href="#相关标签" class="headerlink" title="相关标签"></a>相关标签</h3><p><resultType>：返回结果映射对象类型，和对应方法的返回值类型保持一致，但是如果返回值是 List 则和其泛型保持一致</resultType></p>
+<p><resultMap>：返回一条记录的 Map，key 是列名，value 是对应的值，用来配置<strong>字段和对象属性</strong>的映射关系标签，结果映射（和 resultType 二选一）</resultMap></p>
 <ul>
 <li>id 属性：唯一标识</li>
 <li>type 属性：实体对象类型</li>
 <li>autoMapping 属性：结果自动映射</li>
 </ul>
-<p><resultMap> 内的核心配置文件标签：</p>
+<p><resultMap> 内的核心配置文件标签：</resultMap></p>
 <ul>
-<li><p><id>：配置主键映射关系标签</p>
+<li><p><id>：配置主键映射关系标签</id></p>
 </li>
-<li><p><result>：配置非主键映射关系标签</p>
+<li><p><result>：配置非主键映射关系标签</result></p>
 <ul>
 <li>column 属性：表中字段名称</li>
 <li>property 属性： 实体对象变量名称</li>
 </ul>
 </li>
-<li><p><association>：配置被包含<strong>单个对象</strong>的映射关系标签，嵌套封装结果集（多对一、一对一）</p>
+<li><p><association>：配置被包含<strong>单个对象</strong>的映射关系标签，嵌套封装结果集（多对一、一对一）</association></p>
 <ul>
 <li>property 属性：被包含对象的变量名，要进行映射的属性名</li>
 <li>javaType 属性：被包含对象的数据类型，要进行映射的属性的类型（Java 中的 Bean 类）</li>
 <li>select 属性：加载复杂类型属性的映射语句的 ID，会从 column 属性指定的列中检索数据，作为参数传递给目标 select 语句</li>
 </ul>
 </li>
-<li><p><collection>：配置被包含<strong>集合对象</strong>的映射关系标签，嵌套封装结果集（一对多、多对多）</p>
+<li><p><collection>：配置被包含<strong>集合对象</strong>的映射关系标签，嵌套封装结果集（一对多、多对多）</collection></p>
 <ul>
 <li>property 属性：被包含集合对象的变量名</li>
 <li>ofType 属性：集合中保存的对象数据类型</li>
 </ul>
 </li>
-<li><p><discriminator>：鉴别器，用来判断某列的值，根据得到某列的不同值做出不同自定义的封装行为</p>
+<li><p><discriminator>：鉴别器，用来判断某列的值，根据得到某列的不同值做出不同自定义的封装行为</discriminator></p>
 </li>
 </ul>
 <p>自定义封装规则可以将数据库中比较复杂的数据类型映射为 JavaBean 中的属性</p>
@@ -838,7 +838,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test01</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectAll</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> Resources.getResourceAsStream(<span class="hljs-string">&quot;MyBatisConfig.xml&quot;</span>);<br>        <span class="hljs-type">SqlSessionFactory</span> <span class="hljs-variable">ssf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>().build(is);<br>        <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession</span> <span class="hljs-operator">=</span> ssf.openSession(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">OneToOneMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> sqlSession.getMapper(OneToOneMapper.class);<br>        <span class="hljs-comment">// 调用实现类的方法，接收结果</span><br>        List&lt;Card&gt; list = mapper.selectAll();<br>        <br>      	<span class="hljs-comment">// 不能遍历，遍历就是相当于使用了该数据，需要加载，不遍历就是没有使用。</span><br>        <br>        <span class="hljs-comment">// 释放资源</span><br>        sqlSession.close();<br>        is.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h4 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h4><p>同样在一对多关系配置的 <collection> 结点中配置延迟加载策略，<collection> 结点中也有 select 属性和 column 属性</p>
+<h4 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h4><p>同样在一对多关系配置的 <collection> 结点中配置延迟加载策略，<collection> 结点中也有 select 属性和 column 属性</collection></collection></p>
 <ul>
 <li><p>映射配置文件 OneToManyMapper.xml</p>
 <p>一对多映射：</p>
@@ -882,7 +882,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectAll</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>    <span class="hljs-comment">//1.加载核心配置文件</span><br>    <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> Resources.getResourceAsStream(<span class="hljs-string">&quot;MyBatisConfig.xml&quot;</span>);<br><br>    <span class="hljs-comment">//2.获取SqlSession工厂对象</span><br>    <span class="hljs-type">SqlSessionFactory</span> <span class="hljs-variable">ssf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>().build(is);<br><br>    <span class="hljs-comment">//3.通过工厂对象获取SqlSession对象</span><br>    <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession</span> <span class="hljs-operator">=</span> ssf.openSession(<span class="hljs-literal">true</span>);<br><br>    <span class="hljs-comment">//4.获取StudentMapper接口的实现类对象</span><br>    <span class="hljs-type">StudentMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> sqlSession.getMapper(StudentMapper.class);<br><br>    <span class="hljs-comment">//5.调用实现类对象中的方法，接收结果</span><br>    List&lt;Student&gt; list = mapper.selectAll();<br><br>    <span class="hljs-comment">//6.处理结果</span><br>    <span class="hljs-keyword">for</span> (Student student : list) &#123;<br>        System.out.println(student);<br>    &#125;<br>    <br>    <span class="hljs-comment">//7.释放资源</span><br>    sqlSession.close();<br>    is.close();<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h3 id="多表操作"><a href="#多表操作" class="headerlink" title="多表操作"></a>多表操作</h3><h4 id="相关注解"><a href="#相关注解" class="headerlink" title="相关注解"></a>相关注解</h4><p>实现复杂关系映射之前我们可以在映射文件中通过配置 <resultMap> 来实现，使用注解开发后，可以使用 @Results 注解，@Result 注解，@One 注解，@Many 注解组合完成复杂关系的配置</p>
+<h3 id="多表操作"><a href="#多表操作" class="headerlink" title="多表操作"></a>多表操作</h3><h4 id="相关注解"><a href="#相关注解" class="headerlink" title="相关注解"></a>相关注解</h4><p>实现复杂关系映射之前我们可以在映射文件中通过配置 <resultMap> 来实现，使用注解开发后，可以使用 @Results 注解，@Result 注解，@One 注解，@Many 注解组合完成复杂关系的配置</resultMap></p>
 <table>
 <thead>
 <tr>
@@ -892,19 +892,19 @@
 </thead>
 <tbody><tr>
 <td>@Results</td>
-<td>代替 <resultMap> 标签，注解中使用单个 @Result 注解或者 @Result 集合<br/>使用格式：@Results({ @Result(), @Result() })或@Results({ @Result() })</td>
+<td>代替 <resultMap> 标签，注解中使用单个 @Result 注解或者 @Result 集合<br>使用格式：@Results({ @Result(), @Result() })或@Results({ @Result() })</resultMap></td>
 </tr>
 <tr>
 <td>@Result</td>
-<td>代替&lt; id&gt; 和 <result> 标签，@Result 中属性介绍：<br />column：数据库的列名      property：封装类的变量名<br />one：需要使用 @One 注解（@Result(one &#x3D; @One)）<br />Many：需要使用 @Many 注解（@Result(many&#x3D; @Many)）</td>
+<td>代替&lt; id&gt; 和 <result> 标签，@Result 中属性介绍：<br>column：数据库的列名      property：封装类的变量名<br>one：需要使用 @One 注解（@Result(one &#x3D; @One)）<br>Many：需要使用 @Many 注解（@Result(many&#x3D; @Many)）</result></td>
 </tr>
 <tr>
 <td>@One(一对一)</td>
-<td>代替 <association> 标签，多表查询的关键，用来指定子查询返回单一对象<br/>select：指定调用 Mapper 接口中的某个方法<br />使用格式：@Result(column&#x3D;””, property&#x3D;””, one&#x3D;@One(select&#x3D;””))</td>
+<td>代替 <association> 标签，多表查询的关键，用来指定子查询返回单一对象<br>select：指定调用 Mapper 接口中的某个方法<br>使用格式：@Result(column&#x3D;””, property&#x3D;””, one&#x3D;@One(select&#x3D;””))</association></td>
 </tr>
 <tr>
 <td>@Many(多对一)</td>
-<td>代替 <collection> 标签，多表查询的关键，用来指定子查询返回对象集合<br />select：指定调用 Mapper 接口中的某个方法<br />使用格式：@Result(column&#x3D;””, property&#x3D;””, many&#x3D;@Many(select&#x3D;””))</td>
+<td>代替 <collection> 标签，多表查询的关键，用来指定子查询返回对象集合<br>select：指定调用 Mapper 接口中的某个方法<br>使用格式：@Result(column&#x3D;””, property&#x3D;””, many&#x3D;@Many(select&#x3D;””))</collection></td>
 </tr>
 </tbody></table>
 <hr>
@@ -959,7 +959,7 @@
 <li>一级缓存：SqlSession 级别的缓存，又叫本地会话缓存，自带的（不需要配置），一级缓存的生命周期与 SqlSession 一致。在操作数据库时需要构造 SqlSession 对象，<strong>在对象中有一个数据结构（HashMap）用于存储缓存数据</strong>，不同的 SqlSession 之间的缓存数据区域是互相不影响的</li>
 <li>二级缓存：mapper（namespace）级别的缓存，二级缓存的使用，需要手动开启（需要配置）。多个 SqlSession 去操作同一个 Mapper 的 SQL 可以共用二级缓存，二级缓存是跨 SqlSession 的</li>
 </ul>
-<p>开启缓存：配置核心配置文件中 <settings> 标签</p>
+<p>开启缓存：配置核心配置文件中 <settings> 标签</settings></p>
 <ul>
 <li>cacheEnabled：true 表示全局性地开启所有映射器配置文件中已配置的任何缓存，默认 true</li>
 </ul>
@@ -967,7 +967,7 @@
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/7342498.html">https://www.cnblogs.com/ysocean/p/7342498.html</a></p>
 <hr>
 <h3 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h3><p>一级缓存是 SqlSession 级别的缓存</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-一级缓存.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-一级缓存.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>工作流程：第一次发起查询用户 id 为 1 的用户信息，先去找缓存中是否有 id 为 1 的用户信息，如果没有，从数据库查询用户信息，得到用户信息，将用户信息存储到一级缓存中；第二次发起查询用户 id 为 1 的用户信息，先去找缓存中是否有 id 为 1 的用户信息，缓存中有，直接从缓存中获取用户信息。</p>
 <p>一级缓存的失效：</p>
@@ -1030,7 +1030,7 @@
 </li>
 <li><p>每个增删改标签都有 flushCache 属性，默认为 true，代表在<strong>执行增删改之后就会清除一、二级缓存</strong>，保证缓存的一致性；而查询标签默认值为 false，所以查询不会清空缓存</p>
 </li>
-<li><p>localCacheScope：本地缓存作用域，<settings> 中的配置项，默认值为 SESSION，当前会话的所有数据保存在会话缓存中，设置为 STATEMENT 禁用一级缓存</p>
+<li><p>localCacheScope：本地缓存作用域，<settings> 中的配置项，默认值为 SESSION，当前会话的所有数据保存在会话缓存中，设置为 STATEMENT 禁用一级缓存</settings></p>
 </li>
 </ol>
 <hr>
@@ -1097,7 +1097,7 @@
 <p>OGNL：Object Graphic Navigation Language（对象图导航语言），用于对数据进行访问</p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/7289529.html">https://www.cnblogs.com/ysocean/p/7289529.html</a></p>
 <hr>
-<h4 id="where"><a href="#where" class="headerlink" title="where"></a>where</h4><p><where>：条件标签，有动态条件则使用该标签代替 WHERE 关键字，封装查询条件</p>
+<h4 id="where"><a href="#where" class="headerlink" title="where"></a>where</h4><p><where>：条件标签，有动态条件则使用该标签代替 WHERE 关键字，封装查询条件</where></p>
 <p>作用：如果标签返回的内容是以 AND 或 OR 开头的，标签内会剔除掉</p>
 <p>表结构：</p>
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-%E5%8A%A8%E6%80%81sql%E7%94%A8%E6%88%B7%E8%A1%A8.png" srcset="/img/loading.gif" lazyload></p>
@@ -1120,7 +1120,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicTest</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectCondition</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-comment">//1.加载核心配置文件</span><br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> Resources.getResourceAsStream(<span class="hljs-string">&quot;MyBatisConfig.xml&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取SqlSession工厂对象</span><br>        <span class="hljs-type">SqlSessionFactory</span> <span class="hljs-variable">ssf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>().build(is);<br><br>        <span class="hljs-comment">//3.通过工厂对象获取SqlSession对象</span><br>        <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession</span> <span class="hljs-operator">=</span> ssf.openSession(<span class="hljs-literal">true</span>);<br><br>        <span class="hljs-comment">//4.获取StudentMapper接口的实现类对象</span><br>        <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> sqlSession.getMapper(UserMapper.class);<br><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>        user.setId(<span class="hljs-number">2</span>);<br>        user.setUsername(<span class="hljs-string">&quot;李四&quot;</span>);<br>        <span class="hljs-comment">//user.setSex(男); AND 后会自动剔除</span><br><br>        <span class="hljs-comment">//5.调用实现类的方法，接收结果</span><br>        List&lt;Student&gt; list = mapper.selectCondition(user);<br><br>        <span class="hljs-comment">//6.处理结果</span><br>        <span class="hljs-keyword">for</span> (User user : list) &#123;<br>            System.out.println(user);<br>        &#125;<br>        <br>        <span class="hljs-comment">//7.释放资源</span><br>        sqlSession.close();<br>        is.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><p><set>：进行更新操作的时候，含有 set 关键词，使用该标签</p>
+<h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><p><set>：进行更新操作的时候，含有 set 关键词，使用该标签</set></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 根据 id 更新 user 表的数据 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">update</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;updateUserById&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;com.ys.po.User&quot;</span>&gt;</span><br>    UPDATE user u<br>        <span class="hljs-tag">&lt;<span class="hljs-name">set</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;username != null and username != &#x27;&#x27;&quot;</span>&gt;</span><br>                u.username = #&#123;username&#125;,<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;sex != null and sex != &#x27;&#x27;&quot;</span>&gt;</span><br>                u.sex = #&#123;sex&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span><br>     WHERE id=#&#123;id&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">update</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -1129,7 +1129,7 @@
 </ul>
 <hr>
 <h4 id="choose"><a href="#choose" class="headerlink" title="choose"></a>choose</h4><p>假如不想用到所有的查询条件，只要查询条件有一个满足即可，使用 choose 标签可以解决此类问题，类似于 Java 的 switch 语句</p>
-<p>标签：<when>，<otherwise></p>
+<p>标签：<when>，<otherwise></otherwise></when></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectUserByChoose&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;user&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span><br>    SELECT * FROM user<br>    <span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">choose</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;id !=&#x27;&#x27; and id != null&quot;</span>&gt;</span><br>                id=#&#123;id&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;username !=&#x27;&#x27; and username != null&quot;</span>&gt;</span><br>                AND username=#&#123;username&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">otherwise</span>&gt;</span><br>                AND sex=#&#123;sex&#125;<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">otherwise</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">choose</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>有三个条件，id、username、sex，只能选择一个作为查询条件</p>
@@ -1269,7 +1269,7 @@
 <h2 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h2><h3 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h3><p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
 <p>MyBatis 运行过程：</p>
 <ol>
-<li><p>加载 MyBatis 全局配置文件，通过 XPath 方式解析 XML 配置文件，首先解析核心配置文件，<settings> 标签中配置属性项有 defaultExecutorType，用来配置指定 Executor 类型，将配置文件的信息填充到 Configuration对象。最后解析映射器配置的映射文件，并<strong>构建 MappedStatement 对象填充至 Configuration</strong>，将解析后的映射器添加到 mapperRegistry 中，用于获取代理</p>
+<li><p>加载 MyBatis 全局配置文件，通过 XPath 方式解析 XML 配置文件，首先解析核心配置文件，<settings> 标签中配置属性项有 defaultExecutorType，用来配置指定 Executor 类型，将配置文件的信息填充到 Configuration对象。最后解析映射器配置的映射文件，并<strong>构建 MappedStatement 对象填充至 Configuration</strong>，将解析后的映射器添加到 mapperRegistry 中，用于获取代理</settings></p>
 </li>
 <li><p>创建一个 DefaultSqlSession 对象，<strong>根据参数创建指定类型的 Executor</strong>，二级缓存默认开启，把 Executor 包装成缓存执行器</p>
 </li>
@@ -1280,7 +1280,7 @@
 <li>MapperProxy.invoke() 执行代理方法，通过 MapperMethod#execute 判断执行的是增删改查中的哪个方法</li>
 <li>查询方法调用 sqlSession.selectOne()，从 Configuration 中获取执行者对象 MappedStatement，然后 Executor 调用 executor.query 开始执行查询方法</li>
 <li>首先通过 CachingExecutor 去二级缓存查询，查询不到去一级缓存查询，<strong>最后去数据库查询并放入一级缓存</strong></li>
-<li>Configuration 对象根据 <select> 标签的 statementType 属性创建 StatementHandler 对象，在 StatementHandler 的构造方法中，创建了 ParameterHandler 和 ResultSetHandler 对象</li>
+<li>Configuration 对象根据 <select> 标签的 statementType 属性创建 StatementHandler 对象，在 StatementHandler 的构造方法中，创建了 ParameterHandler 和 ResultSetHandler 对象</select></li>
 <li>最后获取 <strong>JDBC 原生的</strong> Connection 数据库连接对象，创建 Statement 执行者对象，然后通过 ParameterHandler 设置预编译参数，底层是 TypeHandler#setParameter 方法，然后通过 StatementHandler 回调执行者对象执行增删改查，最后调用 ResultsetHandler 处理查询结果</li>
 </ul>
 </li>
@@ -1297,8 +1297,8 @@
 <h3 id="获取工厂"><a href="#获取工厂" class="headerlink" title="获取工厂"></a>获取工厂</h3><p>SqlSessionFactoryBuilder.build(InputStream, String,  Properties)：构建工厂</p>
 <p>XMLConfigBuilder.parse()：解析核心配置文件每个标签的信息（<strong>XPath</strong>）</p>
 <ul>
-<li><p><code>parseConfiguration(parser.evalNode(&quot;/configuration&quot;))</code>：读取节点内数据，<configuration> 是 MyBatis 配置文件中的顶层标签</p>
-<p><code>settings = settingsAsProperties(root.evalNode(&quot;settings&quot;))</code>：读取核心配置文件中的 <settings> 标签</p>
+<li><p><code>parseConfiguration(parser.evalNode(&quot;/configuration&quot;))</code>：读取节点内数据，<configuration> 是 MyBatis 配置文件中的顶层标签</configuration></p>
+<p><code>settings = settingsAsProperties(root.evalNode(&quot;settings&quot;))</code>：读取核心配置文件中的 <settings> 标签</settings></p>
 <p><code>settingsElement(settings)</code>：设置框架相关的属性</p>
 <ul>
 <li><code>configuration.setCacheEnabled()</code>：<strong>设置缓存属性，默认是 true</strong></li>
@@ -1310,7 +1310,7 @@
 </li>
 <li><p><code>XMLMapperBuilder.parse()</code>：解析 mapper 的标签的信息</p>
 <ul>
-<li><p><code>configurationElement(parser.evalNode(&quot;/mapper&quot;))</code>：解析 mapper 文件，顶层节点 <mapper></p>
+<li><p><code>configurationElement(parser.evalNode(&quot;/mapper&quot;))</code>：解析 mapper 文件，顶层节点 <mapper></mapper></p>
 <ul>
 <li><p><code>buildStatementFromContext(context.evalNodes(&quot;select...&quot;))</code>：解析<strong>每个操作标签</strong></p>
 <p><code>XMLStatementBuilder.parseStatementNode()</code>：解析<strong>操作标签</strong>的所有的属性</p>
@@ -1353,7 +1353,7 @@
 </li>
 <li><p><code>configuration.newExecutor(tx, execType)</code>：<strong>根据参数创建指定类型的 Executor</strong></p>
 <ul>
-<li>批量操作笔记的部分有讲解到 <setting> 的属性 defaultExecutorType，根据配置创建对象</li>
+<li>批量操作笔记的部分有讲解到 <setting> 的属性 defaultExecutorType，根据配置创建对象</setting></li>
 <li><strong>二级缓存默认开启</strong>，会包装 Executor 对象 <code>new CachingExecutor(executor)</code></li>
 </ul>
 </li>
@@ -1412,7 +1412,7 @@
 <ul>
 <li><p><code>configuration.newStatementHandler()</code>：创建 StatementHandler 对象</p>
 <ul>
-<li>根据 <select> 标签的 statementType 属性，根据属性选择创建哪种对象</li>
+<li>根据 <select> 标签的 statementType 属性，根据属性选择创建哪种对象</select></li>
 <li>判断 BoundSql 是否被创建，没有创建会重新封装参数信息到 BoundSql</li>
 <li><strong>StatementHandler 的构造方法中，创建了 ParameterHandler 和 ResultSetHandler 对象</strong></li>
 <li><code>interceptorChain.pluginAll(statementHandler)</code>：拦截器链</li>
@@ -1445,7 +1445,7 @@
 <ul>
 <li><p><code>handleResultSet(rsw, resultMap, multipleResults, null)</code>：底层回调</p>
 <ul>
-<li><p><code>handleRowValues()</code>：逐行处理数据，根据是否配置了 <resultMap> 属性选择是否使用简单结果集映射</p>
+<li><p><code>handleRowValues()</code>：逐行处理数据，根据是否配置了 <resultMap> 属性选择是否使用简单结果集映射</resultMap></p>
 <ul>
 <li><p>首先判断数据是否被限制行数，然后进行结果集的映射</p>
 </li>
@@ -1470,7 +1470,7 @@
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-%E6%89%A7%E8%A1%8CSQL%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <h2 id="插件使用"><a href="#插件使用" class="headerlink" title="插件使用"></a>插件使用</h2><h3 id="插件原理"><a href="#插件原理" class="headerlink" title="插件原理"></a>插件原理</h3><p>实现原理：插件是按照插件配置顺序创建层层包装对象，执行目标方法的之后，按照逆向顺序执行（栈）</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-插件原理.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/MyBatis-插件原理.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>在四大对象创建时：</p>
 <ul>
@@ -1582,7 +1582,7 @@
 </li>
 </ol>
 <hr>
-<h3 id="XML开发"><a href="#XML开发" class="headerlink" title="XML开发"></a>XML开发</h3><h4 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h4><h5 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h5><p>标签：<bean> 标签，<beans> 的子标签</p>
+<h3 id="XML开发"><a href="#XML开发" class="headerlink" title="XML开发"></a>XML开发</h3><h4 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h4><h5 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h5><p>标签：<bean> 标签，<beans> 的子标签</beans></bean></p>
 <p>作用：定义 Spring 中的资源，受此标签定义的资源将受到 Spring 控制</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">bean</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1723,7 +1723,7 @@
 </ul>
 <p>IoC 和 DI 的关系：IoC 与 DI 是同一件事站在不同角度看待问题</p>
 <hr>
-<h5 id="set-注入"><a href="#set-注入" class="headerlink" title="set 注入"></a>set 注入</h5><p>标签：<property> 标签，<bean> 的子标签</p>
+<h5 id="set-注入"><a href="#set-注入" class="headerlink" title="set 注入"></a>set 注入</h5><p>标签：<property> 标签，<bean> 的子标签</bean></property></p>
 <p>作用：使用 set 方法的形式为 bean 提供资源</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">property</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> /&gt;</span><br>    .....<br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1755,7 +1755,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserApp</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ApplicationContext</span> <span class="hljs-variable">ctx</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathXmlApplicationContext</span>(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br>        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> (UserService) ctx.getBean(<span class="hljs-string">&quot;userService&quot;</span>);<br>        userService.save();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h5 id="构造注入"><a href="#构造注入" class="headerlink" title="构造注入"></a>构造注入</h5><p>标签：<constructor-arg> 标签，<bean> 的子标签</p>
+<h5 id="构造注入"><a href="#构造注入" class="headerlink" title="构造注入"></a>构造注入</h5><p>标签：<constructor-arg> 标签，<bean> 的子标签</bean></constructor-arg></p>
 <p>作用：使用构造方法的形式为 bean 提供资源，兼容早期遗留系统的升级工作</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> /&gt;</span><br>    .....<span class="hljs-comment">&lt;!--一个bean可以有多个constructor-arg标签--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1787,7 +1787,7 @@
 </li>
 </ul>
 <hr>
-<h5 id="集合注入"><a href="#集合注入" class="headerlink" title="集合注入"></a>集合注入</h5><p>标签：<array> <list> <set> <map> <props>，<property> 或 <constructor-arg> 标签的子标签</p>
+<h5 id="集合注入"><a href="#集合注入" class="headerlink" title="集合注入"></a>集合注入</h5><p>标签：<array> <list> <set> <map> <props>，<property> 或 <constructor-arg> 标签的子标签</constructor-arg></property></props></map></set></list></array></p>
 <p>作用：注入集合数据类型属性</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">list</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">list</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1891,7 +1891,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserApp</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ApplicationContext</span> <span class="hljs-variable">ctx</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathXmlApplicationContext</span>(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br>        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> (UserService) ctx.getBean(<span class="hljs-string">&quot;userService&quot;</span>);<br>        userService.save();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>标签：<import>，<beans>标签的子标签</p>
+<h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>标签：<import>，<beans>标签的子标签</beans></import></p>
 <p>作用：在当前配置文件中导入其他配置文件中的项</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">import</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -2372,7 +2372,7 @@
 <ul>
 <li><p>配置 bean 的方式如下：</p>
 <ul>
-<li>XML 文件中使用 <bean/> 标签配置</li>
+<li>XML 文件中使用 <bean> 标签配置</bean></li>
 <li>使用 @Component 及衍生注解配置</li>
 </ul>
 </li>
@@ -2605,7 +2605,7 @@
 <h3 id="XML开发-1"><a href="#XML开发-1" class="headerlink" title="XML开发"></a>XML开发</h3><h4 id="AspectJ"><a href="#AspectJ" class="headerlink" title="AspectJ"></a>AspectJ</h4><p>Aspect（切面）用于描述切入点与通知间的关系，是 AOP 编程中的一个概念</p>
 <p>AspectJ 是基于 java 语言对 Aspect 的实现</p>
 <hr>
-<h4 id="AOP-1"><a href="#AOP-1" class="headerlink" title="AOP"></a>AOP</h4><h5 id="config"><a href="#config" class="headerlink" title="config"></a>config</h5><p>标签：<a href="aop:config">aop:config</a>，<beans> 的子标签</p>
+<h4 id="AOP-1"><a href="#AOP-1" class="headerlink" title="AOP"></a>AOP</h4><h5 id="config"><a href="#config" class="headerlink" title="config"></a>config</h5><p>标签：<a href="aop:config">aop:config</a>，<beans> 的子标签</beans></p>
 <p>作用：设置 AOP</p>
 <p>格式：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">aop:config</span>&gt;</span>……<span class="hljs-tag">&lt;/<span class="hljs-name">aop:config</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">aop:config</span>&gt;</span>……<span class="hljs-tag">&lt;/<span class="hljs-name">aop:config</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--一个beans标签中可以配置多个aop:config标签--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -4234,7 +4234,7 @@
 <li><p><code>Supplier&lt;?&gt; instanceSupplier = mbd.getInstanceSupplier()</code>：获取创建实例的函数，可以自定义，没有进入下面的逻辑</p>
 </li>
 <li><p><code>if (mbd.getFactoryMethodName() != null)</code>：<strong>判断 bean 是否设置了 factory-method 属性，优先使用</strong></p>
-<p><bean class="" factory-method="">，设置了该属性进入 factory-method 方法创建实例</p>
+<p><bean class factory-method>，设置了该属性进入 factory-method 方法创建实例</bean></p>
 </li>
 <li><p><code>resolved = false</code>：代表 bd 对应的构造信息是否已经解析成可以反射调用的构造方法</p>
 </li>
@@ -4316,7 +4316,7 @@
 </ul>
 </li>
 <li><p><code>if(ctors != null)</code>：条件成立代表指定了<strong>构造方法数组</strong></p>
-<p><code>mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR</code>：<bean autowire=""> 标签内 autowiremode 的属性值，默认是 no，AUTOWIRE_CONSTRUCTOR 代表选择最优的构造方法</p>
+<p><code>mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR</code>：<bean autowire> 标签内 autowiremode 的属性值，默认是 no，AUTOWIRE_CONSTRUCTOR 代表选择最优的构造方法</bean></p>
 <p><code>mbd.hasConstructorArgumentValues()</code>：bean 信息中是否配置了构造参数的值</p>
 <p><code>!ObjectUtils.isEmpty(args)</code>：getBean 时，指定了参数 arg</p>
 </li>
@@ -5894,7 +5894,7 @@
 <p>自定义内容协商策略：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WebMvcConfigurer</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> WebMvcConfigurer <span class="hljs-title function_">webMvcConfigurer</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebMvcConfigurer</span>() &#123;<br>            <span class="hljs-meta">@Override</span>	<span class="hljs-comment">//自定义内容协商策略</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configureContentNegotiation</span><span class="hljs-params">(ContentNegotiationConfigurer configurer)</span> &#123;<br>                Map&lt;String, MediaType&gt; mediaTypes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>                mediaTypes.put(<span class="hljs-string">&quot;json&quot;</span>, MediaType.APPLICATION_JSON);<br>                mediaTypes.put(<span class="hljs-string">&quot;xml&quot;</span>,MediaType.APPLICATION_XML);<br>                mediaTypes.put(<span class="hljs-string">&quot;person&quot;</span>,MediaType.parseMediaType(<span class="hljs-string">&quot;application/x-person&quot;</span>));<br>                <span class="hljs-comment">// 指定支持解析哪些参数对应的哪些媒体类型</span><br>                <span class="hljs-type">ParameterContentNegotiationStrategy</span> <span class="hljs-variable">parameterStrategy</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ParameterContentNegotiationStrategy</span>(mediaTypes);<br><br>                <span class="hljs-comment">// 请求头解析</span><br>                <span class="hljs-type">HeaderContentNegotiationStrategy</span> <span class="hljs-variable">headStrategy</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HeaderContentNegotiationStrategy</span>();<br><br>                <span class="hljs-comment">// 添加到容器中，即可以解析请求头 又可以解析请求参数</span><br>                configurer.strategies(Arrays.asList(parameterStrategy,headStrategy));<br>            &#125;<br>            <br>            <span class="hljs-meta">@Override</span> 	<span class="hljs-comment">// 自定义消息转换器</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">extendMessageConverters</span><span class="hljs-params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;<br>                converters.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">GuiguMessageConverter</span>());<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>也可以自定义 HttpMessageConverter，实现 HttpMessageConverter<T> 接口重写方法即可</p>
+<p>也可以自定义 HttpMessageConverter，实现 HttpMessageConverter<T> 接口重写方法即可</T></p>
 <hr>
 <h3 id="视图解析"><a href="#视图解析" class="headerlink" title="视图解析"></a>视图解析</h3><h4 id="返回解析"><a href="#返回解析" class="headerlink" title="返回解析"></a>返回解析</h4><p>请求处理：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/params&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">param</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;forward:/success&quot;</span>;<br>    <span class="hljs-comment">//return &quot;redirect:/success&quot;;</span><br>&#125;<br></code></pre></td></tr></table></figure>
@@ -6090,7 +6090,7 @@
 <li><p>归属不同： Filter 属于 Servlet 技术， Interceptor 属于 SpringMVC 技术</p>
 </li>
 <li><p>拦截内容不同： Filter 对所有访问进行增强， Interceptor 仅针对 SpringMVC 的访问进行增强  </p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-过滤器和拦截器的运行机制.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-过滤器和拦截器的运行机制.png" srcset="/img/loading.gif" lazyload style="zoom:67%;"></li>
 </ol>
 <hr>
 <h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><h4 id="前置处理"><a href="#前置处理" class="headerlink" title="前置处理"></a>前置处理</h4><p>原始方法之前运行：</p>
@@ -6155,7 +6155,7 @@
 <li>链路过长时，处理效率低下</li>
 <li>可能存在节点上的循环引用现象，造成死循环，导致系统崩溃</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-多拦截器配置.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-多拦截器配置.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 
 
@@ -6181,7 +6181,7 @@
 
 
 <p>拦截器的执行流程：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-拦截器工作流程.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/SpringMVC-拦截器工作流程.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 
 
@@ -7997,7 +7997,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>启动测试：<a target="_blank" rel="noopener" href="http://localhost:9001/hystrix">http://localhost:9001/hystrix</a></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Hystrix可视化界面.png" srcset="/img/loading.gif" lazyload alt="Cloud-Hystrix可视化界面" style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Hystrix可视化界面.png" srcset="/img/loading.gif" lazyload alt="Cloud-Hystrix可视化界面" style="zoom: 67%;">
 </li>
 <li><p>新版本 Hystrix 需要在需要监控的微服务端的主启动类中指定监控路径，不然会报错</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableEurekaClient</span>  <span class="hljs-comment">// 本服务启动后会自动注册进eureka服务中</span><br><span class="hljs-meta">@EnableCircuitBreaker</span>  <span class="hljs-comment">// 对hystrixR熔断机制的支持</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PaymentHystrixMain8001</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(PaymentHystrixMain8001.class, args);<br>    &#125;<br><br>    <span class="hljs-comment">/** ======================================需要添加的代码==================</span><br><span class="hljs-comment">     *此配置是为了服务监控而配置，与服务容错本身无关，springcloud升级后的坑</span><br><span class="hljs-comment">     *ServletRegistrationBean因为springboot的默认路径不是&quot;/hystrix.stream&quot;，</span><br><span class="hljs-comment">     *只要在自己的项目里配置上下面的servlet就可以了</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> ServletRegistrationBean <span class="hljs-title function_">getServlet</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">HystrixMetricsStreamServlet</span> <span class="hljs-variable">streamServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HystrixMetricsStreamServlet</span>();<br>        <span class="hljs-type">ServletRegistrationBean</span> <span class="hljs-variable">registrationBean</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServletRegistrationBean</span>(streamServlet);<br>        registrationBean.setLoadOnStartup(<span class="hljs-number">1</span>);<br>        registrationBean.addUrlMappings(<span class="hljs-string">&quot;/hystrix.stream&quot;</span>);<br>        registrationBean.setName(<span class="hljs-string">&quot;HystrixMetricsStreamServlet&quot;</span>);<br>        <span class="hljs-keyword">return</span> registrationBean;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -8189,7 +8189,7 @@
 <p>基本原理：ConfigClient 实例都监听 MQ 中同一个 Topic（默认 springCloudBus)，当一个服务刷新数据时，会把信息放入 Topic 中，这样其它监听同一 Topic 的服务就能得到通知，然后去更新自身的配置</p>
 <hr>
 <h4 id="全局广播"><a href="#全局广播" class="headerlink" title="全局广播"></a>全局广播</h4><p>利用消息总线接触一个服务端 ConfigServer 的 <code>/bus/refresh</code> 断点，从而刷新所有客户端的配置</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Bus全局广播架构.png" srcset="/img/loading.gif" lazyload alt="Cloud-Bus全局广播架构" style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Bus全局广播架构.png" srcset="/img/loading.gif" lazyload alt="Cloud-Bus全局广播架构" style="zoom:67%;">
 
 <p>改造 ConfigClient：</p>
 <ul>
@@ -8495,7 +8495,7 @@
 </ul>
 </li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加流控规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加流控规则" style="zoom: 40%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加流控规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加流控规则" style="zoom: 40%;">
 
 <p>通过调用 <code>SystemRuleManager.loadRules()</code> 方法来用硬编码的方式定义流量控制规则：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initSystemProtectionRule</span><span class="hljs-params">()</span> &#123;<br>  List&lt;SystemRule&gt; rules = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>  <span class="hljs-type">SystemRule</span> <span class="hljs-variable">rule</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemRule</span>();<br>  rule.setHighestSystemLoad(<span class="hljs-number">10</span>);<br>  rules.add(rule);<br>  SystemRuleManager.loadRules(rules);<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -8520,7 +8520,7 @@
 <li>统计时长 statIntervalMs：单位统计时长</li>
 <li>慢调用比例阈值 slowRatioThreshold：仅慢调用比例模式有效</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加熔断规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加熔断规则" style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加熔断规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加熔断规则" style="zoom: 67%;">
 
 <p>注意异常降级仅针对业务异常，对 Sentinel 限流降级本身的异常 BlockException 不生效，为了统计异常比例或异常数，需要通过 <code>Tracer.trace(ex)</code> 记录业务异常或者通过<code>@SentinelResource</code> 注解会自动统计业务异常</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Entry</span> <span class="hljs-variable">entry</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><span class="hljs-keyword">try</span> &#123;<br>  entry = SphU.entry(resource);<br><br>  <span class="hljs-comment">// Write your biz code here.</span><br>  <span class="hljs-comment">// &lt;&lt;BIZ CODE&gt;&gt;</span><br>&#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;<br>  <span class="hljs-keyword">if</span> (!BlockException.isBlockException(t)) &#123;<br>    Tracer.trace(t);<br>  &#125;<br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>  <span class="hljs-keyword">if</span> (entry != <span class="hljs-literal">null</span>) &#123;<br>    entry.exit();<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -8530,7 +8530,7 @@
 <p>详细内容参考文档：<a target="_blank" rel="noopener" href="https://sentinelguard.io/zh-cn/docs/circuit-breaking.html">https://sentinelguard.io/zh-cn/docs/circuit-breaking.html</a></p>
 <hr>
 <h4 id="热点限流"><a href="#热点限流" class="headerlink" title="热点限流"></a>热点限流</h4><p>热点参数限流会统计传入参数中的热点参数，并根据配置的限流阈值与模式，对包含热点参数的资源调用进行限流，Sentinel 利用 LRU 策略统计最近最常访问的热点参数，结合令牌桶算法来进行参数级别的流控</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel热点参数限流.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel热点参数限流" style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel热点参数限流.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel热点参数限流" style="zoom: 67%;">
 
 <p>引入 @SentinelResource 注解：<a target="_blank" rel="noopener" href="https://sentinelguard.io/zh-cn/docs/annotation-support.html">https://sentinelguard.io/zh-cn/docs/annotation-support.html</a></p>
 <ul>
@@ -8547,7 +8547,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/testHotKey&quot;)</span><br><span class="hljs-meta">@SentinelResource(value = &quot;testHotKey&quot;, blockHandler = &quot;del_testHotKey&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">testHotkey</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(value = &quot;p1&quot;, required = false)</span> String p1,</span><br><span class="hljs-params">                         <span class="hljs-meta">@RequestParam(value = &quot;p1&quot;, required = false)</span> String p2)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;------testHotkey&quot;</span>;<br>&#125;<br><br><span class="hljs-comment">// 自定义的兜底方法，必须是 BlockException</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">del_testHotKey</span><span class="hljs-params">(String p1, String p2, BlockException e)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;不用默认的兜底提示 Blocked by Sentinel(flow limiting)，自定义提示：del_testHotKeyo.&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>图示设置 p1 参数限流，规则是 1s 访问 1 次，当 p1&#x3D;5 时 QPS &gt; 100，只访问 p2 不会出现限流 <code>http://localhost:8401/testHotKey?p2=b</code></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加热点规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加热点规则" style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加热点规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加热点规则" style="zoom:50%;">
 
 <ul>
 <li>参数索引 paramIdx：热点参数的索引，图中索引 0 对应方法中的 p1 参数</li>
@@ -8565,7 +8565,7 @@
 <li>入口 QPS：当单台机器上所有入口流量的 QPS 达到阈值即触发系统保护</li>
 <li>CPU usage：当系统 CPU 使用率超过阈值即触发系统保护（取值范围 0.0-1.0）</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加系统规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加系统规则" style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Sentinel增加系统规则.png" srcset="/img/loading.gif" lazyload alt="Cloud-Sentinel增加系统规则" style="zoom:50%;">
 
 
 
@@ -8615,7 +8615,7 @@
 <li>TM 向 TC 发起针对 XID 的全局提交或回滚决议</li>
 <li>TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求</li>
 </ol>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-分布式事务流程.png" srcset="/img/loading.gif" lazyload alt="Cloud-分布式事务流程" style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-分布式事务流程.png" srcset="/img/loading.gif" lazyload alt="Cloud-分布式事务流程" style="zoom:67%;">
 
 
 
@@ -8626,16 +8626,16 @@
 <li>file.conf：自定义事务组名称、事务日志存储模式为 db、数据库连接信息</li>
 </ul>
 <p>  <strong>事务分组</strong>：seata 的资源逻辑，可以按微服务的需要，在应用程序（客户端）对自行定义事务分组，每组取一个名字</p>
-  <img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata配置文件.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata配置文件" style="zoom:50%;" />
+  <img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata配置文件.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata配置文件" style="zoom:50%;">
 
 <ul>
 <li><p>数据库新建库 seata，建表 db_store.sql 在 <a target="_blank" rel="noopener" href="https://github.com/seata/seata/tree/2.x/script/server/db">https://github.com/seata/seata/tree/2.x/script/server/db</a> 目录里面</p>
 </li>
 <li><p>registry.conf：指明注册中心为 Nacos，及修改 Nacos 连接信息</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata注册中心配置.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata注册中心配置" style="zoom: 71%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata注册中心配置.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata注册中心配置" style="zoom: 71%;"></li>
 </ul>
 <p>启动 Nacos 和 Seata，如果 DB 报错，需要把将 lib 文件夹下 mysql-connector-java-5.1.30.jar 删除，替换为自己 MySQL 连接器版本</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata配置成功.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata配置成功" style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Cloud-Seata配置成功.png" srcset="/img/loading.gif" lazyload alt="Cloud-Seata配置成功" style="zoom:80%;">
 
 
 

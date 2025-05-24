@@ -438,7 +438,7 @@
 <hr>
 <h3 id="仓库配置"><a href="#仓库配置" class="headerlink" title="仓库配置"></a>仓库配置</h3><p>默认情况 Maven 本地仓库在系统用户目录下的 <code>.m2/repository</code>，修改 Maven 的配置文件 <code>conf/settings.xml</code> 来修改仓库位置</p>
 <ul>
-<li><p>修改本地仓库位置：找到 <localRepository> 标签，修改默认值</p>
+<li><p>修改本地仓库位置：找到 <localRepository> 标签，修改默认值</localRepository></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- localRepository</span><br><span class="hljs-comment">| The path to the local repository maven will use to store artifacts.</span><br><span class="hljs-comment">| Default: $&#123;user.home&#125;/.m2/repository</span><br><span class="hljs-comment">&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span><br><span class="hljs-comment">--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">localRepository</span>&gt;</span>E:\Workspace\Java\Project\.m2\repository<span class="hljs-tag">&lt;/<span class="hljs-name">localRepository</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>注意：在仓库的同级目录即 <code>.m2</code> 也应该包含一个 <code>settings.xml</code> 配置文件，局部用户配置优先与全局配置</p>
@@ -490,7 +490,7 @@
 <hr>
 <h3 id="IDEA搭建"><a href="#IDEA搭建" class="headerlink" title="IDEA搭建"></a>IDEA搭建</h3><h4 id="不用原型"><a href="#不用原型" class="headerlink" title="不用原型"></a>不用原型</h4><ol>
 <li><p>在 IDEA 中配置 Maven，选择 maven3.6.1 防止依赖问题</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/IDEA配置Maven.png" srcset="/img/loading.gif" lazyload alt="IDEA配置Maven" style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/IDEA配置Maven.png" srcset="/img/loading.gif" lazyload alt="IDEA配置Maven" style="zoom:67%;">
 </li>
 <li><p>创建 Maven，New Module → Maven → 不选中 Create from archetype</p>
 </li>
@@ -1004,7 +1004,7 @@
 </tr>
 </tbody></table>
 <p>Log4j 是 Apache 的一个开源项目。使用 Log4j，通过一个配置文件来灵活地进行配置，而不需要修改应用的代码。我们可以控制日志信息输送的目的地是控制台、文件等位置，也可以控制每一条日志的输出格式。</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/日志体系结构.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/日志体系结构.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 
 
@@ -1058,7 +1058,7 @@
 <li><p>org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等信息）</p>
 </li>
 <li><p>PatternLayout 常用的选项</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/日志-PatternLayout常用的选项.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/日志-PatternLayout常用的选项.png" srcset="/img/loading.gif" lazyload style="zoom:80%;"></li>
 </ul>
 <hr>
 <h3 id="日志应用"><a href="#日志应用" class="headerlink" title="日志应用"></a>日志应用</h3><ul>
@@ -1085,7 +1085,7 @@
 <li>协议支持：HTTP、Protobuf、二进制、文本、WebSocket 等一系列协议都支持，也支持通过实行编码解码逻辑来实现自定义协议</li>
 <li>Core 核心：可扩展事件模型、通用通信 API、支持零拷贝的 ByteBuf 缓冲对象</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-功能特性.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-功能特性.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 
 
@@ -1093,7 +1093,7 @@
 
 <hr>
 <h2 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h2><h3 id="阻塞模型"><a href="#阻塞模型" class="headerlink" title="阻塞模型"></a>阻塞模型</h3><p>传统阻塞型 I&#x2F;O 模式，每个连接都需要独立的线程完成数据的输入，业务处理，数据返回</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-传统阻塞IO服务模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-传统阻塞IO服务模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>模型缺点：</p>
 <ul>
@@ -1104,7 +1104,7 @@
 <hr>
 <h3 id="Reactor"><a href="#Reactor" class="headerlink" title="Reactor"></a>Reactor</h3><h4 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h4><p>Reactor 模式，通过一个或多个输入同时传递给服务处理器的<strong>事件驱动处理模式</strong>。 服务端程序处理传入的多路请求，并将它们同步分派给对应的处理线程，Reactor 模式也叫 Dispatcher 模式，即 I&#x2F;O 多路复用统一监听事件，收到事件后分发（Dispatch 给某线程）</p>
 <p><strong>I&#x2F;O 复用结合线程池</strong>，就是 Reactor 模式基本设计思想：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Reactor模型.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Reactor模型.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>Reactor 模式关键组成：</p>
 <ul>
@@ -1133,7 +1133,7 @@
 <p>说明：<strong>Handler 和 Acceptor 属于同一个线程</strong></p>
 </li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-单Reactor单线程.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-单Reactor单线程.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>模型优点：模型简单，没有多线程、进程通信、竞争的问题，全部都在一个线程中完成</p>
 <p>模型缺点：</p>
@@ -1150,7 +1150,7 @@
 <li><p>Worker 线程池会分配独立的线程完成真正的业务处理，将响应结果发给 Handler 进行处理，最后由 Handler 收到响应结果后通过 send 将响应结果返回给 Client</p>
 </li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-单Reactor多线程.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-单Reactor多线程.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>模型优点：可以充分利用多核 CPU 的处理能力</p>
 <p>模型缺点：</p>
@@ -1170,7 +1170,7 @@
 <li><p>Worker 线程池会分配独立的线程完成真正的业务处理，将响应结果发给 Handler 进行处理，最后由 Handler 收到响应结果后通过 send 将响应结果返回给 Client</p>
 </li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-主从Reactor多线程.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-主从Reactor多线程.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>模型优点</p>
 <ul>
@@ -1181,7 +1181,7 @@
 <hr>
 <h3 id="Proactor"><a href="#Proactor" class="headerlink" title="Proactor"></a>Proactor</h3><p>Reactor 模式中，Reactor 等待某个事件的操作状态发生变化（文件描述符可读写，socket 可读写），然后把事件传递给事先注册的 Handler 来做实际的读写操作，其中的读写操作都需要应用程序同步操作，所以 <strong>Reactor 是非阻塞同步网络模型（NIO）</strong></p>
 <p>把 I&#x2F;O 操作改为异步，交给操作系统来完成就能进一步提升性能，这就是异步网络模型 Proactor（AIO）：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Proactor模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Proactor模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>工作流程：</p>
 <ul>
@@ -1199,7 +1199,7 @@
 </ul>
 <hr>
 <h3 id="Netty-1"><a href="#Netty-1" class="headerlink" title="Netty"></a>Netty</h3><p>Netty 主要基于主从 Reactors 多线程模型做了一定的改进，Netty 的工作架构图：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-工作模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-工作模型.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>工作流程：</p>
 <ol>
@@ -1224,7 +1224,7 @@
 </ul>
 </li>
 <li><p>每个 Worker NioEventLoop 处理业务时，会使用 Pipeline（管道），Pipeline 中包含了 Channel，即通过 Pipeline 可以获取到对应通道，管道中维护了很多的处理器 Handler</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Channel与Pipeline.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Channel与Pipeline.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;"></li>
 </ol>
 <hr>
 <h2 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h2><p>开发简单的服务器端和客户端，基本介绍：</p>
@@ -1649,7 +1649,7 @@
 </ul>
 <hr>
 <h4 id="ProtoBuf"><a href="#ProtoBuf" class="headerlink" title="ProtoBuf"></a>ProtoBuf</h4><h5 id="基本介绍-5"><a href="#基本介绍-5" class="headerlink" title="基本介绍"></a>基本介绍</h5><p>Codec（编解码器）的组成部分有两个：Decoder（解码器）和 Encoder（编码器）。Encoder 负责把业务数据转换成字节码数据，Decoder 负责把字节码数据转换成业务数据</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-编码解码.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-编码解码.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 
 
@@ -1661,7 +1661,7 @@
 <li><p>单个 message：</p>
 <figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>; 								<span class="hljs-comment">// 版本</span><br><span class="hljs-keyword">option</span> java_outer_classname = <span class="hljs-string">&quot;StudentPOJO&quot;</span>;	<span class="hljs-comment">// 生成的外部类名，同时也是文件名</span><br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">Student</span> &#123; 	<span class="hljs-comment">// 在 StudentPOJO 外部类种生成一个内部类 Student，是真正发送的 POJO 对象</span><br>    <span class="hljs-type">int32</span> id = <span class="hljs-number">1</span>; 	<span class="hljs-comment">// Student 类中有一个属性：名字为 id 类型为 int32(protobuf类型) ，1表示属性序号，不是值</span><br>    <span class="hljs-type">string</span> name = <span class="hljs-number">2</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Protobuf编译文件.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Netty-Protobuf编译文件.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 
 <p>编译 <code>protoc.exe --java_out=.Student.proto</code>（cmd 窗口输入） 将生成的 StudentPOJO 放入到项目使用</p>
 <p>Server 端：</p>
@@ -5557,10 +5557,10 @@
 </ul>
 <hr>
 <h3 id="数据写入"><a href="#数据写入" class="headerlink" title="数据写入"></a>数据写入</h3><p>写操作就是事务请求，写入请求直接发送给 Leader 节点：Leader 会先将数据写入自身，同时通知其他 Follower 写入，<strong>当集群中有半数以上节点写入完成</strong>，Leader 节点就会响应客户端数据写入完成</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-写入请求Leader.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-写入请求Leader.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>写入请求直接发送给 Follower 节点：Follower 没有写入权限，会将写请求转发给 Leader，Leader 将数据写入自身，通知其他 Follower 写入，当集群中有半数以上节点写入完成，Leader 会通知 Follower 写入完成，<strong>由 Follower 响应客户端数据写入完成</strong></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-写入请求Follower.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-写入请求Follower.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 
 
@@ -5582,7 +5582,7 @@
 <li>Leader 接收到超过半数以上 Follower 的 ACK 响应消息后，即认为消息发送成功，可以发送 Commit 消息</li>
 <li>Leader 向所有 Follower 广播 commit 消息，同时自身也会完成事务提交，Follower 接收到 Commit 后，将上一条事务提交</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-消息广播.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-消息广播.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>两阶段提交模型可能因为 Leader 宕机带来数据不一致：</p>
 <ul>
@@ -5601,7 +5601,7 @@
 <li>新选举的 Leader 不能包含未提交的 Proposal，即新 Leader 必须都是已经提交了 Proposal 的 Follower 节点</li>
 <li>新选举的 Leader 节点含有<strong>最大的 ZXID</strong>，可以避免 Leader 服务器检查 Proposal 的提交和丢弃工作</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-Leader选举.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-Leader选举.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>数据恢复阶段：</p>
 <ul>
@@ -5654,7 +5654,7 @@
 </ul>
 <hr>
 <h3 id="监听案例"><a href="#监听案例" class="headerlink" title="监听案例"></a>监听案例</h3><h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><p>客户端实时监听服务器动态上下线</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-监听服务器状态.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-监听服务器状态.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 
 
@@ -5790,7 +5790,7 @@
 <ul>
 <li><code>response = manager.pollRecvQueue()</code>：从 RecvQueue 中<strong>阻塞获取出选举投票消息</strong>（其他服务器发送过来的）</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-选举源码.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-选举源码.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 
 
@@ -5809,7 +5809,7 @@
 </li>
 <li>执行数据同步，当 Leader 接收到超过半数 Follower 的 Ack 之后，进入正常工作状态，集群启动完成</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-同步源码.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Frame/Zookeeper-同步源码.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>核心函数解析：</p>
 <ul>

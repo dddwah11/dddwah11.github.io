@@ -577,7 +577,7 @@
 <p>连接建立 TCP 以后需要做<strong>权限验证</strong>，验证成功后可以进行执行 SQL。如果这时管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限，只有再新建的连接才会使用新的权限设置</p>
 <p>MySQL 服务器可以同时和多个客户端进行交互，所以要保证每个连接会话的隔离性（事务机制部分详解）</p>
 <p>整体的执行流程：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-SQL的执行流程.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-SQL的执行流程.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 
 
@@ -678,7 +678,7 @@
 <li><p>查看查询缓存的状态变量：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW STATUS LIKE &#x27;Qcache%&#x27;;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-查询缓存的状态变量.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-查询缓存的状态变量.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <table>
 <thead>
@@ -1103,7 +1103,7 @@
 </tr>
 <tr>
 <td>TIMESTAMP</td>
-<td>时间戳类型，包含年月日时分秒：yyyy-MM-dd HH:mm:ss<br />如果不给这个字段赋值或赋值为 NULL，则默认使用当前的系统时间</td>
+<td>时间戳类型，包含年月日时分秒：yyyy-MM-dd HH:mm:ss<br>如果不给这个字段赋值或赋值为 NULL，则默认使用当前的系统时间</td>
 </tr>
 <tr>
 <td>CHAR</td>
@@ -1111,7 +1111,7 @@
 </tr>
 <tr>
 <td>VARCHAR</td>
-<td>字符串，<strong>变长类型</strong><br />name varchar(20) 代表姓名最大 20 个字符：zhangsan 8 个字符，张三 2 个字符</td>
+<td>字符串，<strong>变长类型</strong><br>name varchar(20) 代表姓名最大 20 个字符：zhangsan 8 个字符，张三 2 个字符</td>
 </tr>
 </tbody></table>
 <p><code>INT(n)</code>：n 代表位数</p>
@@ -1295,7 +1295,7 @@
 </tr>
 <tr>
 <td>LIKE</td>
-<td><strong>模糊查询</strong>：_单个任意字符、%任意个字符、[] 匹配集合内的字符<br/><code>LIKE &#39;[^AB]%&#39; </code>：不以 A 和 B 开头的任意文本</td>
+<td><strong>模糊查询</strong>：_单个任意字符、%任意个字符、[] 匹配集合内的字符<br><code>LIKE &#39;[^AB]%&#39; </code>：不以 A 和 B 开头的任意文本</td>
 </tr>
 <tr>
 <td>IS NULL</td>
@@ -1330,7 +1330,7 @@
 <li><p>例如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 查询库存大于20的商品信息<br>SELECT * FROM product WHERE stock &gt; 20;<br><br>-- 查询品牌为华为的商品信息<br>SELECT * FROM product WHERE brand=&#x27;华为&#x27;;<br><br>-- 查询金额在4000 ~ 6000之间的商品信息<br>SELECT * FROM product WHERE price &gt;= 4000 AND price &lt;= 6000;<br>SELECT * FROM product WHERE price BETWEEN 4000 AND 6000;<br><br>-- 查询库存为14、30、23的商品信息<br>SELECT * FROM product WHERE stock=14 OR stock=30 OR stock=23;<br>SELECT * FROM product WHERE stock IN(14,30,23);<br><br>-- 查询库存为null的商品信息<br>SELECT * FROM product WHERE stock IS NULL;<br>-- 查询库存不为null的商品信息<br>SELECT * FROM product WHERE stock IS NOT NULL;<br><br>-- 查询名称以&#x27;小米&#x27;为开头的商品信息<br>SELECT * FROM product WHERE NAME LIKE &#x27;小米%&#x27;;<br><br>-- 查询名称第二个字是&#x27;为&#x27;的商品信息<br>SELECT * FROM product WHERE NAME LIKE &#x27;_为%&#x27;;<br><br>-- 查询名称为四个字符的商品信息 4个下划线<br>SELECT * FROM product WHERE NAME LIKE &#x27;____&#x27;;<br><br>-- 查询名称中包含电脑的商品信息<br>SELECT * FROM product WHERE NAME LIKE &#x27;%电脑%&#x27;;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-DQL数据准备.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-DQL数据准备.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;"></li>
 </ul>
 <hr>
 <h4 id="函数查询"><a href="#函数查询" class="headerlink" title="函数查询"></a>函数查询</h4><h5 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h5><p>聚合函数：将一列数据作为一个整体，进行纵向的计算</p>
@@ -2743,7 +2743,7 @@
 <li><strong>叶子节点按照 key 大小顺序排列，左边结尾数据都会保存右边节点开始数据的指针，形成一个链表</strong></li>
 <li>所有节点中的 key 在叶子节点中也存在（比如 5)，<strong>key 允许重复</strong>，B 树不同节点不存在重复的 key</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-B加Tree数据结构.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-B加Tree数据结构.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>B* 树：是 B+ 树的变体，在 B+ 树的非根和非叶子结点再增加指向兄弟的指针</p>
 <hr>
@@ -3116,7 +3116,7 @@
 </tr>
 <tr>
 <td>table</td>
-<td>访问数据库中表名称，有时可能是简称或者临时表名称（<table_name>）</td>
+<td>访问数据库中表名称，有时可能是简称或者临时表名称（<table_name>）</table_name></td>
 </tr>
 <tr>
 <td>type</td>
@@ -3459,13 +3459,13 @@
 </ul>
 <hr>
 <h4 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h4><p>索引失效一般是针对联合索引，联合索引一般由几个字段组成，排序方式是先按照第一个字段进行排序，然后排序第二个，依此类推，图示（a, b）索引，<strong>a 相等的情况下 b 是有序的</strong></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-索引失效底层原理1.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-索引失效底层原理1.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <ul>
 <li><p>最左前缀法则：当不匹配前面的字段的时候，后面的字段都是无序的。这种无序不仅体现在叶子节点，也会<strong>导致查询时扫描的非叶子节点也是无序的</strong>，因为索引树相当于忽略的第一个字段，就无法使用二分查找</p>
 </li>
 <li><p>范围查询右边的列，不能使用索引，比如语句： <code>WHERE a &gt; 1 AND b = 1 </code>，在 a 大于 1 的时候，b 是无序的，a &gt; 1 是扫描时有序的，但是找到以后进行寻找 b 时，索引树就不是有序的了</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-索引失效底层原理2.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-索引失效底层原理2.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 </li>
 <li><p>以 % 开头的 LIKE 模糊查询，索引失效，比如语句：<code>WHERE a LIKE &#39;%d&#39;</code>，前面的不确定，导致不符合最左匹配，直接去索引中搜索以 d 结尾的节点，所以没有顺序<br>                            <img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%863.png" srcset="/img/loading.gif" lazyload></p>
 </li>
@@ -3732,7 +3732,7 @@
 <li><p>计数保存在 Redis 中，但是更新 MySQL 和 Redis 的操作不是原子的，会存在数据一致性的问题</p>
 </li>
 <li><p>计数直接放到数据库里单独的一张计数表中，利用事务解决计数精确问题：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-计数count优化.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-计数count优化.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>会话 B 的读操作在 T3 执行的，这时更新事务还没有提交，所以计数值加 1 这个操作对会话 B 还不可见，因此会话 B 查询的计数值和最近 100 条记录，返回的结果逻辑上就是一致的</p>
 <p>并发系统性能的角度考虑，应该先插入操作记录再更新计数表，因为更新计数表涉及到行锁的竞争，<strong>先插入再更新能最大程度地减少事务之间的锁等待，提升并发度</strong></p>
@@ -3769,7 +3769,7 @@
 <p>当内存数据页跟磁盘数据页内容不一致时，称这个内存页为脏页；内存数据写入磁盘后，内存和磁盘上的数据页一致，称为干净页</p>
 <hr>
 <h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><h5 id="Free-链表"><a href="#Free-链表" class="headerlink" title="Free 链表"></a>Free 链表</h5><p>MySQL 启动时完成对 Buffer Pool 的初始化，先向操作系统申请连续的内存空间，然后将内存划分为若干对控制块和缓冲页。为了区分空闲和已占用的数据页，将所有空闲缓冲页对应的<strong>控制块作为一个节点</strong>放入一个链表中，就是 Free 链表（<strong>空闲链表</strong>）</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-空闲链表.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-空闲链表.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>基节点：是一块单独申请的内存空间（占 40 字节），并不在 Buffer Pool 的那一大片连续内存空间里</p>
 <p>磁盘加载页的流程：</p>
@@ -3781,7 +3781,7 @@
 <p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/li1325169021/article/details/121124440">https://blog.csdn.net/li1325169021/article/details/121124440</a></p>
 <hr>
 <h5 id="Flush-链表"><a href="#Flush-链表" class="headerlink" title="Flush 链表"></a>Flush 链表</h5><p>Flush 链表是一个用来<strong>存储脏页</strong>的链表，对于已经修改过的缓冲脏页，第一次修改后加入到<strong>链表头部</strong>，以后每次修改都不会重新加入，只修改部分控制信息，出于性能考虑并不是直接更新到磁盘，而是在未来的某个时间进行刷脏</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-脏页链表.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-脏页链表.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p><strong>后台有专门的线程每隔一段时间把脏页刷新到磁盘</strong>：</p>
 <ul>
@@ -3870,7 +3870,7 @@
 <li>若发送成功就清空 Net Buffer，然后继续取下一行；若发送函数返回 EAGAIN 或 WSAEWOULDBLOCK，表示本地网络栈 <code>socket send buffer</code> 写满了，<strong>进入等待</strong>，直到网络栈重新可写再继续发送</li>
 </ul>
 <p>MySQL 采用的是边读边发的逻辑，因此对于数据量很大的查询来说，不会在 Server 端保存完整的结果集，如果客户端读结果不及时，会堵住 MySQL 的查询过程，但是<strong>不会把内存打爆导致 OOM</strong></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-查询内存优化.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-查询内存优化.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>SHOW PROCESSLIST 获取线程信息后，处于 Sending to client 状态代表服务器端的网络栈写满，等待客户端接收数据</p>
 <p>假设有一个业务的逻辑比较复杂，每读一行数据以后要处理很久的逻辑，就会导致客户端要过很久才会去取下一行数据，导致 MySQL 的阻塞，一直处于 Sending to client 的状态</p>
@@ -3915,7 +3915,7 @@
 <p>一个表单独存储为一个文件更容易管理，在不需要这个表时通过 drop table 命令，系统就会直接删除这个文件；如果是放在共享表空间中，即使表删掉了，空间也是不会回收的</p>
 <hr>
 <h4 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h4><p>MySQL 的数据删除就是移除掉某个记录后，该位置就被标记为<strong>可复用</strong>，如果有符合范围条件的数据可以插入到这里。符合范围条件的意思是假设删除记录 R4，之后要再插入一个 ID 在 300 和 600 之间的记录时，就会复用这个位置</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-删除数据.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-删除数据.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>InnoDB 的数据是按页存储的如果删掉了一个数据页上的所有记录，整个数据页就可以被复用了，如果相邻的两个数据页利用率都很小，系统就会把这两个页上的数据合到其中一个页上，另外一个数据页就被标记为可复用</p>
 <p>删除命令其实只是把记录的位置，或者<strong>数据页标记为了可复用，但磁盘文件的大小是不会变的</strong>，这些可以复用还没有被使用的空间，看起来就像是空洞，造成数据库的稀疏，因此需要进行紧凑处理</p>
@@ -3934,7 +3934,7 @@
 <li>临时文件生成后，将日志文件中的操作应用到临时文件，得到一个逻辑数据上与表 A 相同的数据文件，对应的就是图中 state3</li>
 <li>用临时文件替换表 A 的数据文件</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-重建表.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-重建表.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>Online DDL 操作会先获取 MDL 写锁，再退化成 MDL 读锁。但 MDL 写锁持有时间比较短，所以可以称为 Online； 而 MDL 读锁，不阻止数据增删查改，但会阻止其它线程修改表结构（可以对比 <code>ANALYZE TABLE t</code>  命令）</p>
 <p>问题：重建表可以收缩表空间，但是执行指令后整体占用空间增大</p>
@@ -4283,7 +4283,7 @@
 </ul>
 <p>每次对数据库记录进行改动，都会产生的新版本的 undo log，随着更新次数的增多，所有的版本都会被 roll_pointer 属性连接成一个链表，把这个链表称之为<strong>版本链</strong>，版本链的头节点就是当前的最新的 undo log，链尾就是最早的旧 undo log</p>
 <p>说明：因为 DELETE 删除记录，都是移动到垃圾链表中，不是真正的删除，所以才可以通过版本链访问原始数据</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-MVCC版本链.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-MVCC版本链.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;">
 
 <p>注意：undo 是逻辑日志，这里只是直观的展示出来</p>
 <p>工作流程：</p>
@@ -4493,7 +4493,7 @@
 <h5 id="两段提交"><a href="#两段提交" class="headerlink" title="两段提交"></a>两段提交</h5><p>当客户端执行 COMMIT 语句或者在自动提交的情况下，MySQL 内部开启一个 XA 事务，分两阶段来完成 XA 事务的提交：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">update</span> T <span class="hljs-keyword">set</span> c<span class="hljs-operator">=</span>c<span class="hljs-operator">+</span><span class="hljs-number">1</span> <span class="hljs-keyword">where</span> ID<span class="hljs-operator">=</span><span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-update的执行流程.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-update的执行流程.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 <p>流程说明：执行引擎将这行新数据读入到内存中（Buffer Pool）后，先将此次更新操作记录到 redo log buffer 里，然后更新记录。最后将 redo log 刷盘后事务处于 prepare 状态，执行器会生成这个操作的 binlog，并<strong>把 binlog 写入磁盘</strong>，完成提交</p>
 <p>两阶段：</p>
@@ -4920,7 +4920,7 @@
 <h4 id="锁状态-1"><a href="#锁状态-1" class="headerlink" title="锁状态"></a>锁状态</h4><p>查看锁信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW STATUS LIKE &#x27;innodb_row_lock%&#x27;;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-InnoDB 锁争用.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/MySQL-InnoDB 锁争用.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;">
 
 <p>参数说明：</p>
 <ul>
@@ -5639,7 +5639,7 @@
 <h2 id="数据库-2"><a href="#数据库-2" class="headerlink" title="数据库"></a>数据库</h2><h3 id="服务器-1"><a href="#服务器-1" class="headerlink" title="服务器"></a>服务器</h3><p>Redis 服务器将所有数据库保存在<strong>服务器状态 redisServer 结构</strong>的 db 数组中，数组的每一项都是 redisDb 结构，代表一个数据库，每个数据库之间相互独立，**共用 **Redis 内存，不区分大小。在初始化服务器时，根据 dbnum 属性决定创建数据库的数量，该属性由服务器配置的 database 选项决定，默认 16</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisServer</span> &#123;</span><br>    <span class="hljs-comment">// 保存服务器所有的数据库</span><br>    redisDB *db;<br>    <br>    <span class="hljs-comment">// 服务器数据库的数量</span><br>    <span class="hljs-type">int</span> dbnum;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-服务器数据库.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-服务器数据库.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p><strong>在服务器内部</strong>，客户端状态 redisClient 结构的 db 属性记录了目标数据库，是一个指向 redisDb 结构的指针</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisClient</span> &#123;</span><br>    <span class="hljs-comment">// 记录客户端正在使用的数据库，指向 redisServer.db 数组中的某一个 db</span><br>    redisDB *db;<br>&#125;;<br></code></pre></td></tr></table></figure>
@@ -5938,7 +5938,7 @@
 <li>关注某个命令被什么键执行的通知称为键事件通知（key-event notification）</li>
 </ul>
 <p>图示订阅 0 号数据库 message 键：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-数据库通知.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-数据库通知.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>服务器配置的 notify-keyspace-events 选项决定了服务器所发送通知的类型</p>
 <ul>
@@ -5974,10 +5974,10 @@
 </ul>
 <p>文件事件处理器<strong>以单线程方式运行</strong>，但通过使用  I&#x2F;O 多路复用程序来监听多个套接字， 既实现了高性能的网络通信模型，又可以很好地与 Redis 服务器中其他同样以单线程方式运行的模块进行对接，保持了 Redis 内部单线程设计的简单性</p>
 <p>文件事件处理器的组成结构：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-文件事件处理器.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-文件事件处理器.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 
 <p>I&#x2F;O 多路复用程序将所有产生事件的套接字处理请求放入一个<strong>单线程的执行队列</strong>中，通过队列有序、同步的向文件事件分派器传送套接字，上一个套接字产生的事件处理完后，才会继续向分派器传送下一个</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-IO多路复用程序.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-IO多路复用程序.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>Redis 单线程也能高效的原因：</p>
 <ul>
@@ -6028,7 +6028,7 @@
 <li>周期事件：事件处理器返回非 AE_NOMORE 的整数值，服务器根据该值对事件的 when 属性更新，让该事件在一段时间后再次交付</li>
 </ul>
 <p>服务器将所有时间事件都放在一个<strong>无序链表</strong>中，新的时间事件插入到链表的表头：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-时间事件.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-时间事件.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>无序链表指是链表不按 when 属性的大小排序，每当时间事件执行器运行时就必须遍历整个链表，查找所有已到达的时间事件，并调用相应的事件处理器处理</p>
 <p>无序链表并不影响时间事件处理器的性能，因为正常模式下的 Redis 服务器<strong>只使用 serverCron 一个时间事件</strong>，在 benchmark 模式下服务器也只使用两个时间事件，所以无序链表不会影响服务器的性能，几乎可以按照一个指针处理</p>
@@ -6054,7 +6054,7 @@
 <p>开启多线程后，还需要设置线程数，否则是不生效的，同样需要修改 redis 配置文件 :</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">io-threads 4 <span class="hljs-comment">#官网建议4核的机器建议设置为2或3个线程，8核的建议设置为6个线程</span><br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-多线程.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-多线程.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 
 
 
@@ -6122,11 +6122,11 @@
 <li>argv 属性是一个数组，数组中的每项都是字符串对象，其中 argv[0] 是要执行的命令，而之后的其他项则是命令的参数</li>
 <li>argc 属性负责记录 argv 数组的长度</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令数组.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令数组.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>服务器将根据项 argv[0] 的值，在命令表中查找命令所对应的命令的 redisCommand，将客户端状态的 cmd 指向该结构</p>
 <p>命令表是一个字典结构，键是 SDS 结构保存命令的名字；值是命令所对应的 redisCommand 结构，保存了命令的实现函数、命令标志、 命令应该给定的参数个数、命令的总执行次数和总消耗时长等统计信息</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令查找.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令查找.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 
 
@@ -6706,7 +6706,7 @@
 <li><p>将数据库键的值指针指向一个现有的值对象</p>
 </li>
 <li><p>将被共享的值对象的引用计数增一</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-对象共享.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-对象共享.png" srcset="/img/loading.gif" lazyload style="zoom:67%;"></li>
 </ul>
 <p>Redis 在初始化服务器时创建一万个（配置文件可以修改）字符串对象，包含了<strong>从 0 到 9999 的所有整数值</strong>，当服务器需要用到值为 0 到 9999 的字符串对象时，服务器就会使用这些共享对象，而不是新创建对象</p>
 <p>比如创建一个值为 100 的键 A，并使用 OBJECT REFCOUNT 命令查看键 A 的值对象的引用计数，会发现值对象的引用计数为 2，引用这个值对象的两个程序分别是持有这个值对象的服务器程序，以及共享这个值对象的键 A</p>
@@ -6729,7 +6729,7 @@
 <h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>存储的数据：单个数据，最简单的数据存储类型，也是最常用的数据存储类型，实质上是存一个字符串，string 类型是二进制安全的，可以包含任何数据，比如图片或者序列化的对象</p>
 <p>存储数据的格式：一个存储空间保存一个数据，每一个空间中只能保存一个字符串信息</p>
 <p>存储内容：通常使用字符串，如果字符串以整数的形式展示，可以作为数字操作使用</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-string结构图.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-string结构图.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <p>Redis 所有操作都是<strong>原子性</strong>的，采用<strong>单线程</strong>机制，命令是单个顺序执行，无需考虑并发带来影响，原子性就是有一个失败则都失败</p>
 <p>字符串对象可以是 int、raw、embstr 三种实现方式</p>
@@ -6786,7 +6786,7 @@
 <li>单数据执行 3 条指令的过程：3 次发送 + 3 次处理 + 3 次返回</li>
 <li>多数据执行 1 条指令的过程：1 次发送 + 3 次处理 + 1 次返回（发送和返回的事件略高于单数据）</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/string单数据与多数据操作.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/string单数据与多数据操作.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 
 
@@ -6796,7 +6796,7 @@
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>字符串对象的编码可以是 int、raw、embstr 三种</p>
 <ul>
 <li><p>int：字符串对象保存的是<strong>整数值</strong>，并且整数值可以用 long 类型来表示，那么对象会将整数值保存在字符串对象结构的 ptr 属性面（将 void * 转换成 long)，并将字符串对象的编码设置为 int（浮点数用另外两种方式）</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-字符串对象int编码.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-字符串对象int编码.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 </li>
 <li><p>raw：字符串对象保存的是一个字符串值，并且值的长度大于 39 字节，那么对象将使用简单动态字符串（SDS）来保存该值，并将对象的编码设置为 raw</p>
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1raw%E7%BC%96%E7%A0%81.png" srcset="/img/loading.gif" lazyload></p>
@@ -6869,7 +6869,7 @@
 <h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>数据存储需求：对一系列存储的数据进行编组，方便管理，典型应用存储对象信息</p>
 <p>数据存储结构：一个存储空间保存多个键值对数据</p>
 <p>hash 类型：底层使用<strong>哈希表</strong>结构实现数据存储</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/hash结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/hash结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 <p>Redis 中的 hash 类似于 Java 中的  <code>Map&lt;String, Map&lt;Object,object&gt;&gt;</code>，左边是 key，右边是值，中间叫 field 字段，本质上 <strong>hash 存了一个 key-value 的存储空间</strong></p>
 <p>hash 是指的一个数据类型，并不是一个数据</p>
@@ -6906,7 +6906,7 @@
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-%E5%93%88%E5%B8%8C%E5%AF%B9%E8%B1%A1ziplist.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 <li><p>字典实现哈希对象：字典的每一个键都是一个字符串对象，每个值也是</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-哈希对象dict.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-哈希对象dict.png" srcset="/img/loading.gif" lazyload style="zoom:67%;"></li>
 </ul>
 <p>当存储的数据量比较小的情况下，Redis 才使用压缩列表来实现字典类型，具体需要满足两个条件：</p>
 <ul>
@@ -6920,14 +6920,14 @@
 
 <p>对于以上数据，使用单条去存的话，存的条数会很多。但如果用 json 格式，存一条数据就够了。</p>
 <p>假如现在粉丝数量发生了变化，要把整个值都改变，但是用单条存就不存在这个问题，只需要改其中一个就可以</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/hash应用场景结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/hash应用场景结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 <p>可以实现购物车的功能，key 对应着每个用户，存储空间存储购物车的信息</p>
 <hr>
 <h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><h4 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h4><p>数据存储需求：存储多个数据，并对数据进入存储空间的顺序进行区分</p>
 <p>数据存储结构：一个存储空间保存多个数据，且通过数据可以体现进入顺序，允许重复元素</p>
 <p>list 类型：保存多个数据，底层使用<strong>双向链表</strong>存储结构实现，类似于 LinkedList</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/list结构图.png" srcset="/img/loading.gif" lazyload style="zoom:33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/list结构图.png" srcset="/img/loading.gif" lazyload style="zoom:33%;">
 
 <p>如果两端都能存取数据的话，这就是双端队列，如果只能从一端进一端出，这个模型叫栈</p>
 <hr>
@@ -6969,7 +6969,7 @@
 </ul>
 <p>以上两个条件的上限值是可以通过配置文件修改的，当两个条件的任意一个不能被满足时，对象的编码转换操作就会被执行</p>
 <p>在 Redis3.2 版本 以后对列表数据结构进行了改造，使用 <strong>quicklist（快速列表）</strong>代替了 linkedlist，quicklist 实际上是 ziplist 和 linkedlist 的混合体，将 linkedlist 按段切分，每一段使用 ziplist 来紧凑存储，多个 ziplist 之间使用双向指针串接起来，既满足了快速的插入删除性能，又不会出现太大的空间冗余</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-快速列表数据结构.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-快速列表数据结构.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 
 
@@ -6988,7 +6988,7 @@
 <h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><h4 id="简介-4"><a href="#简介-4" class="headerlink" title="简介"></a>简介</h4><p>数据存储需求：存储大量的数据，在查询方面提供更高的效率</p>
 <p>数据存储结构：能够保存大量的数据，高效的内部存储机制，便于查询</p>
 <p>set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不存储值（nil），所以添加，删除，查找的复杂度都是 O(1)，并且<strong>值是不允许重复且无序的</strong></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/set结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/set结构图.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;">
 
 
 
@@ -7016,10 +7016,10 @@
 <h4 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h4><p>集合对象的内部编码有两种：intset（整数集合）、hashtable（哈希表、字典）</p>
 <ul>
 <li><p>整数集合实现的集合对象：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-集合对象intset.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-集合对象intset.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 </li>
 <li><p>字典实现的集合对象：键值对的值为 NULL</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-集合对象dict.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-集合对象dict.png" srcset="/img/loading.gif" lazyload style="zoom:80%;"></li>
 </ul>
 <p>当集合对象可以同时满足以下两个条件时，对象使用 intset 编码：</p>
 <ul>
@@ -7154,7 +7154,7 @@
 <hr>
 <h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
 <li><p><strong>解决 Redis 缓存穿透</strong>，判断给定数据是否存在， 防止缓存穿透</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-Bitmaps应用之缓存穿透.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-Bitmaps应用之缓存穿透.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 </li>
 <li><p>垃圾邮件过滤，对每一个发送邮件的地址进行判断是否在布隆的黑名单中，如果在就判断为垃圾邮件</p>
 </li>
@@ -7203,7 +7203,7 @@
 <hr>
 <h2 id="持久机制"><a href="#持久机制" class="headerlink" title="持久机制"></a>持久机制</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>持久化：利用永久性存储介质将数据进行保存，在特定的时间将保存的数据进行恢复的工作机制称为持久化 </p>
 <p>作用：持久化用于防止数据的意外丢失，确保数据安全性，因为 Redis 是内存级，所以需要持久化到磁盘</p>
-<p>计算机中的数据全部都是二进制，保存一组数据有两种方式<br><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-持久化的两种方式.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;" /></p>
+<p>计算机中的数据全部都是二进制，保存一组数据有两种方式<br><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-持久化的两种方式.png" srcset="/img/loading.gif" lazyload style="zoom: 33%;"></p>
 <p>RDB：将当前数据状态进行保存，快照形式，存储数据结果，存储格式简单</p>
 <p>AOF：将数据的操作过程进行保存，日志形式，存储操作过程，存储格式复杂</p>
 <hr>
@@ -7218,7 +7218,7 @@
 <hr>
 <h5 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h5><p>BGSAVE：bg 是 background，代表后台执行，命令的完成需要两个进程，<strong>进程之间不相互影响</strong>，所以持久化期间 Redis 正常工作</p>
 <p>工作原理：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-bgsave工作原理.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-bgsave工作原理.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>流程：客户端发出 BGSAVE 指令，Redis 服务器使用 fork 函数创建一个子进程，然后响应后台已经开始执行的信息给客户端。子进程会异步执行持久化的操作，持久化过程是先将数据写入到一个临时文件中，持久化操作结束再用这个临时文件<strong>替换</strong>上次持久化的文件</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建子进程</span><br>pid = fork()<br><span class="hljs-keyword">if</span> pid == <span class="hljs-number">0</span>:<br>    <span class="hljs-comment"># 子进程负责创建 RDB 文件</span><br>    rdbSave()<br>    <span class="hljs-comment"># 完成之后向父进程发送信号</span><br>    signal_parent()<br><span class="hljs-keyword">elif</span> pid &gt; <span class="hljs-number">0</span>:<br>    <span class="hljs-comment"># 父进程继续处理命令请求，并通过轮询等待子进程的信号</span><br>    handle_request_and_wait_signal()<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-comment"># 处理出错恃况</span><br>    handle_fork_error() <br></code></pre></td></tr></table></figure>
@@ -7310,7 +7310,7 @@
 <h3 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h3><h4 id="基本概述"><a href="#基本概述" class="headerlink" title="基本概述"></a>基本概述</h4><p>AOF（append only file）持久化：以独立日志的方式记录每次写命令（不记录读）来记录数据库状态，<strong>增量保存</strong>只许追加文件但不可以改写文件，<strong>与 RDB 相比可以理解为由记录数据改为记录数据的变化</strong></p>
 <p>AOF 主要作用是解决了<strong>数据持久化的实时性</strong>，目前已经是 Redis 持久化的主流方式</p>
 <p>AOF 写数据过程：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-AOF工作原理.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-AOF工作原理.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>Redis 只会将对数据库进行了修改的命令写入到 AOF 文件，并复制到各个从服务器，但是 PUBSUB 和 SCRIPT LOAD 命令例外：</p>
 <ul>
@@ -7481,7 +7481,7 @@
 <p>进阶使用：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span>  </span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span>  </span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>  <br>&#123;  <br>   <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;  <br>   <span class="hljs-comment">// ppid 指当前进程的父进程pid  </span><br>   <span class="hljs-comment">// pid 指当前进程的pid,  </span><br>   <span class="hljs-comment">// fpid 指fork返回给当前进程的值，在这可以表示子进程</span><br>   <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++)&#123;  <br>       <span class="hljs-type">pid_t</span> fpid = fork();  <br>       <span class="hljs-keyword">if</span>(fpid == <span class="hljs-number">0</span>)  <br>           <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d child  %4d %4d %4d/n&quot;</span>,i, getppid(), getpid(), fpid);  <br>       <span class="hljs-keyword">else</span>  <br>           <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d parent %4d %4d %4d/n&quot;</span>,i, getppid(), getpid(),fpid);  <br>   &#125;  <br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;  <br>&#125; <br><span class="hljs-comment">/*输出内容：</span><br><span class="hljs-comment">	i        父id  id  子id</span><br><span class="hljs-comment">	0 parent 2043 3224 3225</span><br><span class="hljs-comment">    0 child  3224 3225    0</span><br><span class="hljs-comment">    1 parent 2043 3224 3226</span><br><span class="hljs-comment">    1 parent 3224 3225 3227</span><br><span class="hljs-comment">    1 child     1 3227    0</span><br><span class="hljs-comment">    1 child     1 3226    0 </span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
 
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork函数使用演示.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork函数使用演示.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;">
 
 <p>在 p3224 和 p3225 执行完第二个循环后，main 函数退出，进程死亡。所以 p3226，p3227 就没有父进程了，成为孤儿进程，所以 p3226 和 p3227 的父进程就被置为 ID 为 1 的 init 进程（笔记 Tool → Linux → 进程管理详解）</p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/love_gaohz/article/details/41727415">https://blog.csdn.net/love_gaohz/article/details/41727415</a></p>
@@ -7490,12 +7490,12 @@
 <p>早期 Linux 的 fork() 实现时，就是全部复制，这种方法效率太低，而且造成了很大的内存浪费，现在 Linux 实现采用了两种方法：</p>
 <ul>
 <li><p>父子进程的代码段是相同的，所以代码段是没必要复制的，只需内核将代码段标记为只读，父子进程就共享此代码段。fork() 之后在进程创建代码段时，子进程的进程级页表项都指向和父进程相同的物理页帧</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork以后内存关系1.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork以后内存关系1.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 </li>
 <li><p>对于父进程的数据段，堆段，栈段中的各页，由于父子进程相互独立，采用<strong>写时复制 COW</strong> 的技术，来提高内存以及内核的利用率</p>
 <p>在 fork 之后两个进程用的是相同的物理空间（内存区），子进程的代码段、数据段、堆栈都是指向父进程的物理空间，<strong>两者的虚拟空间不同，但其对应的物理空间是同一个</strong>，当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间。如果两者的代码完全相同，代码段继续共享父进程的物理空间；而如果两者执行的代码不同，子进程的代码段也会分配单独的物理空间。   </p>
 <p>fork 之后内核会将子进程放在队列的前面，让子进程先执行，以免父进程执行导致写时复制，而后子进程再执行，因无意义的复制而造成效率的下降</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork以后内存关系2.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></li>
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-fork以后内存关系2.png" srcset="/img/loading.gif" lazyload style="zoom:67%;"></li>
 </ul>
 <p>补充知识：</p>
 <p>vfork（虚拟内存 fork virtual memory fork）：调用 vfork() 父进程被挂起，子进程使用父进程的地址空间。不采用写时复制，如果子进程修改父地址空间的任何页面，这些修改过的页面对于恢复的父进程是可见的</p>
@@ -7574,10 +7574,10 @@
 <p>一致是数据符合数据库的定义和要求，没有包含非法或者无效的错误数据，Redis 通过错误检测和简单的设计来保证事务的一致性：</p>
 <ul>
 <li><p>入队错误：命令格式输入错误，出现语法错误造成，<strong>整体事务中所有命令均不会执行</strong>，包括那些语法正确的命令</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令的语法错误.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-命令的语法错误.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 </li>
 <li><p>执行错误：命令执行出现错误，例如对字符串进行 incr 操作，事务中正确的命令会被执行，运行错误的命令不会被执行</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-事务中执行错误.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-事务中执行错误.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 </li>
 <li><p>服务器停机：</p>
 <ul>
@@ -8091,7 +8091,7 @@
 </ul>
 <hr>
 <h2 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h2><h3 id="哨兵概述"><a href="#哨兵概述" class="headerlink" title="哨兵概述"></a>哨兵概述</h3><p>Sentinel（哨兵）是 Redis 的高可用性（high availability）解决方案，由一个或多个 Sentinel 实例 instance 组成的 Sentinel 系统可以监视任意多个主服务器，以及这些主服务器的所有从服务器，并在被监视的主服务器下线时进行故障转移</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-哨兵系统.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-哨兵系统.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <ul>
 <li>双环图案表示主服务器</li>
@@ -8703,7 +8703,7 @@
 <li><p>第一个客户端可以看到发送的消息</p>
 </li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-发布订阅指令操作.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-发布订阅指令操作.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
 
 <p>客户端还可以通过 PSUBSCRIBE 命令订阅一个或多个模式，每当有其他客户端向某个频道发送消息时，消息不仅会被发送给这个频道的所有订阅者，还会被<strong>发送给所有与这个频道相匹配的模式的订阅者</strong>，比如 <code>PSUBSCRIBE channel*</code> 订阅模式，与 channel1 匹配</p>
 <p>注意：发布的消息没有持久化，所以订阅的客户端只能收到订阅后发布的消息</p>
@@ -8760,7 +8760,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 实现原理</span><br>def <span class="hljs-title function_">MONITOR</span><span class="hljs-params">()</span>:<br>	<span class="hljs-comment">// 打开客户端的监视器标志</span><br>	client.flags |= REDIS_MONITOR<br>        <br>  	<span class="hljs-comment">// 将客户端添加到服务器状态的 redisServer.monitors链表的末尾</span><br>   	server.monitors.append(client)<br>  	<span class="hljs-comment">// 向客户端返回 ok</span><br>	send_reply(<span class="hljs-string">&quot;OK&quot;</span>)<br></code></pre></td></tr></table></figure>
 
 <p>服务器每次处理命令请求都会调用 replicationFeedMonitors 函数，函数将被处理的命令请求的相关信息<strong>发送给各个监视器</strong></p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-监视器.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/DB/Redis-监视器.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sh">redis&gt; MONITOR <br>OK <br>1378822099.421623 [0 127.0.0.1:56604] <span class="hljs-string">&quot;PING&quot;</span> <br>1378822105.089572 [0 127.0.0.1:56604] <span class="hljs-string">&quot;SET&quot;</span> <span class="hljs-string">&quot;msg&quot;</span> <span class="hljs-string">&quot;hello world&quot;</span> <br>1378822109.036925 [0 127.0.0.1:56604] <span class="hljs-string">&quot;SET&quot;</span> <span class="hljs-string">&quot;number&quot;</span> <span class="hljs-string">&quot;123&quot;</span> <br>1378822140.649496 (0 127.0.0.1:56604] <span class="hljs-string">&quot;SADD&quot;</span> <span class="hljs-string">&quot;fruits&quot;</span> <span class="hljs-string">&quot;Apple&quot;</span> <span class="hljs-string">&quot;Banana&quot;</span> <span class="hljs-string">&quot;Cherry&quot;</span> <br>1378822154.117160 [0 127.0.0.1:56604] <span class="hljs-string">&quot;EXPIRE&quot;</span> <span class="hljs-string">&quot;msg&quot;</span> <span class="hljs-string">&quot;10086&quot;</span> <br>1378822257.329412 [0 127.0.0.1:56604] <span class="hljs-string">&quot;KEYS&quot;</span> <span class="hljs-string">&quot;*&quot;</span> <br>1378822258.690131 [0 127.0.0.1:56604] <span class="hljs-string">&quot;DBSIZE&quot;</span> <br></code></pre></td></tr></table></figure>
 

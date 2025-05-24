@@ -334,7 +334,7 @@
 <p>设置用户信息：</p>
 <ul>
 <li>git config –global user.name “Seazean”</li>
-<li>git config –global user.email “<a href="mailto:&#105;&#x6d;&#115;&#x65;&#x61;&#x7a;&#x65;&#x61;&#x6e;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#105;&#x6d;&#115;&#x65;&#x61;&#x7a;&#x65;&#x61;&#x6e;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
+<li>git config –global user.email “<a href="mailto:&#105;&#x6d;&#115;&#101;&#x61;&#122;&#101;&#97;&#110;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#105;&#x6d;&#115;&#101;&#x61;&#122;&#101;&#97;&#110;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
 </ul>
 <p>查看配置信息：</p>
 <ul>
@@ -369,7 +369,7 @@
 </ul>
 </li>
 <li>查看命令：cat ~&#x2F;.ssh&#x2F;id_rsa.pub</li>
-<li>公钥测试命令：ssh -T <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a></li>
+<li>公钥测试命令：ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a></li>
 </ul>
 </li>
 </ul>
@@ -467,15 +467,15 @@
 <hr>
 <h3 id="查看仓库"><a href="#查看仓库" class="headerlink" title="查看仓库"></a>查看仓库</h3><p>git remote：显示所有远程仓库的简写  </p>
 <p>git remote -v：显示所有远程仓库  </p>
-<p>git remote show <shortname>：显示某个远程仓库的详细信息</p>
-<h3 id="添加仓库"><a href="#添加仓库" class="headerlink" title="添加仓库"></a>添加仓库</h3><p>git remote add <shortname><url>：添加一个新的远程仓库，并指定一个可以引用的简写</p>
-<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><p>git clone <url>(HTTPS or SSH)：克隆远程仓库</p>
+<p>git remote show <shortname>：显示某个远程仓库的详细信息</shortname></p>
+<h3 id="添加仓库"><a href="#添加仓库" class="headerlink" title="添加仓库"></a>添加仓库</h3><p>git remote add <shortname><url>：添加一个新的远程仓库，并指定一个可以引用的简写</url></shortname></p>
+<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><p>git clone <url>(HTTPS or SSH)：克隆远程仓库</url></p>
 <p>Git 克隆的是该 Git 仓库服务器上的几乎所有数据（包括日志信息、历史记录等），而不仅仅是复制工作所需要的文件，当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。</p>
-<h3 id="删除仓库"><a href="#删除仓库" class="headerlink" title="删除仓库"></a>删除仓库</h3><p>git remote rm <shortname>：移除远程仓库，从本地移除远程仓库的记录，并不会影响到远程仓库</p>
-<h3 id="拉取仓库"><a href="#拉取仓库" class="headerlink" title="拉取仓库"></a>拉取仓库</h3><p>git fetch  <shortname>：从远程仓库获取最新版本到本地仓库，不会自动 merge  </p>
-<p>git pull <shortname> <branchname>：从远程仓库获取最新版本并 merge 到本地仓库</p>
+<h3 id="删除仓库"><a href="#删除仓库" class="headerlink" title="删除仓库"></a>删除仓库</h3><p>git remote rm <shortname>：移除远程仓库，从本地移除远程仓库的记录，并不会影响到远程仓库</shortname></p>
+<h3 id="拉取仓库"><a href="#拉取仓库" class="headerlink" title="拉取仓库"></a>拉取仓库</h3><p>git fetch  <shortname>：从远程仓库获取最新版本到本地仓库，不会自动 merge  </shortname></p>
+<p>git pull <shortname> <branchname>：从远程仓库获取最新版本并 merge 到本地仓库</branchname></shortname></p>
 <p>注意：如果当前本地仓库不是从远程仓库克隆，而是本地创建的仓库，并且<strong>仓库中存在文件</strong>，此时再从远程仓库拉取文件的时候会报错（fatal: refusing to merge unrelated histories ），解决此问题可以在 git pull 命令后加入参数 –allow-unrelated-histories</p>
-<h3 id="推送仓库"><a href="#推送仓库" class="headerlink" title="推送仓库"></a>推送仓库</h3><p>git push <shortname><branchname>：上传本地指定分支到远程仓库</p>
+<h3 id="推送仓库"><a href="#推送仓库" class="headerlink" title="推送仓库"></a>推送仓库</h3><p>git push <shortname><branchname>：上传本地指定分支到远程仓库</branchname></shortname></p>
 <hr>
 <h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2.png" srcset="/img/loading.gif" lazyload></p>
 <p>命令：git reset –hard 版本唯一索引值</p>
@@ -538,7 +538,7 @@
 <hr>
 <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>操作系统（Operation System），是管理计算机硬件与软件资源的计算机程序，同时也是计算机系统的内核与基石。操作系统需要处理管理与配置内存、决定系统资源供需的优先次序、控制输入设备与输出设备、操作网络与管理文件系统等基本事务，操作系统也提供一个让用户与系统交互的操作界面</p>
 <p>操作系统作为接口的示意图：</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/操作系统.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/操作系统.png" srcset="/img/loading.gif" lazyload style="zoom:80%;">
 
 <p>移动设备操作系统：</p>
 <p><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.png" srcset="/img/loading.gif" lazyload></p>
@@ -570,7 +570,7 @@
 <li><p>在虚拟机中访问网络，需要增加一块 NAT 网卡</p>
 <ul>
 <li>【虚拟机】–【设置】–【添加】</li>
-<li><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/两块NAT网卡.jpg" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></li>
+<li><img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/两块NAT网卡.jpg" srcset="/img/loading.gif" lazyload style="zoom:80%;"></li>
 </ul>
 </li>
 </ul>
@@ -1021,7 +1021,7 @@
 <li>若是 c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
 </ul>
 <p>接下来的字符，以三个为一组，均为[rwx] 的三个参数组合。其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现[ - ]。</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/文件权限.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/文件权限.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
 
 <p>从左至右用 0-9 这些数字来表示：</p>
 <ul>
@@ -1066,7 +1066,7 @@
 <li>-R : 进行递归（recursive）的持续变更，亦即连同次目录下的所有文件都会变更</li>
 </ul>
 <p>文件的权限字符为：[-rwxrwxrwx]， 这九个权限是三三一组的，我们使用数字来代表各个权限</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/权限数字表.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/权限数字表.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;">
 
 <p>各权限的数字对照表：[r]:4、[w]:2、[x]:1、[-]:0</p>
 <p>每种身份（owner&#x2F;group&#x2F;others）的三个权限（r&#x2F;w&#x2F;x）分数是需要累加的，例如权限为：[-rwxrwx—] 分数是</p>
@@ -1762,7 +1762,7 @@
 <li>-s：默认是实体链接，加 -s 为符号链接</li>
 <li>-f：如果目标文件存在时，先删除目标文件</li>
 </ul>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/文件链接.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/文件链接.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;">
 
 <p><strong>实体链接</strong>：</p>
 <ul>
@@ -1893,7 +1893,7 @@
 
 <ul>
 <li><p><code>ifconfig</code>：显示激活的网卡信息  ens</p>
-<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/网卡信息.png" srcset="/img/loading.gif" lazyload  />
+<img src="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/网卡信息.png" srcset="/img/loading.gif" lazyload>
 
 <p>ens33（或 eth0）表示第一块网卡，IP地址是 192.168.0.137，广播地址 broadcast 192.168.0.255，掩码地址netmask 255.255.255.0 ，inet6 对应的是 ipv6</p>
 <p>lo 是表示主机的<strong>回坏地址</strong>，用来测试一个网络程序，但又不想让局域网或外网的用户能够查看，只能在此台主机上运行和查看所用的网络接口 </p>
