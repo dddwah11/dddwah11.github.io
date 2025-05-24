@@ -1,0 +1,1145 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="61分">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.为什么要使用RabbtiMQ1.1简介 什么是同步通常而言，在公司可能存在多个业务系统，这些业务系统之间的通信都是进行接口调用的  现在假设系统A收到一个请求，可能是用户通过浏览器或者APP发起的，这个时候系统A收到请求之后就会立马去调用系统B，然后系统B返回结果给系统A之后，系统A才能返回结果给用户那么在这种情况下，用户发起一个请求，系统A收到请求，接着系统A必须马上去调用系统B，知道系统B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbtiMQ">
+<meta property="og:url" content="https://dddwah11.github.io/2025/05/24/25524/RabbitMQ/index.html">
+<meta property="og:site_name" content="小刘">
+<meta property="og:description" content="1.为什么要使用RabbtiMQ1.1简介 什么是同步通常而言，在公司可能存在多个业务系统，这些业务系统之间的通信都是进行接口调用的  现在假设系统A收到一个请求，可能是用户通过浏览器或者APP发起的，这个时候系统A收到请求之后就会立马去调用系统B，然后系统B返回结果给系统A之后，系统A才能返回结果给用户那么在这种情况下，用户发起一个请求，系统A收到请求，接着系统A必须马上去调用系统B，知道系统B">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570216473-af1ca27c-c8d3-4d3d-a14a-8339791d0093.png#averageHue=%23e8e1cf&clientId=u47098c25-1a45-4&from=paste&height=155&id=ua3324557&originHeight=155&originWidth=869&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25255&status=done&style=none&taskId=u50ff57f4-c172-474d-ba42-a9e7308287c&title=&width=869">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570249367-ac38a568-5a22-4d49-a4ea-6828cd8b537c.png#averageHue=%23efede5&clientId=u47098c25-1a45-4&from=paste&height=217&id=u17e5d2b0&originHeight=217&originWidth=875&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40861&status=done&style=none&taskId=ue724abb8-81e2-42bc-940c-3bc2a22a26e&title=&width=875">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570337488-e597b1c6-78e7-409c-b32b-43ae38415a65.png#averageHue=%23f1ebe6&clientId=u47098c25-1a45-4&from=paste&height=200&id=ueeadf86d&originHeight=200&originWidth=878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35643&status=done&style=none&taskId=u6c4e056e-eb80-4407-acc7-5c6b48057e9&title=&width=878">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570360259-62a2ea43-2aa9-4dd3-87d7-6ee9eede4d20.png#averageHue=%23f0eae5&clientId=u47098c25-1a45-4&from=paste&height=188&id=u2477be00&originHeight=188&originWidth=847&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41253&status=done&style=none&taskId=u1e0aaa3f-ed10-4f2f-b6d7-68682052825&title=&width=847">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570532146-99c4e656-2dee-4666-a2fa-59cbbec437a9.png#averageHue=%23efede4&clientId=u47098c25-1a45-4&from=paste&height=202&id=u75547095&originHeight=202&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45108&status=done&style=none&taskId=u256ae767-6611-407e-804a-630b4fae7b4&title=&width=865">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570582660-09c7a26b-c335-4d16-b3b0-cbb66c10a035.png#averageHue=%23eee3dd&clientId=u47098c25-1a45-4&from=paste&height=196&id=u62dafa52&originHeight=196&originWidth=845&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52258&status=done&style=none&taskId=u406ac05a-12e7-46d8-9789-d9fd323c999&title=&width=845">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570622986-ef77c85b-4db0-4154-9149-8d831049bc48.png#averageHue=%23eeece6&clientId=u47098c25-1a45-4&from=paste&height=182&id=ua004d28e&originHeight=182&originWidth=873&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57722&status=done&style=none&taskId=ufb19f1d9-66f7-4595-bece-d93d02edc16&title=&width=873">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570811126-c0b6f36c-7f77-4c54-9fcc-4fc3f7f8684a.png#averageHue=%23f4eae7&clientId=u47098c25-1a45-4&from=paste&height=243&id=u3ad76431&originHeight=243&originWidth=864&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61305&status=done&style=none&taskId=u97a404e4-6ef2-40b0-8b1b-e6381079076&title=&width=864">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570844113-0138c33b-3501-4e55-b99e-d7ad310d088f.png#averageHue=%23f0ede6&clientId=u47098c25-1a45-4&from=paste&height=256&id=ub7a897b4&originHeight=256&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54166&status=done&style=none&taskId=u89181cb7-418e-41b4-8960-bdd286cd7cb&title=&width=857">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570897189-179daa1a-5826-47e0-a059-0b9dac0cb218.png#averageHue=%23f0e5e0&clientId=u47098c25-1a45-4&from=paste&height=205&id=u3adcf035&originHeight=205&originWidth=859&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43954&status=done&style=none&taskId=u8e982c8c-a3ff-4f30-9a64-85718242c7f&title=&width=859">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687576104989-3d539293-da94-4989-8889-146a02075629.png#averageHue=%23f9f5f2&clientId=u47098c25-1a45-4&from=paste&height=164&id=u95f8b0a9&originHeight=164&originWidth=341&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5523&status=done&style=none&taskId=u5fe849ee-13a9-4738-a050-63e1d2c5f05&title=&width=341">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594248115-b9671c3c-7505-413c-bdb7-c90e892ee1c9.png#averageHue=%23f9f8f8&clientId=u47098c25-1a45-4&from=paste&height=703&id=u9fe4faba&originHeight=703&originWidth=1887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68571&status=done&style=none&taskId=u8ea4d7f5-6a4f-43c4-a7a4-83ad6345db3&title=&width=1887">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594701738-ae8e2185-2b86-4901-a3a3-6c914f39e5a3.png#averageHue=%23f2f2f2&clientId=u47098c25-1a45-4&from=paste&height=143&id=ua6fae670&originHeight=143&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51686&status=done&style=none&taskId=u3439642b-e38b-4df6-9132-34374eb15ce&title=&width=865">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594710669-b25e571f-4f30-4557-b6b4-94a2d7dbc4f1.png#averageHue=%23e5e8a2&clientId=u47098c25-1a45-4&from=paste&height=274&id=u37904de6&originHeight=274&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=175835&status=done&style=none&taskId=u6452418c-75ae-4b52-9c0c-6818775abea&title=&width=865">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594716811-0410beb5-eadb-4e38-9fa3-a73af902aecf.png#averageHue=%23b9cba5&clientId=u47098c25-1a45-4&from=paste&height=275&id=ud7123dc5&originHeight=275&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=266964&status=done&style=none&taskId=u690de8cb-ef2f-474b-b81f-9e841952ee0&title=&width=865">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687572994515-754e542b-7670-4a26-8ce9-d1011c96ac2e.png#averageHue=%23fdf9f7&clientId=u47098c25-1a45-4&from=paste&height=584&id=u8347d70c&originHeight=584&originWidth=904&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60392&status=done&style=none&taskId=u5d6decb8-e07b-49fa-9690-4173b206b93&title=&width=904">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687573012388-e9a1eef5-1dfc-468f-bc05-82b9b9fb3a32.png#averageHue=%23fdf9f8&clientId=u47098c25-1a45-4&from=paste&height=569&id=uf9ed31e1&originHeight=569&originWidth=594&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43163&status=done&style=none&taskId=u7ba27510-0edb-4bb0-8e9e-ee5bd8556fd&title=&width=594">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687573333965-cf532c76-0c81-4dd6-b639-ce46b8fbf647.png#averageHue=%23a5c068&clientId=u47098c25-1a45-4&from=paste&height=121&id=u49a60713&originHeight=121&originWidth=809&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22958&status=done&style=none&taskId=ubf853b72-ea53-4c17-8976-1458fee76cd&title=&width=809">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687575368334-0207e548-683b-4bf6-9a57-06865ad40a1f.png#averageHue=%23394146&clientId=u47098c25-1a45-4&from=paste&height=145&id=u29914b2c&originHeight=145&originWidth=209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6344&status=done&style=none&taskId=uf1f7a40b-a37c-48d2-a3b9-de02a6089b2&title=&width=209">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687575466230-ba8bed20-660c-4884-b3a3-6027b4848d1b.png#averageHue=%233d4245&clientId=u47098c25-1a45-4&from=paste&height=615&id=ub0799a7a&originHeight=615&originWidth=783&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46241&status=done&style=none&taskId=u7b4f04b9-4787-4bca-a2f9-726df02bf1b&title=&width=783">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687595772000-8addaccd-9b4f-4117-928f-631ebe02d9ce.png#averageHue=%23f8f5f4&clientId=u47098c25-1a45-4&from=paste&height=708&id=u704aa66b&originHeight=708&originWidth=1238&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52402&status=done&style=none&taskId=ucf565705-2ef9-4ac4-9b1a-dd618bb1690&title=&width=1238">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687595979292-19f37d60-a9b9-4bc9-9c6c-ed6ebd8e9043.png#averageHue=%23f9f8f8&clientId=u47098c25-1a45-4&from=paste&height=496&id=ufb7001f8&originHeight=496&originWidth=1347&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49753&status=done&style=none&taskId=u00bc0516-4384-4ea0-9450-ab5300d1443&title=&width=1347">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687596411639-9b035195-3ca0-4892-bf99-9847a76919d2.png#averageHue=%23faf9f9&clientId=u47098c25-1a45-4&from=paste&height=729&id=ufb578fde&originHeight=729&originWidth=1686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74334&status=done&style=none&taskId=uab96dd1a-7076-4bb7-9b00-67dcc4b89a2&title=&width=1686">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597094948-fa1ac63b-179d-4db3-843f-8c69e4e63796.png#averageHue=%23394046&clientId=u47098c25-1a45-4&from=paste&height=178&id=u6fb7cb09&originHeight=178&originWidth=277&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9352&status=done&style=none&taskId=u3eddecd7-189a-423b-83e6-79be053d8a1&title=&width=277">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597426283-8544e868-5438-409c-8b36-8f9bfeaa274e.png#averageHue=%232e2c2c&clientId=u47098c25-1a45-4&from=paste&height=886&id=u23e79ccc&originHeight=886&originWidth=1533&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153062&status=done&style=none&taskId=ue2267f4d-71ef-47bb-af82-b1b7b682b0b&title=&width=1533">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597703942-99bd7c7a-e77b-486c-9932-d681344f761c.png#averageHue=%23f8f6f6&clientId=u47098c25-1a45-4&from=paste&height=714&id=uf5ee6555&originHeight=714&originWidth=1353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69546&status=done&style=none&taskId=ue2ffe37a-d72c-4189-b91e-7182830e6d2&title=&width=1353">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597929077-d867aed6-8f2f-470d-b6e1-3142f7a71848.png#averageHue=%23f7f7f7&clientId=u47098c25-1a45-4&from=paste&height=797&id=hiI4s&originHeight=797&originWidth=1000&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70755&status=done&style=none&taskId=u07952f6a-9dc3-4e76-b9fb-ad9d1785653&title=&width=1000">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597829618-583c743d-080c-4f00-a11c-62bd955415f6.png#averageHue=%23907a60&clientId=u47098c25-1a45-4&from=paste&height=220&id=uff33515d&originHeight=220&originWidth=557&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26764&status=done&style=none&taskId=u660541e3-ca54-4885-8287-ca62f698784&title=&width=557">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687601632567-ae7543e7-fe64-44a9-b173-b35205ab17ee.png#averageHue=%23fef9f9&clientId=u47098c25-1a45-4&from=paste&height=305&id=uc63ccedf&originHeight=305&originWidth=816&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28486&status=done&style=none&taskId=u5b21af2e-3bc5-44f2-a8f4-f4fe9ebfba0&title=&width=816">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687605351728-a2f6b0d2-1a40-4aed-a930-2f67cd07a683.png#averageHue=%233e4347&clientId=u47098c25-1a45-4&from=paste&height=305&id=u2b90118d&originHeight=305&originWidth=417&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20121&status=done&style=none&taskId=u0b0b01ff-9035-49ef-aa6c-3e21114eaea&title=&width=417">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687607655800-2307a191-7090-4d36-9057-0391d9a53a89.png#averageHue=%23f9f8f7&clientId=u47098c25-1a45-4&from=paste&height=707&id=u1d34281c&originHeight=707&originWidth=961&originalType=binary&ratio=1&rotation=0&showTitle=false&size=50212&status=done&style=none&taskId=u4bb62c5e-d4c9-4cf2-9736-05dfb0ec8af&title=&width=961">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687610021199-65dfa794-ca19-4d28-a94c-8ea2ac0aa3a7.png#averageHue=%23fdf7f7&clientId=u47098c25-1a45-4&from=paste&height=282&id=u405ec02a&originHeight=282&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42303&status=done&style=none&taskId=u12cbf148-c62a-4862-ba5c-8c7aae8a1bc&title=&width=826">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687610280342-d244eede-c548-4284-84d3-f0aa2354b91d.png#averageHue=%23fdf7f7&clientId=u47098c25-1a45-4&from=paste&height=252&id=u01ef8176&originHeight=252&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36825&status=done&style=none&taskId=u769f228a-e0c5-4de6-ac7a-a49f324313f&title=&width=852">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687610903801-d212d5d6-933e-44a5-a9d9-e043dad14f8c.jpeg#averageHue=%23fcf7f7&clientId=u47098c25-1a45-4&from=paste&height=205&id=ub55566e2&originHeight=205&originWidth=845&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49825&status=done&style=none&taskId=ucba520cc-b942-4ac0-a0b2-b21eb1734db&title=&width=845">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612395879-3d774a7c-0663-4598-bdd7-e5c4f6168988.png#averageHue=%233f464e&clientId=u47098c25-1a45-4&from=paste&height=284&id=u1674284c&originHeight=284&originWidth=327&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13375&status=done&style=none&taskId=ue7da1162-b42e-4a14-bb87-cf09b7c98ea&title=&width=327">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611430482-be3f03a3-6bc1-4f50-aaa1-5bb92b76188a.png#averageHue=%23f7f6f6&clientId=u47098c25-1a45-4&from=paste&height=584&id=ueffb2e58&originHeight=584&originWidth=919&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41740&status=done&style=none&taskId=u819ce2c7-88ec-4c60-bfa9-74953aab37a&title=&width=919">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611445606-0c16eaeb-b897-40eb-b5c3-a873a9b7770e.png#averageHue=%23f7f5f4&clientId=u47098c25-1a45-4&from=paste&height=412&id=u5b894774&originHeight=412&originWidth=938&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30366&status=done&style=none&taskId=u0d37c715-d137-4562-82b8-c015962b447&title=&width=938">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611955987-102e69f2-5f56-4d9f-91da-0083551a5a2a.png#averageHue=%23fcf6f6&clientId=u47098c25-1a45-4&from=paste&height=272&id=u410e99fd&originHeight=272&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48099&status=done&style=none&taskId=u843e6837-6a61-4688-8e73-cdbc92296eb&title=&width=846">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687615312812-18294cd8-9aec-4fd4-9584-185e30e1d377.jpeg#averageHue=%23fcf6f6&clientId=u47098c25-1a45-4&from=paste&height=338&id=u1983be18&originHeight=338&originWidth=835&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68723&status=done&style=none&taskId=u2991ad1e-f9c8-4951-beb5-6d70dfcd63e&title=&width=835">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612965040-67b50d4b-b5c2-4ef6-a6b3-f5b7f594951d.png#averageHue=%23f6f5f4&clientId=u47098c25-1a45-4&from=paste&height=577&id=ud9c9992d&originHeight=577&originWidth=777&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40564&status=done&style=none&taskId=u5dcb66c2-5d74-488a-97d0-0e13ecc8581&title=&width=777">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612980790-257d984b-2f0e-443c-8281-6e5e2c703683.png#averageHue=%23f8f7f6&clientId=u47098c25-1a45-4&from=paste&height=640&id=uc698c758&originHeight=640&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46471&status=done&style=none&taskId=u93883579-b528-41cf-908e-31d2c8646fc&title=&width=928">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687645499755-37983798-abc4-40c7-9f55-f37be9b4320b.png#averageHue=%23f8efef&clientId=u0d082fe1-067a-4&from=paste&height=284&id=u29e72396&originHeight=284&originWidth=804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84771&status=done&style=none&taskId=u0be8f569-cf5a-4d1b-83d2-672dc43ff2b&title=&width=804">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687615348685-d956d8b0-991b-4f63-902f-79911353aa92.jpeg#averageHue=%23fcf5f5&clientId=u47098c25-1a45-4&from=paste&height=249&id=cwLY8&originHeight=249&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=58891&status=done&style=none&taskId=udd95f3e5-3e13-482b-b1f1-9fff4ed276e&title=&width=821">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687645888099-f1769543-28ab-462a-ac75-6e595c300f08.png#averageHue=%233f454c&clientId=u0d082fe1-067a-4&from=paste&height=352&id=u1c223dd7&originHeight=352&originWidth=318&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13624&status=done&style=none&taskId=u0472e21e-74a9-46d6-9f6f-c263ffed730&title=&width=318">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646090521-b6234818-88fe-46a9-82c2-189f30ef9391.png#averageHue=%23f6f5f4&clientId=u0d082fe1-067a-4&from=paste&height=566&id=uf6e8aafd&originHeight=566&originWidth=753&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40708&status=done&style=none&taskId=u6eb148eb-e842-483c-823c-cf01320c3eb&title=&width=753">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646107938-fe96d63d-7a3a-47bb-abde-08023ee8f95d.png#averageHue=%23f6f4f4&clientId=u0d082fe1-067a-4&from=paste&height=504&id=u263c40ca&originHeight=504&originWidth=958&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43450&status=done&style=none&taskId=u28811a43-ff9d-445b-af9e-e6087d37c2f&title=&width=958">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646773649-8f8b0662-cf45-4731-9674-50bb60958b7b.png#averageHue=%232d2c2b&clientId=u0d082fe1-067a-4&from=paste&height=234&id=uf52b0777&originHeight=234&originWidth=1225&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32144&status=done&style=none&taskId=u4d1db353-bdae-4032-b099-a7ce38ad8a0&title=&width=1225">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687648520823-11ccc117-981e-440a-a59b-884b92ed123c.png#averageHue=%233f454b&clientId=u0d082fe1-067a-4&from=paste&height=409&id=u72980043&originHeight=409&originWidth=346&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15721&status=done&style=none&taskId=ufc9517e2-16db-49ec-9c2a-530d2705999&title=&width=346">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687648616564-f72ef501-dda8-42a4-91bb-499dd9de1c46.png#averageHue=%23fbf4f4&clientId=u0d082fe1-067a-4&from=paste&height=361&id=u1f7e422b&originHeight=361&originWidth=1012&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23183&status=done&style=none&taskId=u169a9a70-8126-4036-b41d-6d5d79114c7&title=&width=1012">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687745249319-fe77409c-e738-4d52-8ca6-eb4819edf79b.png#averageHue=%23f8f7f0&clientId=uc35a8098-27b8-4&from=paste&height=417&id=ud40f5dbb&originHeight=417&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19528&status=done&style=none&taskId=u75829a25-ed53-40ad-8ca5-4407ff1a728&title=&width=865">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687653391932-304fda38-e7f0-42a8-b253-cd6962bbd4df.png#averageHue=%23f8f4ea&clientId=u4a92d56a-eeab-4&from=paste&height=250&id=uff90f3d9&originHeight=250&originWidth=744&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33353&status=done&style=none&taskId=uabb640e7-17a5-4eec-b644-537e324303e&title=&width=744">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688747017979-2e4264c8-8d28-4188-9f56-3beec041d49f.png#averageHue=%23f6f6f6&clientId=u54c93737-e6ef-4&from=paste&height=299&id=X4FdH&originHeight=299&originWidth=754&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42561&status=done&style=none&taskId=u6d3fea1e-834f-4f39-b141-f510ca45291&title=&width=754">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688777361258-7c240ea6-689e-4c9a-9b39-77c9c41dc4f0.png#averageHue=%23fbfbfb&clientId=uc0dd9b43-8629-4&from=paste&height=349&id=ua5b7c67a&originHeight=349&originWidth=1273&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32647&status=done&style=none&taskId=u82751674-e663-4d27-97a8-e5381300677&title=&width=1273">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688803979271-ae30f640-2952-4d06-84b0-ea0111ef820a.png#averageHue=%23fbfbfb&clientId=uc0dd9b43-8629-4&from=paste&height=619&id=u8391a228&originHeight=619&originWidth=1252&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51891&status=done&style=none&taskId=u9b6fcd80-1ae2-4b74-a0d3-5c4950a4b8e&title=&width=1252">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688778763603-1653fb89-5929-4f4c-bec2-944a800be975.png#averageHue=%233f444a&clientId=uc0dd9b43-8629-4&from=paste&height=471&id=ua7460b40&originHeight=471&originWidth=357&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15703&status=done&style=none&taskId=uc60c84e6-70f4-4df6-9dca-d919c404292&title=&width=357">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688814478916-a4659e59-6738-475e-86bd-a2ab391db41a.png#averageHue=%232e2c2a&clientId=uc0dd9b43-8629-4&from=paste&height=507&id=ued3b2488&originHeight=507&originWidth=1203&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84815&status=done&style=none&taskId=u048cb02a-6fd8-40dd-9214-cd579ba547d&title=&width=1203">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688814833009-6b65825d-f8af-4f90-b3f2-6c81e1ac19f6.png#averageHue=%23f6f5f4&clientId=uc0dd9b43-8629-4&from=paste&height=155&id=udd359dc7&originHeight=155&originWidth=855&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12796&status=done&style=none&taskId=u6466678e-07d8-4f26-9557-cb6c11d0c24&title=&width=855">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815287483-8672ea80-6890-4a8a-b8c8-413eb77f22db.png#averageHue=%23f6f5f4&clientId=uc0dd9b43-8629-4&from=paste&height=159&id=ueeec7fae&originHeight=159&originWidth=817&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12847&status=done&style=none&taskId=u6a3aace8-ae6c-4440-9469-b9832650b78&title=&width=817">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815440278-27e6f903-b5e3-4051-ad8f-a764ffb68f3d.png#averageHue=%23f6f2f1&clientId=uc0dd9b43-8629-4&from=paste&height=155&id=u18a2da78&originHeight=155&originWidth=828&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13417&status=done&style=none&taskId=udfed0f1b-da85-44af-80a4-5f4e5aa867c&title=&width=828">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815564472-96b41fe4-44b0-4917-abbb-e66be0c0472d.png#averageHue=%23f7f3f2&clientId=uc0dd9b43-8629-4&from=paste&height=165&id=ubf90b49a&originHeight=165&originWidth=887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13694&status=done&style=none&taskId=u24528b4e-cfd8-48ae-b1f4-cd09bfd1930&title=&width=887">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909638140-212b6ef8-162c-43f8-ba2e-166609fe74b1.png#averageHue=%23f8f4f0&clientId=uef35cbf5-d400-4&from=paste&height=202&id=u847217af&originHeight=202&originWidth=820&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41934&status=done&style=none&taskId=u90a658de-40a4-4635-b661-fffb722d3e2&title=&width=820">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909695786-1656b9a9-38ba-4c4b-8104-ccc37a1e81a4.png#averageHue=%23fcf8f8&clientId=uef35cbf5-d400-4&from=paste&height=212&id=u0314f06f&originHeight=212&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39275&status=done&style=none&taskId=uce36243c-be5c-4868-b97f-428203c42bb&title=&width=852">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909769444-f0eae615-f9f7-4acf-b8a3-9fcc9ee7ce74.png#averageHue=%23f8f1ed&clientId=uef35cbf5-d400-4&from=paste&height=205&id=u12334677&originHeight=205&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47193&status=done&style=none&taskId=u8cf86f06-c9cd-4c6d-ab0d-17ff4315c57&title=&width=826">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909925258-f2b69359-75e4-4ce9-96da-6d503f55f328.png#averageHue=%23f6efeb&clientId=uef35cbf5-d400-4&from=paste&height=201&id=ue1a5c84d&originHeight=201&originWidth=804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52045&status=done&style=none&taskId=u8e02e0fd-39e5-4646-b7c0-ae6a285c1f3&title=&width=804">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688910069056-f75cace0-227d-4ecb-8daa-8cc5436909f1.png#averageHue=%23f7f1ec&clientId=uef35cbf5-d400-4&from=paste&height=200&id=u48c2d8bd&originHeight=200&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46375&status=done&style=none&taskId=u4af5f02d-61f0-4e28-97a0-68fc0299693&title=&width=819">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688916412793-236625b8-54ab-4d1a-b469-13ec2b53ba2c.png#averageHue=%23fcf5f5&clientId=u9b50a151-4535-4&from=paste&height=249&id=uf56f16a1&originHeight=249&originWidth=836&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56103&status=done&style=none&taskId=u643f8c60-b5ff-4cbd-9f41-3c842182fc7&title=&width=836">
+<meta property="article:published_time" content="2025-05-24T10:09:38.000Z">
+<meta property="article:modified_time" content="2025-05-24T10:30:14.242Z">
+<meta property="article:author" content="61分">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570216473-af1ca27c-c8d3-4d3d-a14a-8339791d0093.png#averageHue=%23e8e1cf&clientId=u47098c25-1a45-4&from=paste&height=155&id=ua3324557&originHeight=155&originWidth=869&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25255&status=done&style=none&taskId=u50ff57f4-c172-474d-ba42-a9e7308287c&title=&width=869">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>RabbtiMQ - 小刘</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dddwah11.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"6CMI3sn7XD9wqKLVaHHpIn6F-MdYXbMMI","app_key":"CpmjxvEr8Uhop8J7F4yz97tK","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2025-05-24T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>小刘的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="RabbtiMQ"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-24 18:09" pubdate>
+          2025年5月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          99 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">RabbtiMQ</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-为什么要使用RabbtiMQ"><a href="#1-为什么要使用RabbtiMQ" class="headerlink" title="1.为什么要使用RabbtiMQ"></a>1.为什么要使用RabbtiMQ</h2><h3 id="1-1简介"><a href="#1-1简介" class="headerlink" title="1.1简介"></a>1.1简介</h3><ol>
+<li>什么是同步<br>通常而言，在公司可能存在多个业务系统，这些业务系统之间的通信都是<br>进行接口调用的</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570216473-af1ca27c-c8d3-4d3d-a14a-8339791d0093.png#averageHue=%23e8e1cf&clientId=u47098c25-1a45-4&from=paste&height=155&id=ua3324557&originHeight=155&originWidth=869&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25255&status=done&style=none&taskId=u50ff57f4-c172-474d-ba42-a9e7308287c&title=&width=869" srcset="/img/loading.gif" lazyload alt="image.png"><br>现在假设系统A收到一个请求，可能是用户通过浏览器或者APP发起的，这个时候系统A<br>收到请求之后就会立马去调用系统B，然后系统B返回结果给系统A之后，系统A才能返回结果给用户<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570249367-ac38a568-5a22-4d49-a4ea-6828cd8b537c.png#averageHue=%23efede5&clientId=u47098c25-1a45-4&from=paste&height=217&id=u17e5d2b0&originHeight=217&originWidth=875&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40861&status=done&style=none&taskId=ue724abb8-81e2-42bc-940c-3bc2a22a26e&title=&width=875" srcset="/img/loading.gif" lazyload alt="image.png"><br>那么在这种情况下，用户发起一个请求，系统A收到请求，接着系统A必须马上去调用<br>系统B，知道系统B返回了，系统A才能给用户返回结果，这种模式就是“同步调用”</p>
+<ol start="2">
+<li>依靠消息中间件实现异步调用</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570337488-e597b1c6-78e7-409c-b32b-43ae38415a65.png#averageHue=%23f1ebe6&clientId=u47098c25-1a45-4&from=paste&height=200&id=ueeadf86d&originHeight=200&originWidth=878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35643&status=done&style=none&taskId=u6c4e056e-eb80-4407-acc7-5c6b48057e9&title=&width=878" srcset="/img/loading.gif" lazyload alt="image.png"><br>加入了消息中间件之后，系统A会发送消息给MQ接着系统A就认为自己的工作做完了，<br>然后直接返回结果给用户了。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570360259-62a2ea43-2aa9-4dd3-87d7-6ee9eede4d20.png#averageHue=%23f0eae5&clientId=u47098c25-1a45-4&from=paste&height=188&id=u2477be00&originHeight=188&originWidth=847&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41253&status=done&style=none&taskId=u1e0aaa3f-ed10-4f2f-b6d7-68682052825&title=&width=847" srcset="/img/loading.gif" lazyload alt="image.png"><br>这个时候系统A与系统B就没什么关系了，因为系统A要做的事情只是接收请求，发送消息到MQ，然后就返回结果给用户，系统B的事情他就不管了。然后系统B根据自己的情况，可能会在系统A投递消息到MQ之后1秒内，也可能是1分钟，也可能是1小时之后，多长时间都有可能，但是不管多长时间后，系统B肯定会从MQ那获取到一条属于自己的消息。然后获取到消息之后，根据消息的指示完成自己的工作。<br>所以消息中间件，其实就是一种系统，他是独立部署的，然后让我们的两个系统之间通过发送消息和接收消息来进行异步的调用<br>消息中间件的好处：异步提升性能，降低系统之间的耦合，流量削峰</p>
+<h3 id="1-2异步化提升性能案例"><a href="#1-2异步化提升性能案例" class="headerlink" title="1.2异步化提升性能案例"></a>1.2异步化提升性能案例</h3><p>假设A系统要调用系统B做一件事，然后A先执行一些操作，需要消耗20ms,接着系统b执行一些操作需要执行200ms<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570532146-99c4e656-2dee-4666-a2fa-59cbbec437a9.png#averageHue=%23efede4&clientId=u47098c25-1a45-4&from=paste&height=202&id=u75547095&originHeight=202&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45108&status=done&style=none&taskId=u256ae767-6611-407e-804a-630b4fae7b4&title=&width=865" srcset="/img/loading.gif" lazyload alt="image.png"><br>这个时候系统A和系统B都干完活才能给用户返回结果，用户需要等待的时间是220ms<br>如果在A和B系统间加入MQ，系统A干完自己的事情，就20ms，然后发送一个消息到<br>MQ，就5ms，然后直接返回结果给用户，也就是用户只需要等待25ms。然后系统B从MQ里获取到消息，接着花费200ms去执行，但是这个200ms就与用户没有关系了。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570582660-09c7a26b-c335-4d16-b3b0-cbb66c10a035.png#averageHue=%23eee3dd&clientId=u47098c25-1a45-4&from=paste&height=196&id=u62dafa52&originHeight=196&originWidth=845&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52258&status=done&style=none&taskId=u406ac05a-12e7-46d8-9789-d9fd323c999&title=&width=845" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="1-3流量削峰案例："><a href="#1-3流量削峰案例：" class="headerlink" title="1.3流量削峰案例："></a>1.3流量削峰案例：</h3><p>假设系统A是不操作数据库的，因此只要多部署几台机器，就可以抗下每秒1万的请求，例如部署个20台机器，就可以轻松抗下每秒上万的请求。<br>然后B系统是要操作一台数据库服务器的，那台数据库的上限是每秒接收6000个请求，<br>那么无论系统B部署多少台机器都没用，因为他依赖的数据库最多只能接收每秒6000个<br>请求。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570622986-ef77c85b-4db0-4154-9149-8d831049bc48.png#averageHue=%23eeece6&clientId=u47098c25-1a45-4&from=paste&height=182&id=ua004d28e&originHeight=182&originWidth=873&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57722&status=done&style=none&taskId=ufb19f1d9-66f7-4595-bece-d93d02edc16&title=&width=873" srcset="/img/loading.gif" lazyload alt="image.png"><br>现在假设大量用户同时发起访问，系统A就是收到了1万QPS怎么办？<br>这时候，系统A会瞬间把1万QPS转发给系统B,假设B系统也部署20台机器，系统B自己可以抗住1万QPS，但是数据库呢？数据库是抗不下1万的QPS的，此时如果系统B对<br>数据库发起了1W的QPS的请求，一定会瞬间压垮数据库的。<br>所以这个时候引入MQ，就可以解决这个问题了。MQ这个技术抗高并发的能力远远高于数据库，同样配置的机器，如果数据库可以每秒抗住6000请求，MQ至少每秒可以抗住几万的请求。原因就是因为数据库复杂，他需要能执行复杂的SQL的查询，支持事务的机制，支持你对数据库的CRUD，这些操作完成起来都是比较复杂的。所以一般数据库单服务器<br>也就能支撑每秒几千的请求。<br>但是MQ不一样，MQ设计的核心功能就是让你给他发消息，再让别人从他这里获取消息，相比数据库而言这种设计简单太多，所以同等配置的机器，MQ一般能抗住几万的并发请求。</p>
+<p>所以只要引入MQ，那么就可以让系统A把每秒1万的请求都作为消息发送到MQ里，MQ可以轻松的抗下来着每秒1万的请求，接着系统B只要慢慢的从MQ里获取消息，然后执行数据库读写操作即可，这个获取消息的速度是系统B自己可以控制的，所以系统B完全可以用一个比较低的速率获取消息后写入数据库，保证对数据库的QPS不要超过他的极限值6000.这个时候因为系统A发送消息到MQ很快，系统B从MQ消费消息很慢，所以MQ里自然会积压一些消息，不过MQ的消息一般都是基于磁盘来存储的，所以适当的积压一些消息是可以的。当系统A的高峰过去，每秒就可能恢复到1000的QPS了，此时系统B还是以每秒6000QPS的速度读取消息写入数据库，那么自然MQ里积压的消息就慢慢被消化掉了。所以这就是MQ进行流量削峰的效果，系统A发送过来每秒1万请求是一个流量洪峰，然后MQ直接抗了下来，都存储到自己本地磁盘，这个过程就是流量削峰的过程，瞬间把一个洪峰削下来了，让系统B后续慢慢获取消息来处理。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570811126-c0b6f36c-7f77-4c54-9fcc-4fc3f7f8684a.png#averageHue=%23f4eae7&clientId=u47098c25-1a45-4&from=paste&height=243&id=u3ad76431&originHeight=243&originWidth=864&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61305&status=done&style=none&taskId=u97a404e4-6ef2-40b0-8b1b-e6381079076&title=&width=864" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="1-4降低系统耦合案例："><a href="#1-4降低系统耦合案例：" class="headerlink" title="1.4降低系统耦合案例："></a>1.4降低系统耦合案例：</h3><p>如果没有使用MQ，系统A直接调用系统B，那么AB系统之间就属于耦合在一起的。互相之间会有影响，例如B系统忽然出现了故障，那么A系统会感知到B系统的故障，因为系统A调系统B肯定是会返回异常的。此时系统A就会把异常返回给用户，而且A也需要去处理这个异常。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570844113-0138c33b-3501-4e55-b99e-d7ad310d088f.png#averageHue=%23f0ede6&clientId=u47098c25-1a45-4&from=paste&height=256&id=ub7a897b4&originHeight=256&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54166&status=done&style=none&taskId=u89181cb7-418e-41b4-8960-bdd286cd7cb&title=&width=857" srcset="/img/loading.gif" lazyload alt="image.png"><br>这一切都是因为AB系统耦合在一起，所以一旦B系统出现故障，很可能影响A系统也出现故障。而A系统还得去关心B系统出现的故障，去处理对应的异常。<br>假如引入了MQ，那么A系统对B系统的调用仅仅是给MQ发送个消息就不管了，然后直接把结果返回给用户，对B系统就不需要管了。此时如果B系统出现了故障，对A系统根本没有影响，系统A也感觉不到。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687570897189-179daa1a-5826-47e0-a059-0b9dac0cb218.png#averageHue=%23f0e5e0&clientId=u47098c25-1a45-4&from=paste&height=205&id=u3adcf035&originHeight=205&originWidth=859&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43954&status=done&style=none&taskId=u8e982c8c-a3ff-4f30-9a64-85718242c7f&title=&width=859" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2.安装"></a>2.安装</h2><h3 id="1-通过docker安装"><a href="#1-通过docker安装" class="headerlink" title="1.通过docker安装"></a>1.通过docker安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull rabbitmq:3-management<br></code></pre></td></tr></table></figure>
+<h3 id="2-启动"><a href="#2-启动" class="headerlink" title="2.启动"></a>2.启动</h3><p>1.执行以下命令进行启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br> -e RABBITMQ_DEFAULT_USER=root \<br> -e RABBITMQ_DEFAULT_PASS=root \<br> --name mq \<br> --hostname mq1 \<br> -p 15672:15672 \<br> -p 5672:5672 \<br> -d \<br> rabbitmq:3-management<br></code></pre></td></tr></table></figure>
+<p>2.访问地址:http:&#x2F;&#x2F;你的ip地址:15672&#x2F;<br>效果如下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687576104989-3d539293-da94-4989-8889-146a02075629.png#averageHue=%23f9f5f2&clientId=u47098c25-1a45-4&from=paste&height=164&id=u95f8b0a9&originHeight=164&originWidth=341&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5523&status=done&style=none&taskId=u5fe849ee-13a9-4738-a050-63e1d2c5f05&title=&width=341" srcset="/img/loading.gif" lazyload alt="image.png"><br>输入刚刚设置的用户名root 密码root进行登录<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594248115-b9671c3c-7505-413c-bdb7-c90e892ee1c9.png#averageHue=%23f9f8f8&clientId=u47098c25-1a45-4&from=paste&height=703&id=u9fe4faba&originHeight=703&originWidth=1887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68571&status=done&style=none&taskId=u8ea4d7f5-6a4f-43c4-a7a4-83ad6345db3&title=&width=1887" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id><a href="#" class="headerlink" title></a></h3><h2 id="3-AMQP工作模型"><a href="#3-AMQP工作模型" class="headerlink" title="3.AMQP工作模型"></a>3.AMQP工作模型</h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594701738-ae8e2185-2b86-4901-a3a3-6c914f39e5a3.png#averageHue=%23f2f2f2&clientId=u47098c25-1a45-4&from=paste&height=143&id=ua6fae670&originHeight=143&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51686&status=done&style=none&taskId=u3439642b-e38b-4df6-9132-34374eb15ce&title=&width=865" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594710669-b25e571f-4f30-4557-b6b4-94a2d7dbc4f1.png#averageHue=%23e5e8a2&clientId=u47098c25-1a45-4&from=paste&height=274&id=u37904de6&originHeight=274&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=175835&status=done&style=none&taskId=u6452418c-75ae-4b52-9c0c-6818775abea&title=&width=865" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687594716811-0410beb5-eadb-4e38-9fa3-a73af902aecf.png#averageHue=%23b9cba5&clientId=u47098c25-1a45-4&from=paste&height=275&id=ud7123dc5&originHeight=275&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=266964&status=done&style=none&taskId=u690de8cb-ef2f-474b-b81f-9e841952ee0&title=&width=865" srcset="/img/loading.gif" lazyload alt="image.png"><br>基本概念<br>AMQP协议中的基本概念<br>•         <strong>Broker</strong>: broker 指的是消息队列服务器，是负责接收来自生产者的消息并将其添加到消息队列中，然后等待来自消费者的请求并将已排队的消息发送给消费者的服务器。简而言之，Broker 是处理消息的服务器。<br>•         <strong>Virtual host</strong>: 出于多租户和安全因素设计的，类似于namespace概念。当多个不同的用户使用同一个RabbitMQ server提供的服务时，可以划分出多个vhost，每个用户在自己的vhost创建exchange／queue等。（也可以理解成多个用户如果都使用一个host的，那么创建出来的exchange与queue进行数据存储时，数据可能会互相干扰）<br>•         <strong>Connection</strong>: publisher／consumer和broker之间的TCP连接。断开连接的操作只会在client端进行，Broker不会断开连接，除非出现网络故障或broker服务出现问题。<br>•         <strong>Channel</strong>: 通信管道，如果每一次访问RabbitMQ都建立一个Connection，在消息量大的时候建立TCP Connection的开销将是巨大的，效率也较低。Channel是在connection内部建立的逻辑连接，如果应用程序支持多线程，通常每个thread创建单独的channel进行通讯，AMQP method包含了channel id帮助客户端和message broker识别channel，所以channel之间是完全隔离的。Channel作为轻量级的Connection极大减少了操作系统建立TCP connection的开销。<br>•         <strong>Exchange</strong>: message到达broker的第一站，根据分发规则，匹配查询表中的routing key，分发消息到queue中去。常用的类型有：direct (point-to-point), topic (publish-subscribe) and fanout (multicast)。<br>•         <strong>Queue</strong>: 消息最终被送到这里等待consumer取走。一个message可以被同时拷贝到多个queue中。<br><strong>Binding</strong>: exchange和queue之间的虚拟连接，binding中可以包含routing key。Binding信息被保存到exchange中的查询表中，用于message的分发依据。</p>
+<h2 id="4-快速入门"><a href="#4-快速入门" class="headerlink" title="4.快速入门"></a>4.快速入门</h2><h3 id="1-官网"><a href="#1-官网" class="headerlink" title="1.官网"></a>1.官网</h3><p><a target="_blank" rel="noopener" href="https://www.rabbitmq.com/">https://www.rabbitmq.com/</a></p>
+<h3 id="2-rabbitmq的消息模型"><a href="#2-rabbitmq的消息模型" class="headerlink" title="2.rabbitmq的消息模型"></a>2.rabbitmq的消息模型</h3><p>网页模拟器网址:<a target="_blank" rel="noopener" href="https://tryrabbitmq.com/">https://tryrabbitmq.com/</a><br>RabbitMQ官方提供了5个不同的Demo示例，对应了不同的消息模型：<br>1.基本消息队列（BasicQueue）<br>2.工作消息队列（WorkQueue）<br>3.发布订阅(Publish、Subscribe)<br>3.1广播(Fanout Exchange)<br>3.2路由(Direct Exchange)<br>3.3主题(Topic Exchange)</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687572994515-754e542b-7670-4a26-8ce9-d1011c96ac2e.png#averageHue=%23fdf9f7&clientId=u47098c25-1a45-4&from=paste&height=584&id=u8347d70c&originHeight=584&originWidth=904&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60392&status=done&style=none&taskId=u5d6decb8-e07b-49fa-9690-4173b206b93&title=&width=904" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687573012388-e9a1eef5-1dfc-468f-bc05-82b9b9fb3a32.png#averageHue=%23fdf9f8&clientId=u47098c25-1a45-4&from=paste&height=569&id=uf9ed31e1&originHeight=569&originWidth=594&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43163&status=done&style=none&taskId=u7ba27510-0edb-4bb0-8e9e-ee5bd8556fd&title=&width=594" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-入门案例"><a href="#3-入门案例" class="headerlink" title="3.入门案例"></a>3.入门案例</h3><h4 id="1-简单队列模式"><a href="#1-简单队列模式" class="headerlink" title="1.简单队列模式"></a>1.简单队列模式</h4><p>简单队列模式的模型图：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687573333965-cf532c76-0c81-4dd6-b639-ce46b8fbf647.png#averageHue=%23a5c068&clientId=u47098c25-1a45-4&from=paste&height=121&id=u49a60713&originHeight=121&originWidth=809&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22958&status=done&style=none&taskId=ubf853b72-ea53-4c17-8976-1458fee76cd&title=&width=809" srcset="/img/loading.gif" lazyload alt="image.png"><br>官方的HelloWorld是基于最基础的消息队列模型来实现的，只包括三个角色：</p>
+<ul>
+<li>publisher：消息发布者，将消息发送到队列queue</li>
+<li>queue：消息队列，负责接受并缓存消息</li>
+<li>consumer：订阅队列，处理队列中的消息</li>
+</ul>
+<p>代码实现：<br>1.创建父工程<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687575368334-0207e548-683b-4bf6-9a57-06865ad40a1f.png#averageHue=%23394146&clientId=u47098c25-1a45-4&from=paste&height=145&id=u29914b2c&originHeight=145&originWidth=209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6344&status=done&style=none&taskId=uf1f7a40b-a37c-48d2-a3b9-de02a6089b2&title=&width=209" srcset="/img/loading.gif" lazyload alt="image.png"><br>2.导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baidu<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>RabbitMQ-Parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.9.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--AMQP依赖，包含RabbitMQ--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--单元测试--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-databind<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>3.创建生产者模块<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687575466230-ba8bed20-660c-4884-b3a3-6027b4848d1b.png#averageHue=%233d4245&clientId=u47098c25-1a45-4&from=paste&height=615&id=ub0799a7a&originHeight=615&originWidth=783&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46241&status=done&style=none&taskId=u7b4f04b9-4787-4bca-a2f9-726df02bf1b&title=&width=783" srcset="/img/loading.gif" lazyload alt="image.png"><br>4.编写测试类<br>该案例大概理解意思即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Publisher01Test</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSendMessage</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException &#123;<br>        <span class="hljs-comment">// 1.建立连接</span><br>        <span class="hljs-type">ConnectionFactory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConnectionFactory</span>();<br>        <span class="hljs-comment">// 1.1.设置连接参数，分别是：主机名、端口号、vhost、用户名、密码</span><br>        factory.setHost(<span class="hljs-string">&quot;你的ip&quot;</span>);<br>        factory.setPort(<span class="hljs-number">5672</span>);<br>        factory.setVirtualHost(<span class="hljs-string">&quot;/&quot;</span>);<br>        factory.setUsername(<span class="hljs-string">&quot;root&quot;</span>);<br>        factory.setPassword(<span class="hljs-string">&quot;root&quot;</span>);<br>        <span class="hljs-comment">// 1.2.建立连接</span><br>        <span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> factory.newConnection();<br><br>        <span class="hljs-comment">// 2.创建通道Channel</span><br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> connection.createChannel();<br><br>        <span class="hljs-comment">// 3.创建队列</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">queueName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;basic.queue&quot;</span>;<br>        channel.queueDeclare(queueName, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">null</span>);<br><br>        <span class="hljs-comment">// 4.发送消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello, yjf!&quot;</span>;<br>        channel.basicPublish(<span class="hljs-string">&quot;&quot;</span>, queueName, <span class="hljs-literal">null</span>, message.getBytes());<br>        System.out.println(<span class="hljs-string">&quot;发送消息成功：【&quot;</span> + message + <span class="hljs-string">&quot;】&quot;</span>);<br><br>        <span class="hljs-comment">// 5.关闭通道和连接</span><br>        channel.close();<br>        connection.close();<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意：该案例中使用了默认的exchange<br>运行该案例的时候，建议debug运行，一边运行一边观察下图的变化<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687595772000-8addaccd-9b4f-4117-928f-631ebe02d9ce.png#averageHue=%23f8f5f4&clientId=u47098c25-1a45-4&from=paste&height=708&id=u704aa66b&originHeight=708&originWidth=1238&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52402&status=done&style=none&taskId=ucf565705-2ef9-4ac4-9b1a-dd618bb1690&title=&width=1238" srcset="/img/loading.gif" lazyload alt="image.png"><br>运行结束可以观察到（目前因为生产者已经发送一条消息，所以现在队列中有一条消息处于等待消费的状态）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687595979292-19f37d60-a9b9-4bc9-9c6c-ed6ebd8e9043.png#averageHue=%23f9f8f8&clientId=u47098c25-1a45-4&from=paste&height=496&id=ufb7001f8&originHeight=496&originWidth=1347&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49753&status=done&style=none&taskId=u00bc0516-4384-4ea0-9450-ab5300d1443&title=&width=1347" srcset="/img/loading.gif" lazyload alt="image.png"><br>利用网页模拟器进行模拟<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687596411639-9b035195-3ca0-4892-bf99-9847a76919d2.png#averageHue=%23faf9f9&clientId=u47098c25-1a45-4&from=paste&height=729&id=ufb578fde&originHeight=729&originWidth=1686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74334&status=done&style=none&taskId=uab96dd1a-7076-4bb7-9b00-67dcc4b89a2&title=&width=1686" srcset="/img/loading.gif" lazyload alt="image.png"><br>因为案例使用的是默认的exchange,所以在模拟器选择exchange类型的时候我们应该选择Direct Exchange 类型<br>接下来编写消费者代码<br>5.创建消费者模块<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597094948-fa1ac63b-179d-4db3-843f-8c69e4e63796.png#averageHue=%23394046&clientId=u47098c25-1a45-4&from=paste&height=178&id=u6fb7cb09&originHeight=178&originWidth=277&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9352&status=done&style=none&taskId=u3eddecd7-189a-423b-83e6-79be053d8a1&title=&width=277" srcset="/img/loading.gif" lazyload alt="image.png"><br>6.编写测试代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> com.rabbitmq.client.*;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeoutException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Consumer01Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException &#123;<br>        <span class="hljs-comment">// 1.建立连接</span><br>        <span class="hljs-type">ConnectionFactory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConnectionFactory</span>();<br>        <span class="hljs-comment">// 1.1.设置连接参数，分别是：主机名、端口号、vhost、用户名、密码</span><br>        factory.setHost(<span class="hljs-string">&quot;182.42.138.115&quot;</span>);<br>        factory.setPort(<span class="hljs-number">5672</span>);<br>        factory.setVirtualHost(<span class="hljs-string">&quot;/&quot;</span>);<br>        factory.setUsername(<span class="hljs-string">&quot;root&quot;</span>);<br>        factory.setPassword(<span class="hljs-string">&quot;root&quot;</span>);<br>        <span class="hljs-comment">// 1.2.建立连接</span><br>        <span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> factory.newConnection();<br><br>        <span class="hljs-comment">// 2.创建通道Channel</span><br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> connection.createChannel();<br><br>        <span class="hljs-comment">// 3.创建队列</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">queueName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;basic.queue&quot;</span>;<br>        channel.queueDeclare(queueName, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">null</span>);<br><br>        <span class="hljs-comment">// 4.订阅消息</span><br>        channel.basicConsume(queueName, <span class="hljs-literal">true</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultConsumer</span>(channel) &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleDelivery</span><span class="hljs-params">(String consumerTag, Envelope envelope,</span><br><span class="hljs-params">                                       AMQP.BasicProperties properties, <span class="hljs-type">byte</span>[] body)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-comment">// 5.处理消息</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(body);<br>                System.out.println(<span class="hljs-string">&quot;接收到消息：【&quot;</span> + message + <span class="hljs-string">&quot;】&quot;</span>);<br>            &#125;<br>        &#125;);<br>        System.out.println(<span class="hljs-string">&quot;等待接收消息。。。。&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>效果:<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597426283-8544e868-5438-409c-8b36-8f9bfeaa274e.png#averageHue=%232e2c2c&clientId=u47098c25-1a45-4&from=paste&height=886&id=u23e79ccc&originHeight=886&originWidth=1533&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153062&status=done&style=none&taskId=ue2267f4d-71ef-47bb-af82-b1b7b682b0b&title=&width=1533" srcset="/img/loading.gif" lazyload alt="image.png"><br>并且执行完之后，该程序会一直处于等待监听状态，一旦监听到队列有消息，就会继续消费<br>此时可以看到，消息已经被消费<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597703942-99bd7c7a-e77b-486c-9932-d681344f761c.png#averageHue=%23f8f6f6&clientId=u47098c25-1a45-4&from=paste&height=714&id=uf5ee6555&originHeight=714&originWidth=1353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69546&status=done&style=none&taskId=ue2ffe37a-d72c-4189-b91e-7182830e6d2&title=&width=1353" srcset="/img/loading.gif" lazyload alt="image.png"><br>利用网页模拟器进行模拟<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597929077-d867aed6-8f2f-470d-b6e1-3142f7a71848.png#averageHue=%23f7f7f7&clientId=u47098c25-1a45-4&from=paste&height=797&id=hiI4s&originHeight=797&originWidth=1000&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70755&status=done&style=none&taskId=u07952f6a-9dc3-4e76-b9fb-ad9d1785653&title=&width=1000" srcset="/img/loading.gif" lazyload alt="image.png"><br>此时可以到生产者代码中，继续发送消息，然后观察消费者的打印<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687597829618-583c743d-080c-4f00-a11c-62bd955415f6.png#averageHue=%23907a60&clientId=u47098c25-1a45-4&from=paste&height=220&id=uff33515d&originHeight=220&originWidth=557&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26764&status=done&style=none&taskId=u660541e3-ca54-4885-8287-ca62f698784&title=&width=557" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>7.使用SpringAMQP来完成上面的案例<br>SpringAMQP提供了三个功能：</p>
+<ul>
+<li>自动声明队列、交换机及其绑定关系</li>
+<li>基于注解的监听器模式，异步接收消息</li>
+<li>封装了RabbitTemplate工具，用于发送消息</li>
+</ul>
+<p>具体实现：<br>在父工程导入依赖（我们在最初已经做过）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--AMQP依赖，包含RabbitMQ--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>发送消息<br>1.在publisher服务的application.yml中添加配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># 主机名</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># 虚拟主机</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span> <span class="hljs-comment"># 用户名</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">root</span> <span class="hljs-comment"># 密码</span><br></code></pre></td></tr></table></figure>
+<p>2.编写启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PublisherApplication01</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(PublisherApplication01.class);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>3.然后在publisher服务中编写测试类SpringAmqpTest，并利用RabbitTemplate实现消息发送：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testBasicQueue</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 队列名称</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">queueName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;basic.queue&quot;</span>;<br>        <span class="hljs-comment">// 消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;yjf, spring amqp!&quot;</span>;<br>        <span class="hljs-comment">// 发送消息</span><br>        rabbitTemplate.convertAndSend(queueName, message);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>接收消息<br>1.在consumer服务的application.yml中添加配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># 主机名</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span> <span class="hljs-comment"># 虚拟主机</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span> <span class="hljs-comment"># 用户名</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">root</span> <span class="hljs-comment"># 密码</span><br></code></pre></td></tr></table></figure>
+<p>2.然后在consumer服务的com.baidu.mq.listener包中新建一个类SpringRabbitListener，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(queues = &quot;basic.queue&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenSimpleQueueMessage</span><span class="hljs-params">(String msg)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        System.out.println(<span class="hljs-string">&quot;spring 消费者接收到消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>3.编写启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsumerApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(ConsumerApplication.class);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>启动consumer服务，然后在publisher服务中运行测试代码，发送MQ消息</p>
+<h4 id="2-工作消息队列"><a href="#2-工作消息队列" class="headerlink" title="2.工作消息队列"></a>2.工作消息队列</h4><p>Work queues，也被称为（Task queues），任务模型。简单来说就是让多个消费者绑定到一个队列，共同消费队列中的消息。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687601632567-ae7543e7-fe64-44a9-b173-b35205ab17ee.png#averageHue=%23fef9f9&clientId=u47098c25-1a45-4&from=paste&height=305&id=uc63ccedf&originHeight=305&originWidth=816&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28486&status=done&style=none&taskId=u5b21af2e-3bc5-44f2-a8f4-f4fe9ebfba0&title=&width=816" srcset="/img/loading.gif" lazyload alt="image.png"><br>当消息处理比较耗时的时候，可能生产消息的速度会远远大于消息的消费速度。长此以往，消息就会堆积越来越多，无法及时处理。<br>此时就可以使用work 模型，多个消费者共同处理消息处理，速度就能大大提高了。<br>1.创建两个模块<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687605351728-a2f6b0d2-1a40-4aed-a930-2f67cd07a683.png#averageHue=%233e4347&clientId=u47098c25-1a45-4&from=paste&height=305&id=u2b90118d&originHeight=305&originWidth=417&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20121&status=done&style=none&taskId=u0b0b01ff-9035-49ef-aa6c-3e21114eaea&title=&width=417" srcset="/img/loading.gif" lazyload alt="image.png"><br>消息发送：<br>这次我们循环发送，模拟大量消息堆积现象。<br>在publisher服务中的SpringAmqpTest类中添加一个测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * workQueue</span><br><span class="hljs-comment">     * 向队列中不停发送消息，模拟消息堆积。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testWorkQueue</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-comment">// 队列名称</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">queueName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;work.queue&quot;</span>;<br>        <span class="hljs-comment">// 消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello, message_&quot;</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">50</span>; i++) &#123;<br>            <span class="hljs-comment">// 发送消息</span><br>            rabbitTemplate.convertAndSend(queueName, message + i);<br>            Thread.sleep(<span class="hljs-number">20</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意：以上方法仅在work.queue队列已经存在的情况下可以发送消息，如果work.queue队列不存在，则无法发送消息。<br>因此还需要添加一个配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.config;<br><br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.Queue;<br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QueueConfig</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">workQueue</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;work.queue&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>至此，可以运行测试类进行测试<br>打开控制台查看消息是否发送成功<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687607655800-2307a191-7090-4d36-9057-0391d9a53a89.png#averageHue=%23f9f8f7&clientId=u47098c25-1a45-4&from=paste&height=707&id=u1d34281c&originHeight=707&originWidth=961&originalType=binary&ratio=1&rotation=0&showTitle=false&size=50212&status=done&style=none&taskId=u4bb62c5e-d4c9-4cf2-9736-05dfb0ec8af&title=&width=961" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>消息接收:(这个测试我们先启动消费者，再启动生产者)<br>要模拟多个消费者绑定同一个队列，我们在consumer服务的SpringRabbitListener中添加2个新的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.listener;<br><br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.Queue;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-keyword">import</span> java.time.LocalTime;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(queuesToDeclare =  @Queue(&quot;work.queue&quot;))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenWorkQueue1</span><span class="hljs-params">(String msg)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者1接收到消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span> + LocalTime.now());<br>        Thread.sleep(<span class="hljs-number">20</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@RabbitListener(queuesToDeclare =  @Queue(&quot;work.queue&quot;))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenWorkQueue2</span><span class="hljs-params">(String msg)</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        System.err.println(<span class="hljs-string">&quot;消费者2........接收到消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span> + LocalTime.now());<br>        Thread.sleep(<span class="hljs-number">200</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>注意：在这里我使用了queuesToDeclare而不是上一个案例中使用的queues<br>它们的区别在于：<br>-<code>queues</code>：用于指定已经存在的队列名称，这些队列已经被定义在 RabbitMQ 中，并且可用于消息发送和接收。<br>-<code>queuesToDeclare</code>：用于声明队列并指定队列名称，如果队列在 RabbitMQ 中不存在，则会自动创建，然后将其用于消息发送和接收。<br>因为在开发的时候，不确定生产者与消费者服务哪个服务会先启动，因此不能指望先启动生产者创建好队列</p>
+<p>测试：<br>启动ConsumerApplication后，在执行publisher服务中刚刚编写的发送测试方法testWorkQueue。<br>可以看到消费者1很快完成了自己的25条消息。消费者2却在缓慢的处理自己的25条消息。<br>也就是说消息是平均分配给每个消费者，并没有考虑到消费者的处理能力。这样显然是有问题的。</p>
+<p>之所以会出现上面的问题，是因为消息预取机制，例如当有10个消息堆积到队列中时，消费者1和消费者2在进行消费之前，会先平均获取到队列中的消息（先平均获取到，获取了之后再进行消费）就类似现在有4个菜，一个大人和一个小孩来分，结果大人分到两个，小孩分到两个。然后大人不够吃，小孩吃不完。<br>为了防止这种情况，可以在配置文件中设置消息预取的上限</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># rabbitMQ的ip地址</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span><br>    <span class="hljs-attr">listener:</span><br>      <span class="hljs-attr">simple:</span><br>        <span class="hljs-attr">prefetch:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 每次只能获取一条消息，处理完成才能获取下一个消息</span><br></code></pre></td></tr></table></figure>
+<p>设置之后再次测试</p>
+<h4 id="3-发布订阅模式"><a href="#3-发布订阅模式" class="headerlink" title="3.发布订阅模式"></a>3.发布订阅模式</h4><p>发布订阅的模型如图：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687610021199-65dfa794-ca19-4d28-a94c-8ea2ac0aa3a7.png#averageHue=%23fdf7f7&clientId=u47098c25-1a45-4&from=paste&height=282&id=u405ec02a&originHeight=282&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42303&status=done&style=none&taskId=u12cbf148-c62a-4862-ba5c-8c7aae8a1bc&title=&width=826" srcset="/img/loading.gif" lazyload alt="image.png"><br>可以看到，在订阅模型中，多了一个exchange角色（之前用的是默认的exchange），而且过程略有变化：</p>
+<ul>
+<li>Publisher：生产者，也就是要发送消息的程序，但是不再发送到队列中，而是发给exchange（交换机）</li>
+<li>Exchange：交换机，图中的exchange。一方面，接收生产者发送的消息。另一方面，知道如何处理消息，例如递交给某个特别队列、递交给所有队列、或是将消息丢弃。到底如何操作，取决于Exchange的类型。Exchange有以下3种类型： <ul>
+<li>Fanout：广播，将消息交给所有绑定到交换机的队列</li>
+<li>Direct：定向，把消息交给符合指定routing key 的队列</li>
+<li>Topic：通配符，把消息交给符合routing pattern（路由模式） 的队列</li>
+</ul>
+</li>
+<li>Consumer：消费者，与以前一样，订阅队列，没有变化</li>
+<li>Queue：消息队列也与以前一样，接收消息、缓存消息。</li>
+</ul>
+<p>**<strong>Exchange（交换机）只负责转发消息，不具备存储消息的能力</strong>，因此如果没有任何队列与Exchange绑定，或者没有符合路由规则的队列，那么消息会丢失！</p>
+<h5 id="1-Fanout"><a href="#1-Fanout" class="headerlink" title="1.Fanout"></a>1.Fanout</h5><p>Fanout，英文翻译是扇出，我觉得在MQ中叫广播更合适。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687610280342-d244eede-c548-4284-84d3-f0aa2354b91d.png#averageHue=%23fdf7f7&clientId=u47098c25-1a45-4&from=paste&height=252&id=u01ef8176&originHeight=252&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36825&status=done&style=none&taskId=u769f228a-e0c5-4de6-ac7a-a49f324313f&title=&width=852" srcset="/img/loading.gif" lazyload alt="image.png"><br>在广播模式下，消息发送流程是这样的：</p>
+<ul>
+<li>1）  可以有多个队列</li>
+<li>2）  每个队列都要绑定到Exchange（交换机）</li>
+<li>3）  生产者发送的消息，只能发送到交换机，交换机来决定要发给哪个队列，生产者无法决定</li>
+<li>4）  交换机把消息发送给绑定过的所有队列</li>
+<li>5）  订阅队列的消费者都能拿到消息</li>
+</ul>
+<p>案例:</p>
+<ul>
+<li>创建一个交换机 baidu.fanout，类型是Fanout</li>
+<li>创建两个队列fanout.queue1和fanout.queue2，绑定到交换机baidu.fanout</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687610903801-d212d5d6-933e-44a5-a9d9-e043dad14f8c.jpeg#averageHue=%23fcf7f7&clientId=u47098c25-1a45-4&from=paste&height=205&id=ub55566e2&originHeight=205&originWidth=845&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49825&status=done&style=none&taskId=ucba520cc-b942-4ac0-a0b2-b21eb1734db&title=&width=845" srcset="/img/loading.gif" lazyload alt="0df42f78100dac2f29b22439e71ba78.jpg"><br>代码编写:<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612395879-3d774a7c-0663-4598-bdd7-e5c4f6168988.png#averageHue=%233f464e&clientId=u47098c25-1a45-4&from=paste&height=284&id=u1674284c&originHeight=284&originWidth=327&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13375&status=done&style=none&taskId=ue7da1162-b42e-4a14-bb87-cf09b7c98ea&title=&width=327" srcset="/img/loading.gif" lazyload alt="image.png"><br>在consumer中创建一个类，声明队列和交换机：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.config;<br><br><span class="hljs-keyword">import</span> org.springframework.amqp.core.Binding;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.BindingBuilder;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.FanoutExchange;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.Queue;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FanoutConfig</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 声明交换机</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> Fanout类型交换机</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> FanoutExchange <span class="hljs-title function_">fanoutExchange</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FanoutExchange</span>(<span class="hljs-string">&quot;baidu.fanout&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 第1个队列</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">fanoutQueue1</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;fanout.queue1&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 绑定队列和交换机</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Binding <span class="hljs-title function_">bindingQueue1</span><span class="hljs-params">(Queue fanoutQueue1, FanoutExchange fanoutExchange)</span> &#123;<br>        <span class="hljs-keyword">return</span> BindingBuilder.bind(fanoutQueue1).to(fanoutExchange);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 第2个队列</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">fanoutQueue2</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;fanout.queue2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 绑定队列和交换机</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Binding <span class="hljs-title function_">bindingQueue2</span><span class="hljs-params">(Queue fanoutQueue2, FanoutExchange fanoutExchange)</span> &#123;<br>        <span class="hljs-keyword">return</span> BindingBuilder.bind(fanoutQueue2).to(fanoutExchange);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在consumer服务的SpringRabbitListener中添加两个方法，作为消费者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.listener;<br><br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(queues = &quot;fanout.queue1&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenFanoutQueue1</span><span class="hljs-params">(String msg)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者1接收到Fanout消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@RabbitListener(queues = &quot;fanout.queue2&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenFanoutQueue2</span><span class="hljs-params">(String msg)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者2接收到Fanout消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此，可以观察控制台，是否生成了新的exchange与队列<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611430482-be3f03a3-6bc1-4f50-aaa1-5bb92b76188a.png#averageHue=%23f7f6f6&clientId=u47098c25-1a45-4&from=paste&height=584&id=ueffb2e58&originHeight=584&originWidth=919&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41740&status=done&style=none&taskId=u819ce2c7-88ec-4c60-bfa9-74953aab37a&title=&width=919" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611445606-0c16eaeb-b897-40eb-b5c3-a873a9b7770e.png#averageHue=%23f7f5f4&clientId=u47098c25-1a45-4&from=paste&height=412&id=u5b894774&originHeight=412&originWidth=938&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30366&status=done&style=none&taskId=u0d37c715-d137-4562-82b8-c015962b447&title=&width=938" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>在publisher服务的SpringAmqpTest类中添加测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest03</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testFanoutExchange</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 队列名称</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">exchangeName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;baidu.fanout&quot;</span>;<br>        <span class="hljs-comment">// 消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello, yjf!&quot;</span>;<br>        rabbitTemplate.convertAndSend(exchangeName, <span class="hljs-string">&quot;&quot;</span>, message);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此可以启动测试方法进行测试，观察控制台是否有获取到消息</p>
+<p>总结:<br>交换机的作用是什么？</p>
+<ul>
+<li>接收publisher发送的消息</li>
+<li>将消息按照规则路由到与之绑定的队列</li>
+<li>不能缓存消息，路由失败，消息丢失</li>
+<li>FanoutExchange的会将消息路由到每个绑定的队列</li>
+</ul>
+<p>声明队列、交换机、绑定关系的Bean是什么？</p>
+<ul>
+<li>Queue</li>
+<li>FanoutExchange</li>
+<li>Binding</li>
+</ul>
+<h5 id="2-Direct"><a href="#2-Direct" class="headerlink" title="2.Direct"></a>2.Direct</h5><p>在Fanout模式中，一条消息，会被所有订阅的队列都消费。但是，在某些场景下，我们希望不同的消息被不同的队列消费。这时就要用到Direct类型的Exchange。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687611955987-102e69f2-5f56-4d9f-91da-0083551a5a2a.png#averageHue=%23fcf6f6&clientId=u47098c25-1a45-4&from=paste&height=272&id=u410e99fd&originHeight=272&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48099&status=done&style=none&taskId=u843e6837-6a61-4688-8e73-cdbc92296eb&title=&width=846" srcset="/img/loading.gif" lazyload alt="image.png"><br>在Direct模型下：</p>
+<ul>
+<li>队列与交换机的绑定，不能是任意绑定了，而是要指定一个<code>RoutingKey</code>（路由key）</li>
+<li>消息的发送方在 向 Exchange发送消息时，也必须指定消息的 <code>RoutingKey</code>。</li>
+<li>Exchange不再把消息交给每一个绑定的队列，而是根据消息的<code>Routing Key</code>进行判断，只有队列的<code>Routingkey</code>与消息的 <code>Routing key</code>完全一致，才会接收到消息</li>
+</ul>
+<p><strong>案例需求如下</strong>：</p>
+<ol>
+<li>利用@RabbitListener声明Exchange、Queue、RoutingKey</li>
+<li>在consumer服务中，编写两个消费者方法，分别监听direct.queue1和direct.queue2</li>
+<li>在publisher中编写测试方法，向baidu. direct发送消息</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687615312812-18294cd8-9aec-4fd4-9584-185e30e1d377.jpeg#averageHue=%23fcf6f6&clientId=u47098c25-1a45-4&from=paste&height=338&id=u1983be18&originHeight=338&originWidth=835&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68723&status=done&style=none&taskId=u2991ad1e-f9c8-4951-beb5-6d70dfcd63e&title=&width=835" srcset="/img/loading.gif" lazyload alt="7685dfd68b7f5b24dc5c171ec1ef664.jpg"></p>
+<p>代码编写:<br>基于注解声明队列和交换机<br>基于@Bean的方式声明队列和交换机比较麻烦，Spring还提供了基于注解方式来声明。<br>在consumer的SpringRabbitListener中添加两个消费者，同时基于注解来声明队列和交换机：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.listener;<br><br><span class="hljs-keyword">import</span> org.springframework.amqp.core.ExchangeTypes;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.Exchange;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.Queue;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.QueueBinding;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">            value = @Queue(name = &quot;direct.queue1&quot;),</span><br><span class="hljs-meta">            exchange = @Exchange(name = &quot;baidu.direct&quot;, type = ExchangeTypes.DIRECT),</span><br><span class="hljs-meta">            key = &#123;&quot;red&quot;, &quot;blue&quot;&#125;</span><br><span class="hljs-meta">    ))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenDirectQueue1</span><span class="hljs-params">(String msg)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者接收到direct.queue1的消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">            value = @Queue(name = &quot;direct.queue2&quot;),</span><br><span class="hljs-meta">            exchange = @Exchange(name = &quot;baidu.direct&quot;, type = ExchangeTypes.DIRECT),</span><br><span class="hljs-meta">            key = &#123;&quot;red&quot;, &quot;yellow&quot;&#125;</span><br><span class="hljs-meta">    ))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenDirectQueue2</span><span class="hljs-params">(String msg)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者接收到direct.queue2的消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此可以启动consumer，观察控制台是否生成相应的exchange与队列<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612965040-67b50d4b-b5c2-4ef6-a6b3-f5b7f594951d.png#averageHue=%23f6f5f4&clientId=u47098c25-1a45-4&from=paste&height=577&id=ud9c9992d&originHeight=577&originWidth=777&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40564&status=done&style=none&taskId=u5dcb66c2-5d74-488a-97d0-0e13ecc8581&title=&width=777" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687612980790-257d984b-2f0e-443c-8281-6e5e2c703683.png#averageHue=%23f8f7f6&clientId=u47098c25-1a45-4&from=paste&height=640&id=uc698c758&originHeight=640&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46471&status=done&style=none&taskId=u93883579-b528-41cf-908e-31d2c8646fc&title=&width=928" srcset="/img/loading.gif" lazyload alt="image.png"><br>消息发送:<br>在publisher服务的SpringAmqpTest类中添加测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest03</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSendDirectExchange</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 交换机名称</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">exchangeName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;baidu.direct&quot;</span>;<br>        <span class="hljs-comment">// 消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;端午好啊&quot;</span>;<br>        <span class="hljs-comment">// 发送消息</span><br>        rabbitTemplate.convertAndSend(exchangeName, <span class="hljs-string">&quot;yellow&quot;</span>, message);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>总结:<br>描述下Direct交换机与Fanout交换机的差异？</p>
+<ul>
+<li>Fanout交换机将消息路由给每一个与之绑定的队列</li>
+<li>Direct交换机根据RoutingKey判断路由给哪个队列</li>
+<li>如果多个队列具有相同的RoutingKey，则与Fanout功能类似</li>
+</ul>
+<p>基于@RabbitListener注解声明队列和交换机有哪些常见注解？</p>
+<ul>
+<li>@Queue  </li>
+<li>@Exchange</li>
+</ul>
+<h5 id="3-Topic"><a href="#3-Topic" class="headerlink" title="3.Topic"></a>3.Topic</h5><p>Topic类型的Exchange与Direct相比，都是可以根据RoutingKey把消息路由到不同的队列。只不过Topic类型Exchange可以让队列在绑定Routing key 的时候使用通配符！<br>Routingkey 一般都是有一个或多个单词组成，多个单词之间以”.”分割，例如： baidu.insert<br>通配符规则：<br>#：匹配一个或多个词<br>*：匹配不多不少恰好1个词<br>举例：<br>item.#：能够匹配item.spu.insert 或者 item.spu<br>item.*：只能匹配item.spu<br>图示：<br>案例需求：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687645499755-37983798-abc4-40c7-9f55-f37be9b4320b.png#averageHue=%23f8efef&clientId=u0d082fe1-067a-4&from=paste&height=284&id=u29e72396&originHeight=284&originWidth=804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84771&status=done&style=none&taskId=u0be8f569-cf5a-4d1b-83d2-672dc43ff2b&title=&width=804" srcset="/img/loading.gif" lazyload alt="image.png"><br>解释：</p>
+<ul>
+<li>Queue1：绑定的是<code>china.#</code> ，因此凡是以 <code>china.</code>开头的<code>routing key</code> 都会被匹配到。包括china.news和china.weather</li>
+<li>Queue2：绑定的是<code>#.news</code> ，因此凡是以 <code>.news</code>结尾的 <code>routing key</code> 都会被匹配。包括china.news和japan.news</li>
+</ul>
+<p>实现思路如下：</p>
+<ol>
+<li>利用@RabbitListener声明Exchange、Queue、RoutingKey</li>
+<li>在consumer服务中，编写两个消费者方法，分别监听topic.queue1和topic.queue2</li>
+<li>在publisher中编写测试方法，向baidu. topic发送消息</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/2859468/1687615348685-d956d8b0-991b-4f63-902f-79911353aa92.jpeg#averageHue=%23fcf5f5&clientId=u47098c25-1a45-4&from=paste&height=249&id=cwLY8&originHeight=249&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=58891&status=done&style=none&taskId=udd95f3e5-3e13-482b-b1f1-9fff4ed276e&title=&width=821" srcset="/img/loading.gif" lazyload alt="b91108349d526ed68f4d9a8e9617b2a.jpg"><br>代码实现<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687645888099-f1769543-28ab-462a-ac75-6e595c300f08.png#averageHue=%233f454c&clientId=u0d082fe1-067a-4&from=paste&height=352&id=u1c223dd7&originHeight=352&originWidth=318&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13624&status=done&style=none&taskId=u0472e21e-74a9-46d6-9f6f-c263ffed730&title=&width=318" srcset="/img/loading.gif" lazyload alt="image.png"><br>消息接收<br>在consumer服务的SpringRabbitListener中添加方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">            value = @Queue(name = &quot;topic.queue1&quot;),</span><br><span class="hljs-meta">            exchange = @Exchange(name = &quot;baidu.topic&quot;, type = ExchangeTypes.TOPIC),</span><br><span class="hljs-meta">            key = &quot;china.#&quot;</span><br><span class="hljs-meta">    ))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenTopicQueue1</span><span class="hljs-params">(String msg)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者接收到topic.queue1的消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">            value = @Queue(name = &quot;topic.queue2&quot;),</span><br><span class="hljs-meta">            exchange = @Exchange(name = &quot;baidu.topic&quot;, type = ExchangeTypes.TOPIC),</span><br><span class="hljs-meta">            key = &quot;#.news&quot;</span><br><span class="hljs-meta">    ))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenTopicQueue2</span><span class="hljs-params">(String msg)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者接收到topic.queue2的消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>至此，可以启动consumer服务，然后观察控制台的exchange与队列<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646090521-b6234818-88fe-46a9-82c2-189f30ef9391.png#averageHue=%23f6f5f4&clientId=u0d082fe1-067a-4&from=paste&height=566&id=uf6e8aafd&originHeight=566&originWidth=753&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40708&status=done&style=none&taskId=u6eb148eb-e842-483c-823c-cf01320c3eb&title=&width=753" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646107938-fe96d63d-7a3a-47bb-abde-08023ee8f95d.png#averageHue=%23f6f4f4&clientId=u0d082fe1-067a-4&from=paste&height=504&id=u263c40ca&originHeight=504&originWidth=958&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43450&status=done&style=none&taskId=u28811a43-ff9d-445b-af9e-e6087d37c2f&title=&width=958" srcset="/img/loading.gif" lazyload alt="image.png"><br>消息发送<br>在publisher服务的SpringAmqpTest类中添加测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest05</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * topicExchange</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSendTopicExchange</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 交换机名称</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">exchangeName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;baidu.topic&quot;</span>;<br>        <span class="hljs-comment">// 消息</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;啊哈，没想到吧!&quot;</span>;<br>        <span class="hljs-comment">// 发送消息</span><br>        rabbitTemplate.convertAndSend(exchangeName, <span class="hljs-string">&quot;china.news&quot;</span>, message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>至此，可以启动测试类，进行测试，观察控制台的输出</p>
+<p>3.6.4.总结<br>描述下Direct交换机与Topic交换机的差异？</p>
+<ul>
+<li>Topic交换机接收的消息RoutingKey必须是多个单词，以 <code>**.**</code> 分割</li>
+<li>Topic交换机与队列绑定时的bindingKey可以指定通配符</li>
+<li><code>#</code>：代表0个或多个词</li>
+<li><code>*</code>：代表1个词</li>
+</ul>
+<h2 id="5-消息转换器"><a href="#5-消息转换器" class="headerlink" title="5.消息转换器"></a>5.消息转换器</h2><p>之前的案例中Spring会把你发送的消息序列化为字节发送给MQ，接收消息的时候，还会把字节反序列化为Java对象。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687646773649-8f8b0662-cf45-4731-9674-50bb60958b7b.png#averageHue=%232d2c2b&clientId=u0d082fe1-067a-4&from=paste&height=234&id=uf52b0777&originHeight=234&originWidth=1225&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32144&status=done&style=none&taskId=u4d1db353-bdae-4032-b099-a7ce38ad8a0&title=&width=1225" srcset="/img/loading.gif" lazyload alt="image.png"><br>只不过，默认情况下Spring采用的序列化方式是JDK序列化。众所周知，JDK序列化存在下列问题：</p>
+<ul>
+<li>数据体积过大</li>
+<li>有安全漏洞</li>
+<li>可读性差</li>
+</ul>
+<p>我们来测试一下。</p>
+<p>测试默认转换器<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687648520823-11ccc117-981e-440a-a59b-884b92ed123c.png#averageHue=%233f454b&clientId=u0d082fe1-067a-4&from=paste&height=409&id=u72980043&originHeight=409&originWidth=346&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15721&status=done&style=none&taskId=ufc9517e2-16db-49ec-9c2a-530d2705999&title=&width=346" srcset="/img/loading.gif" lazyload alt="image.png"><br>我们发送一个Map对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSendMap</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 准备消息</span><br>        Map&lt;String,Object&gt; msg = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        msg.put(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>);<br>        msg.put(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-number">21</span>);<br>        <span class="hljs-comment">// 发送消息</span><br>        rabbitTemplate.convertAndSend(<span class="hljs-string">&quot;basic.queue&quot;</span>, msg);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此，我们可以启动测试类，进行测试（测试的时候，需要先停止cosumer服务，不然看不到效果）<br>到控制台查看消息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687648616564-f72ef501-dda8-42a4-91bb-499dd9de1c46.png#averageHue=%23fbf4f4&clientId=u0d082fe1-067a-4&from=paste&height=361&id=u1f7e422b&originHeight=361&originWidth=1012&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23183&status=done&style=none&taskId=u169a9a70-8126-4036-b41d-6d5d79114c7&title=&width=1012" srcset="/img/loading.gif" lazyload alt="image.png"><br>配置json转换器<br>显然，JDK序列化方式并不合适。我们希望消息体的体积更小、可读性更高，因此可以使用JSON方式来做序列化和反序列化。<br>在publisher和consumer两个服务中都引入依赖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;<br>    &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;<br>    &lt;version&gt;<span class="hljs-number">2.9</span><span class="hljs-number">.10</span>&lt;/version&gt;<br>&lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<p>配置消息转换器。<br>在publisher和consumer两个服务中启动类中添加一个Bean即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br> <span class="hljs-keyword">public</span> MessageConverter <span class="hljs-title function_">jsonMessageConverter</span><span class="hljs-params">()</span>&#123;<br>     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Jackson2JsonMessageConverter</span>();<br> &#125;<br></code></pre></td></tr></table></figure>
+<p>在consumer的SpringRabbitListener中，监听的方法参数需要与发送的参数一样（我们发送的时候使用map，这里就使用map接收）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RabbitListener(queues = &quot;basic.queue&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenSimpleQueueMessage</span><span class="hljs-params">(Map&lt;String,String&gt; msg)</span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;spring 消费者接收到消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-案例"><a href="#6-案例" class="headerlink" title="6.案例"></a>6.案例</h2><p>需求： 用户进行下单操作 ， 下完单以后要进行加积分操作， 要求下完单以后加积分采用RabbitMQ 进行加积分<br><strong>案例分析：</strong><br>1 : 下完单以后把数据封装成消息利用生产者发送消息到RabbitMQ中。<br>2：在积分服务编写消费者实时监听RabbitMQ队列中消息，监听到取出消息消费加积分。<br><strong>没有RabbitMQ之前</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687745249319-fe77409c-e738-4d52-8ca6-eb4819edf79b.png#averageHue=%23f8f7f0&clientId=uc35a8098-27b8-4&from=paste&height=417&id=ud40f5dbb&originHeight=417&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19528&status=done&style=none&taskId=u75829a25-ed53-40ad-8ca5-4407ff1a728&title=&width=865" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>有了RabbitMQ以后</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1687653391932-304fda38-e7f0-42a8-b253-cd6962bbd4df.png#averageHue=%23f8f4ea&clientId=u4a92d56a-eeab-4&from=paste&height=250&id=uff90f3d9&originHeight=250&originWidth=744&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33353&status=done&style=none&taskId=uabb640e7-17a5-4eec-b644-537e324303e&title=&width=744" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="7-消息确认机制"><a href="#7-消息确认机制" class="headerlink" title="7.消息确认机制"></a>7.消息确认机制</h2><h3 id="7-1-为什么要进行消息确认？"><a href="#7-1-为什么要进行消息确认？" class="headerlink" title="7.1 为什么要进行消息确认？"></a>7.1 为什么要进行消息确认？</h3><p>在mq 中，消费者和生产者并不直接进行通信，生产者只负责把消息发送到队列，消费者只负责从队列获取消息</p>
+<ul>
+<li>消费者从队列中获取到消息之后，这条消息就不存在队列中了，但是如果此时消费者所在的信道因为网络中断没有消费到，那这条消息就被永远的丢失了，所以，我们希望等待消费者成功消费掉这个消息之后再删除这条消息。</li>
+<li>而在发送消息的时候也是这样的，生产者发消息给交换机，也不能保证消息准确发送过去了，消息就像石沉大海一样，所以这样需要一个消息确认。</li>
+</ul>
+<p>这个机制就是 <strong>消息确认机制</strong>。</p>
+<h3 id="7-2-消息确认流程"><a href="#7-2-消息确认流程" class="headerlink" title="7.2 消息确认流程"></a>7.2 消息确认流程</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688747017979-2e4264c8-8d28-4188-9f56-3beec041d49f.png#averageHue=%23f6f6f6&clientId=u54c93737-e6ef-4&from=paste&height=299&id=X4FdH&originHeight=299&originWidth=754&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42561&status=done&style=none&taskId=u6d3fea1e-834f-4f39-b141-f510ca45291&title=&width=754" srcset="/img/loading.gif" lazyload alt="image.png"><br>在流程图中，我们可与看到消息确认是分为生产者确认和消费者确认的。<br>这两个机制都是受到 TCP 协议的启发，它们对数据安全非常重要。</p>
+<p>消息从发送，到消费者接收，会经历多个过程：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688777361258-7c240ea6-689e-4c9a-9b39-77c9c41dc4f0.png#averageHue=%23fbfbfb&clientId=uc0dd9b43-8629-4&from=paste&height=349&id=ua5b7c67a&originHeight=349&originWidth=1273&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32647&status=done&style=none&taskId=u82751674-e663-4d27-97a8-e5381300677&title=&width=1273" srcset="/img/loading.gif" lazyload alt="image.png"><br>其中的每一步都可能导致消息丢失，常见的丢失原因包括：</p>
+<ul>
+<li>发送时丢失： <ul>
+<li>生产者发送的消息未送达exchange</li>
+<li>消息到达exchange后未到达queue</li>
+</ul>
+</li>
+<li>MQ宕机，queue将消息丢失</li>
+<li>consumer接收到消息后未消费就宕机</li>
+</ul>
+<p>针对这些问题，RabbitMQ分别给出了解决方案：</p>
+<ul>
+<li>生产者确认机制</li>
+<li>mq持久化</li>
+<li>消费者确认机制</li>
+<li>失败重试机制</li>
+</ul>
+<h3 id="7-3生产者消息确认"><a href="#7-3生产者消息确认" class="headerlink" title="7.3生产者消息确认"></a>7.3生产者消息确认</h3><p>RabbitMQ提供了publisher confirm机制来避免消息发送到MQ过程中丢失。这种机制必须给每个消息指定一个唯一ID。消息发送到MQ以后，会返回一个结果给发送者，表示消息是否处理成功。</p>
+<p>返回结果有两种方式：</p>
+<ul>
+<li>publisher-confirm，发送者确认 <ul>
+<li>消息成功投递到交换机，返回ack</li>
+<li>消息未投递到交换机，返回nack</li>
+</ul>
+</li>
+<li>publisher-return，发送者回执 <ul>
+<li>消息投递到交换机了，但是没有路由到队列。返回ACK，及路由失败原因。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688803979271-ae30f640-2952-4d06-84b0-ea0111ef820a.png#averageHue=%23fbfbfb&clientId=uc0dd9b43-8629-4&from=paste&height=619&id=u8391a228&originHeight=619&originWidth=1252&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51891&status=done&style=none&taskId=u9b6fcd80-1ae2-4b74-a0d3-5c4950a4b8e&title=&width=1252" srcset="/img/loading.gif" lazyload alt="image.png"><br>创建模块<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688778763603-1653fb89-5929-4f4c-bec2-944a800be975.png#averageHue=%233f444a&clientId=uc0dd9b43-8629-4&from=paste&height=471&id=ua7460b40&originHeight=471&originWidth=357&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15703&status=done&style=none&taskId=uc60c84e6-70f4-4df6-9dca-d919c404292&title=&width=357" srcset="/img/loading.gif" lazyload alt="image.png"><br>在publicsher-07模块的配置文件中添加配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># rabbitMQ的ip地址</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">你的用户名</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">你的密码</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span><br><br>    <span class="hljs-attr">publisher-confirm-type:</span> <span class="hljs-string">correlated</span><br>    <span class="hljs-attr">publisher-returns:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">template:</span><br>      <span class="hljs-attr">mandatory:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>publish-confirm-type</code>：开启publisher-confirm，这里支持两种类型： <ul>
+<li><code>simple</code>：同步等待confirm结果，直到超时</li>
+<li><code>correlated</code>：异步回调，定义ConfirmCallback，MQ返回结果时会回调这个ConfirmCallback</li>
+</ul>
+</li>
+<li><code>publish-returns</code>：开启publish-return功能，同样是基于callback机制，不过是定义ReturnCallback</li>
+<li><code>template.mandatory</code>：定义消息路由失败时的策略。true，则调用ReturnCallback；false：则直接丢弃消息</li>
+</ul>
+<p>在consumer中编写代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringRabbitListener</span> &#123;<br><br>    <span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">            value = @Queue(name = &quot;direct.queue1&quot;),</span><br><span class="hljs-meta">            exchange = @Exchange(name = &quot;baidu.direct&quot;, type = ExchangeTypes.DIRECT),</span><br><span class="hljs-meta">            key = &#123;&quot;red&quot;, &quot;blue&quot;&#125;</span><br><span class="hljs-meta">    ))</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenDirectQueue1</span><span class="hljs-params">(String msg)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;消费者接收到direct.queue1的消息：【&quot;</span> + msg + <span class="hljs-string">&quot;】&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>编写启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsumerApplication07</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(ConsumerApplication07.class);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>编写配置文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">spring:<br>  rabbitmq:<br>    host: 你的ip # rabbitMQ的ip地址<br>    port: <span class="hljs-number">5672</span> # 端口<br>    username: 你的用户名<br>    password: 你的密码<br>    virtual-host: /<br>    listener:<br>      simple:<br>        prefetch: <span class="hljs-number">1</span> # 每次只能获取一条消息，处理完成才能获取下一个消息<br></code></pre></td></tr></table></figure>
+<p>至此可以启动consumer工程，进而创建交换机、队列</p>
+<p>定义Return回调：<br>每个RabbitTemplate只能配置一个ReturnCallback，因此需要在项目加载时配置：<br>在publicsher中编写配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.config;<br><br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.BeansException;<br><span class="hljs-keyword">import</span> org.springframework.context.ApplicationContext;<br><span class="hljs-keyword">import</span> org.springframework.context.ApplicationContextAware;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ApplicationContextAware</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setApplicationContext</span><span class="hljs-params">(ApplicationContext applicationContext)</span> <span class="hljs-keyword">throws</span> BeansException &#123;<br>        <span class="hljs-comment">// 获取RabbitTemplate</span><br>        <span class="hljs-type">RabbitTemplate</span> <span class="hljs-variable">rabbitTemplate</span> <span class="hljs-operator">=</span> applicationContext.getBean(RabbitTemplate.class);<br>        <span class="hljs-comment">// 设置ReturnCallback</span><br>        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -&gt; &#123;<br>            <span class="hljs-comment">// 投递失败，记录日志</span><br>            System.err.println(<span class="hljs-string">&quot;消息发送到了交换机，但是没有发送到队列就会执行这里&quot;</span>);<br>            log.info(<span class="hljs-string">&quot;消息发送失败，应答码&#123;&#125;，原因&#123;&#125;，交换机&#123;&#125;，路由键&#123;&#125;,消息&#123;&#125;&quot;</span>,<br>                    replyCode, replyText, exchange, routingKey, message.toString());<br>            <span class="hljs-comment">// 如果有业务需要，可以重发消息</span><br>        &#125;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在publicsher中<br>定义ConfirmCallback<br>ConfirmCallback可以在发送消息时指定，因为每个业务处理confirm成功或失败的逻辑不一定相同。<br>在publisher服务的SpringAmqpTest类中，定义一个单元测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu;<br><br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.connection.CorrelationData;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-keyword">import</span> java.util.UUID;<br><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringAmqpTest</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RabbitTemplate rabbitTemplate;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSendMap</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-comment">// 1.消息体</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;测试生产者确认!&quot;</span>;<br>        <span class="hljs-comment">// 2.全局唯一的消息ID，需要封装到CorrelationData中</span><br>        <span class="hljs-type">CorrelationData</span> <span class="hljs-variable">correlationData</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationData</span>(UUID.randomUUID().toString());<br>        <span class="hljs-comment">// 3.添加callback</span><br>        correlationData.getFuture().addCallback(<br>                result -&gt; &#123;<br>                    <span class="hljs-keyword">if</span> (result.isAck()) &#123;<br>                        <span class="hljs-comment">// 3.1.ack，消息成功</span><br>                        System.out.println(<span class="hljs-string">&quot;消息发送到交换机就会执行这里&quot;</span>);<br>                        System.out.println(<span class="hljs-string">&quot;消息发送成功：&quot;</span> + correlationData.getId());<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        <span class="hljs-comment">// 3.2.nack，消息失败</span><br>                        System.out.println(<span class="hljs-string">&quot;消息没有发送到交换机就会执行这里&quot;</span>);<br>                        System.out.println(<span class="hljs-string">&quot;消息发送失败：&quot;</span> + correlationData.getId() + <span class="hljs-string">&quot;原因是：&quot;</span> + result.getReason());<br>                    &#125;<br>                &#125;,<br>                ex -&gt; &#123;<br>                    System.out.println(<span class="hljs-string">&quot;发送消息的时候，不知道什么原因出现了异常，导致没收到回执，就会进入这里执行这里的代码，类似axios请求一样&quot;</span>);<br>                    System.out.println(<span class="hljs-string">&quot;消息发送异常：&quot;</span> + correlationData.getId() + <span class="hljs-string">&quot;原因是：&quot;</span> + ex.getMessage());<br>                &#125;<br>        );<br>        <span class="hljs-comment">// 4.发送消息</span><br>        rabbitTemplate.convertAndSend(<span class="hljs-string">&quot;baidu.direct&quot;</span>, <span class="hljs-string">&quot;red&quot;</span>, message, correlationData);<br>        <span class="hljs-comment">// 休眠一会儿，等待ack回执</span><br>        Thread.sleep(<span class="hljs-number">2000</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>至此可以启动测试类 进行测试</p>
+<h3 id="7-4消费者消息确认"><a href="#7-4消费者消息确认" class="headerlink" title="7.4消费者消息确认"></a>7.4消费者消息确认</h3><p>rabbitmq 消费消息有两种模式，一个是推送 push ，一个是自己拉取pull。<br>推模式：消息中间件主动将消息推送给消费者<br>拉模式：消费者主动从消息中间件拉取消息。<br>但实际使用中，拉取消息是会降低系统吞吐量的，以及消费者很难实时获取消息，因此，一般使用的是push 模式。<br>在 mq 推消息给消费者不是等消费者消费完一个再推一个，而是根据prefetch_count 参数来决定可以推多个消息到消费者的缓存里面。<br>在消费者确认中，有可能出现消息丢失的场景:</p>
+<ul>
+<li>1）RabbitMQ投递消息给消费者</li>
+<li>2）消费者获取消息后，返回ACK给RabbitMQ</li>
+<li>3）RabbitMQ删除消息</li>
+<li>4）消费者宕机，消息尚未处理</li>
+</ul>
+<p>这样，消息就丢失了。因此消费者返回ACK的时机非常重要。</p>
+<p>而SpringAMQP则允许配置三种确认模式：</p>
+<p>•manual：手动ack，需要在业务代码结束后，调用api发送ack。</p>
+<p>•auto：自动ack，由spring监测listener代码是否出现异常，没有异常则返回ack；抛出异常则返回nack</p>
+<p>•none：关闭ack，MQ假定消费者获取消息后会成功处理，因此消息投递后立即被删除</p>
+<p>由此可知：</p>
+<ul>
+<li>none模式下，消息投递是不可靠的，可能丢失</li>
+<li>auto模式类似事务机制，出现异常时返回nack，消息回滚到mq；没有异常，返回ack</li>
+<li>manual：自己根据业务情况，判断什么时候该ack</li>
+</ul>
+<p>一般，我们都是使用默认的auto即可。<br>注意：在springboot(2.3.9版本)+rabbitmq(3.9.11版本)，默认的模式是auto</p>
+<p>下面演示none模式<br>修改consumer模块的application.yml文件，添加下面内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># rabbitMQ的ip地址</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">你的用户名</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">你的密码</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span><br>    <span class="hljs-attr">listener:</span><br>      <span class="hljs-attr">simple:</span><br>        <span class="hljs-attr">prefetch:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 每次只能获取一条消息，处理完成才能获取下一个消息</span><br>        <span class="hljs-attr">acknowledge-mode:</span> <span class="hljs-string">none</span> <br></code></pre></td></tr></table></figure>
+
+<p>修改SpringRabbitListener的代码，并且在生产者发送消息之后，用断点的方式启动消费者服务<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688814478916-a4659e59-6738-475e-86bd-a2ab391db41a.png#averageHue=%232e2c2a&clientId=uc0dd9b43-8629-4&from=paste&height=507&id=ued3b2488&originHeight=507&originWidth=1203&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84815&status=done&style=none&taskId=u048cb02a-6fd8-40dd-9214-cd579ba547d&title=&width=1203" srcset="/img/loading.gif" lazyload alt="image.png"><br>启动之后观察rabbtimq的控制台可以看到<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688814833009-6b65825d-f8af-4f90-b3f2-6c81e1ac19f6.png#averageHue=%23f6f5f4&clientId=uc0dd9b43-8629-4&from=paste&height=155&id=udd359dc7&originHeight=155&originWidth=855&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12796&status=done&style=none&taskId=u6466678e-07d8-4f26-9557-cb6c11d0c24&title=&width=855" srcset="/img/loading.gif" lazyload alt="image.png"><br>测试可以发现，当消息发送到消费者，消息立即被RabbitMQ删除了。</p>
+<p>接下来测试auto模式（默认）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815287483-8672ea80-6890-4a8a-b8c8-413eb77f22db.png#averageHue=%23f6f5f4&clientId=uc0dd9b43-8629-4&from=paste&height=159&id=ueeec7fae&originHeight=159&originWidth=817&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12847&status=done&style=none&taskId=u6a3aace8-ae6c-4440-9469-b9832650b78&title=&width=817" srcset="/img/loading.gif" lazyload alt="image.png"><br>抛出异常后，因为Spring会自动返回nack，所以消息恢复至Ready状态，并且没有被RabbitMQ删除：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815440278-27e6f903-b5e3-4051-ad8f-a764ffb68f3d.png#averageHue=%23f6f2f1&clientId=uc0dd9b43-8629-4&from=paste&height=155&id=u18a2da78&originHeight=155&originWidth=828&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13417&status=done&style=none&taskId=udfed0f1b-da85-44af-80a4-5f4e5aa867c&title=&width=828" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="7-5-消费失败重试机制"><a href="#7-5-消费失败重试机制" class="headerlink" title="7.5 消费失败重试机制"></a>7.5 消费失败重试机制</h3><p>当消费者出现异常后，消息会不断requeue（重入队）到队列，再重新发送给消费者，然后再次异常，再次requeue，无限循环，导致mq的消息处理飙升，带来不必要的压力：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688815564472-96b41fe4-44b0-4917-abbb-e66be0c0472d.png#averageHue=%23f7f3f2&clientId=uc0dd9b43-8629-4&from=paste&height=165&id=ubf90b49a&originHeight=165&originWidth=887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13694&status=done&style=none&taskId=u24528b4e-cfd8-48ae-b1f4-cd09bfd1930&title=&width=887" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="7-5-1-本地重试"><a href="#7-5-1-本地重试" class="headerlink" title="7.5.1 本地重试"></a>7.5.1 本地重试</h4><p>由于默认的失败重试机制会导致mq的消息处理飙升，带来不必要的压力，因此我们可以利用Spring的retry机制，在消费者出现异常时利用本地重试，而不是无限制的requeue到mq队列。<br>修改consumer服务的application.yml文件，添加内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">listener:</span><br>      <span class="hljs-attr">simple:</span><br>        <span class="hljs-attr">retry:</span><br>          <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启消费者失败重试spring:</span><br>  <span class="hljs-attr">rabbitmq:</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-string">你的ip</span> <span class="hljs-comment"># rabbitMQ的ip地址</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span> <span class="hljs-comment"># 端口</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">你的用户名</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">你的密码</span><br>    <span class="hljs-attr">virtual-host:</span> <span class="hljs-string">/</span><br>    <span class="hljs-attr">listener:</span><br>      <span class="hljs-attr">simple:</span><br>        <span class="hljs-attr">prefetch:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 每次只能获取一条消息，处理完成才能获取下一个消息</span><br>        <span class="hljs-attr">retry:</span><br>          <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启消费者失败重试</span><br>          <span class="hljs-attr">initial-interval:</span> <span class="hljs-number">1000</span> <span class="hljs-comment"># 初识的失败等待时长为1秒</span><br>          <span class="hljs-attr">multiplier:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># 失败的等待时长倍数，下次等待时长 = multiplier * last-interval</span><br>          <span class="hljs-attr">max-attempts:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># 最大重试次数</span><br>          <span class="hljs-attr">stateless:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># true无状态；false有状态。如果业务中包含事务，这里改为false</span><br>          <span class="hljs-attr">initial-interval:</span> <span class="hljs-number">1000</span> <span class="hljs-comment"># 初识的失败等待时长为1秒</span><br>          <span class="hljs-attr">multiplier:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 失败的等待时长倍数，下次等待时长 = multiplier * last-interval</span><br>          <span class="hljs-attr">max-attempts:</span> <span class="hljs-number">3</span> <span class="hljs-comment"># 最大重试次数</span><br>          <span class="hljs-attr">stateless:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># true无状态；false有状态。如果业务中包含事务，这里改为false</span><br></code></pre></td></tr></table></figure>
+<p>重启consumer服务，重复之前的测试。可以发现：</p>
+<ul>
+<li>在重试达到最大次数后，SpringAMQP会抛出异常AmqpRejectAndDontRequeueException，说明本地重试触发了</li>
+<li>查看RabbitMQ控制台，发现消息被删除了，说明最后SpringAMQP返回的是ack，mq删除消息了</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>开启本地重试时，消息处理过程中抛出异常，不会requeue到队列，而是在消费者本地重试</li>
+<li>重试达到最大次数后，Spring会返回ack，消息会被丢弃</li>
+</ul>
+<h4 id="7-5-2-失败策略"><a href="#7-5-2-失败策略" class="headerlink" title="7.5.2 失败策略"></a>7.5.2 失败策略</h4><p>在之前的测试中，达到最大重试次数后，消息会被丢弃，这是由Spring内部机制决定的。</p>
+<p>在开启重试模式后，重试次数耗尽，如果消息依然失败，则需要有MessageRecovery接口来处理，它包含三种不同的实现：</p>
+<ul>
+<li>RejectAndDontRequeueRecoverer：重试耗尽后，直接reject，丢弃消息。默认就是这种方式</li>
+<li>ImmediateRequeueMessageRecoverer：重试耗尽后，返回nack，消息重新入队</li>
+<li>RepublishMessageRecoverer：重试耗尽后，将失败消息投递到指定的交换机</li>
+</ul>
+<p>比较优雅的一种处理方案是RepublishMessageRecoverer，失败后将消息投递到一个指定的，专门存放异常消息的队列，后续由人工集中处理。<br>1）在consumer服务中定义处理失败消息的交换机和队列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> DirectExchange <span class="hljs-title function_">errorMessageExchange</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DirectExchange</span>(<span class="hljs-string">&quot;error.direct&quot;</span>);<br>&#125;<br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">errorQueue</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;error.queue&quot;</span>, <span class="hljs-literal">true</span>);<br>&#125;<br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Binding <span class="hljs-title function_">errorBinding</span><span class="hljs-params">(Queue errorQueue, DirectExchange errorMessageExchange)</span>&#123;<br>    <span class="hljs-keyword">return</span> BindingBuilder.bind(errorQueue).to(errorMessageExchange).with(<span class="hljs-string">&quot;error&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>2）定义一个RepublishMessageRecoverer，关联队列和交换机</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> MessageRecoverer <span class="hljs-title function_">republishMessageRecoverer</span><span class="hljs-params">(RabbitTemplate rabbitTemplate)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RepublishMessageRecoverer</span>(rabbitTemplate, <span class="hljs-string">&quot;error.direct&quot;</span>, <span class="hljs-string">&quot;error&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.baidu.mq.config;<br><br><span class="hljs-keyword">import</span> org.springframework.amqp.core.Binding;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.BindingBuilder;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.DirectExchange;<br><span class="hljs-keyword">import</span> org.springframework.amqp.core.Queue;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.core.RabbitTemplate;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.retry.MessageRecoverer;<br><span class="hljs-keyword">import</span> org.springframework.amqp.rabbit.retry.RepublishMessageRecoverer;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ErrorMessageConfig</span> &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> DirectExchange <span class="hljs-title function_">errorMessageExchange</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DirectExchange</span>(<span class="hljs-string">&quot;error.direct&quot;</span>);<br>    &#125;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">errorQueue</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;error.queue&quot;</span>, <span class="hljs-literal">true</span>);<br>    &#125;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Binding <span class="hljs-title function_">errorBinding</span><span class="hljs-params">(Queue errorQueue, DirectExchange errorMessageExchange)</span>&#123;<br>        <span class="hljs-keyword">return</span> BindingBuilder.bind(errorQueue).to(errorMessageExchange).with(<span class="hljs-string">&quot;error&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> MessageRecoverer <span class="hljs-title function_">republishMessageRecoverer</span><span class="hljs-params">(RabbitTemplate rabbitTemplate)</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RepublishMessageRecoverer</span>(rabbitTemplate, <span class="hljs-string">&quot;error.direct&quot;</span>, <span class="hljs-string">&quot;error&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="7-6-如何确保rabbitmq消息可靠性"><a href="#7-6-如何确保rabbitmq消息可靠性" class="headerlink" title="7.6 如何确保rabbitmq消息可靠性"></a>7.6 如何确保rabbitmq消息可靠性</h3><ul>
+<li>开启生产者确认机制，确保生产者的消息能到达队列</li>
+<li>开启持久化功能，确保消息未消费前在队列中不会丢失</li>
+<li>开启消费者确认机制为auto，由spring确认消息处理成功后完成ack</li>
+<li>开启消费者失败重试机制，并设置MessageRecoverer，多次重试失败后将消息投递到异常交换机，交由人工处理</li>
+</ul>
+<h2 id="8-死信交换机"><a href="#8-死信交换机" class="headerlink" title="8.死信交换机"></a>8.死信交换机</h2><h3 id="8-1-什么是死信交换机"><a href="#8-1-什么是死信交换机" class="headerlink" title="8.1 什么是死信交换机"></a>8.1 什么是死信交换机</h3><p>什么是死信？</p>
+<p>当一个队列中的消息满足下列情况之一时，可以成为死信（dead letter）：</p>
+<ul>
+<li>消费者使用basic.reject或 basic.nack声明消费失败，并且消息的requeue参数设置为false</li>
+<li>消息是一个过期消息，超时无人消费</li>
+<li>要投递的队列消息满了，无法投递</li>
+</ul>
+<p>如果这个包含死信的队列配置了dead-letter-exchange属性，指定了一个交换机，那么么投递到这个交换机中，而这个交换机称为<strong>死信交换机</strong>（Dead Letter Exchange，检查DLX）。<br>如图，一个消息被消费者拒绝了，变成了死信：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909638140-212b6ef8-162c-43f8-ba2e-166609fe74b1.png#averageHue=%23f8f4f0&clientId=uef35cbf5-d400-4&from=paste&height=202&id=u847217af&originHeight=202&originWidth=820&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41934&status=done&style=none&taskId=u90a658de-40a4-4635-b661-fffb722d3e2&title=&width=820" srcset="/img/loading.gif" lazyload alt="1688909633218.png"><br>因为simple.queue绑定了死信交换机 dl.direct，因此死信会投递给这个交换机：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909695786-1656b9a9-38ba-4c4b-8104-ccc37a1e81a4.png#averageHue=%23fcf8f8&clientId=uef35cbf5-d400-4&from=paste&height=212&id=u0314f06f&originHeight=212&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39275&status=done&style=none&taskId=uce36243c-be5c-4868-b97f-428203c42bb&title=&width=852" srcset="/img/loading.gif" lazyload alt="1688909690247.png"><br>如果这个死信交换机也绑定了一个队列，则消息最终会进入这个存放死信的队列：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909769444-f0eae615-f9f7-4acf-b8a3-9fcc9ee7ce74.png#averageHue=%23f8f1ed&clientId=uef35cbf5-d400-4&from=paste&height=205&id=u12334677&originHeight=205&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47193&status=done&style=none&taskId=u8cf86f06-c9cd-4c6d-ab0d-17ff4315c57&title=&width=826" srcset="/img/loading.gif" lazyload alt="1688909765588.png"><br>另外，队列将死信投递给死信交换机时，必须知道两个信息：</p>
+<ul>
+<li>死信交换机名称</li>
+<li>死信交换机与死信队列绑定的RoutingKey</li>
+</ul>
+<p>这样才能确保投递的消息能到达死信交换机，并且正确的路由到死信队列。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688909925258-f2b69359-75e4-4ce9-96da-6d503f55f328.png#averageHue=%23f6efeb&clientId=uef35cbf5-d400-4&from=paste&height=201&id=ue1a5c84d&originHeight=201&originWidth=804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52045&status=done&style=none&taskId=u8e02e0fd-39e5-4646-b7c0-ae6a285c1f3&title=&width=804" srcset="/img/loading.gif" lazyload alt="1688909922599.png"></p>
+<h3 id="8-2-利用死信交换机接收死信"><a href="#8-2-利用死信交换机接收死信" class="headerlink" title="8.2 利用死信交换机接收死信"></a>8.2 利用死信交换机接收死信</h3><p>在失败重试策略中，默认的RejectAndDontRequeueRecoverer会在本地重试次数耗尽后，发送reject给RabbitMQ，消息变成死信，被丢弃。<br>我们可以给simple.queue添加一个死信交换机，给死信交换机绑定一个队列。这样消息变成死信后也不会丢弃，而是最终投递到死信交换机，路由到与死信交换机绑定的队列。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688910069056-f75cace0-227d-4ecb-8daa-8cc5436909f1.png#averageHue=%23f7f1ec&clientId=uef35cbf5-d400-4&from=paste&height=200&id=u48c2d8bd&originHeight=200&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46375&status=done&style=none&taskId=u4af5f02d-61f0-4e28-97a0-68fc0299693&title=&width=819" srcset="/img/loading.gif" lazyload alt="1688910065914.png"></p>
+<p>总结：什么样的消息会成为死信？</p>
+<ul>
+<li>消息被消费者reject或者返回nack</li>
+<li>消息超时未消费</li>
+<li>队列满了</li>
+</ul>
+<p>死信交换机的使用场景是什么？</p>
+<ul>
+<li>如果队列绑定了死信交换机，死信会投递到死信交换机；</li>
+<li>可以利用死信交换机收集所有消费者处理失败的消息（死信），交由人工处理，进一步提高消息队列的可靠性。</li>
+</ul>
+<h3 id="8-3-TTL"><a href="#8-3-TTL" class="headerlink" title="8.3 TTL"></a>8.3 TTL</h3><p>一个队列中的消息如果超时未消费，则会变为死信，超时分为两种情况：</p>
+<ul>
+<li>消息所在的队列设置了超时时间</li>
+<li>消息本身设置了超时时间</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2859468/1688916412793-236625b8-54ab-4d1a-b469-13ec2b53ba2c.png#averageHue=%23fcf5f5&clientId=u9b50a151-4535-4&from=paste&height=249&id=uf56f16a1&originHeight=249&originWidth=836&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56103&status=done&style=none&taskId=u643f8c60-b5ff-4cbd-9f41-3c842182fc7&title=&width=836" srcset="/img/loading.gif" lazyload alt="1688916405888.png"></p>
+<p>接收超时死信的死信交换机：<br>在consumer服务的SpringRabbitListener中，定义一个新的消费者，并且声明 死信交换机、死信队列：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RabbitListener(bindings = @QueueBinding(</span><br><span class="hljs-meta">    value = @Queue(name = &quot;dl.ttl.queue&quot;, durable = &quot;true&quot;),</span><br><span class="hljs-meta">    exchange = @Exchange(name = &quot;dl.ttl.direct&quot;),</span><br><span class="hljs-meta">    key = &quot;ttl&quot;</span><br><span class="hljs-meta">))</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">listenDlQueue</span><span class="hljs-params">(String msg)</span>&#123;<br>    log.info(<span class="hljs-string">&quot;接收到 dl.ttl.queue的延迟消息：&#123;&#125;&quot;</span>, msg);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>声明一个队列，并且指定TTL<br>要给队列设置超时时间，需要在声明队列时配置x-message-ttl属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Queue <span class="hljs-title function_">ttlQueue</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> QueueBuilder.durable(<span class="hljs-string">&quot;ttl.queue&quot;</span>) <span class="hljs-comment">// 指定队列名称，并持久化</span><br>        .ttl(<span class="hljs-number">10000</span>) <span class="hljs-comment">// 设置队列的超时时间，10秒</span><br>        .deadLetterExchange(<span class="hljs-string">&quot;dl.ttl.direct&quot;</span>) <span class="hljs-comment">// 指定死信交换机</span><br>        .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意，这个队列设定了死信交换机为<code>dl.ttl.direct</code></p>
+<p>声明交换机，将ttl与交换机绑定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> DirectExchange <span class="hljs-title function_">ttlExchange</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DirectExchange</span>(<span class="hljs-string">&quot;ttl.direct&quot;</span>);<br>&#125;<br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Binding <span class="hljs-title function_">ttlBinding</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> BindingBuilder.bind(ttlQueue()).to(ttlExchange()).with(<span class="hljs-string">&quot;ttl&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>发送消息，但是不要指定TTL：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testTTLQueue</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 创建消息</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello, ttl queue&quot;</span>;<br>    <span class="hljs-comment">// 消息ID，需要封装到CorrelationData中</span><br>    <span class="hljs-type">CorrelationData</span> <span class="hljs-variable">correlationData</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationData</span>(UUID.randomUUID().toString());<br>    <span class="hljs-comment">// 发送消息</span><br>    rabbitTemplate.convertAndSend(<span class="hljs-string">&quot;ttl.direct&quot;</span>, <span class="hljs-string">&quot;ttl&quot;</span>, message, correlationData);<br>    <span class="hljs-comment">// 记录日志</span><br>    <br></code></pre></td></tr></table></figure>
+<p>至此，可以执行代码进行测试，测试可以发现<br>因为队列的TTL值是10000ms，也就是10秒。可以看到消息发送与接收之间的时差刚好是10秒。</p>
+<p>发送消息时，设定TTL<br>在发送消息时，也可以指定TTL：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testTTLMsg</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 创建消息</span><br>    <span class="hljs-type">Message</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> MessageBuilder<br>        .withBody(<span class="hljs-string">&quot;hello, ttl message&quot;</span>.getBytes(StandardCharsets.UTF_8))<br>        .setExpiration(<span class="hljs-string">&quot;5000&quot;</span>)<br>        .build();<br>    <span class="hljs-comment">// 消息ID，需要封装到CorrelationData中</span><br>    <span class="hljs-type">CorrelationData</span> <span class="hljs-variable">correlationData</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationData</span>(UUID.randomUUID().toString());<br>    <span class="hljs-comment">// 发送消息</span><br>    rabbitTemplate.convertAndSend(<span class="hljs-string">&quot;ttl.direct&quot;</span>, <span class="hljs-string">&quot;ttl&quot;</span>, message, correlationData);<br>    log.debug(<span class="hljs-string">&quot;发送消息成功&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行测试<br>这次，发送与接收的延迟只有5秒。说明当队列、消息都设置了TTL时，任意一个到期就会成为死信。</p>
+<p>总结：<br>消息超时的两种方式是？</p>
+<ul>
+<li>给队列设置ttl属性，进入队列后超过ttl时间的消息变为死信</li>
+<li>给消息设置ttl属性，队列接收到消息超过ttl时间后变为死信</li>
+</ul>
+<p>如何实现发送一个消息20秒后消费者才收到消息？</p>
+<ul>
+<li>给消息的目标队列指定死信交换机</li>
+<li>将消费者监听的队列绑定到死信交换机</li>
+<li>发送消息时给消息设置超时时间为20秒</li>
+</ul>
+<h3 id="8-4-延迟队列"><a href="#8-4-延迟队列" class="headerlink" title="8.4 延迟队列"></a>8.4 延迟队列</h3><p>利用TTL结合死信交换机，我们实现了消息发出后，消费者延迟收到消息的效果。这种消息模式就称为延迟队列（Delay Queue）模式。</p>
+<p>延迟队列的使用场景包括：</p>
+<ul>
+<li>延迟发送短信</li>
+<li>用户下单，如果用户在15 分钟内未支付，则自动取消</li>
+<li>预约工作会议，20分钟后自动通知所有参会人员</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="print-no-link">#中间件</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>RabbtiMQ</div>
+      <div>https://dddwah11.github.io/2025/05/24/25524/RabbitMQ/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>61分</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/24/25524/Liunx/" title="Liunx">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Liunx</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/24/25524/Frame/" title="Maven、Netty、RocketMQ、Zookeeper">
+                        <span class="hidden-mobile">Maven、Netty、RocketMQ、Zookeeper</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
