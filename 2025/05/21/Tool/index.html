@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -25,7 +25,7 @@
 <meta property="og:url" content="https://dddwah11.github.io/2025/05/21/Tool/index.html">
 <meta property="og:site_name" content="小刘">
 <meta property="og:description" content="GitGit概述版本系统SVN 是集中式版本控制系统，版本库是集中放在中央服务器的，而开发人员工作的时候，用的都是自己的电脑，所以首先要从中央服务器下载最新的版本，然后开发，开发完后，需要把自己开发的代码提交到中央服务器。 集中式版本控制工具缺点：服务器单点故障、容错性差 Git 是分布式版本控制系统（Distributed Version Control System，简称 DVCS） ，分为两">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/Git%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/%E6%96%87%E4%BB%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
 <meta property="og:image" content="https://seazean.oss-cn-beijing.aliyuncs.com/img/Tool/%E5%9B%BE%E8%A7%A3%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
@@ -152,7 +152,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>首页</span>
               </a>
             </li>
           
@@ -164,7 +164,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>归档</span>
               </a>
             </li>
           
@@ -176,7 +176,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -188,7 +188,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -200,7 +200,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -246,7 +246,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2025-05-21 00:25" pubdate>
-          May 21, 2025 am
+          2025年5月21日 凌晨
         </time>
       </span>
     
@@ -257,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k words
+          18k 字
         
       </span>
     
@@ -268,7 +268,7 @@
         
         
         
-          152 mins
+          152 分钟
         
       </span>
     
@@ -334,7 +334,7 @@
 <p>设置用户信息：</p>
 <ul>
 <li>git config –global user.name “Seazean”</li>
-<li>git config –global user.email “<a href="mailto:&#x69;&#x6d;&#115;&#x65;&#97;&#122;&#x65;&#x61;&#x6e;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x69;&#x6d;&#115;&#x65;&#97;&#122;&#x65;&#x61;&#x6e;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
+<li>git config –global user.email “<a href="mailto:&#x69;&#x6d;&#115;&#x65;&#97;&#x7a;&#101;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x69;&#x6d;&#115;&#x65;&#97;&#x7a;&#101;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
 </ul>
 <p>查看配置信息：</p>
 <ul>
@@ -369,7 +369,7 @@
 </ul>
 </li>
 <li>查看命令：cat ~&#x2F;.ssh&#x2F;id_rsa.pub</li>
-<li>公钥测试命令：ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;</a></li>
+<li>公钥测试命令：ssh -T <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;</a></li>
 </ul>
 </li>
 </ul>
@@ -2145,26 +2145,26 @@
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>Author</div>
+          <div>作者</div>
           <div>61分</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>May 21, 2025</div>
+          <div>发布于</div>
+          <div>2025年5月21日</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>Licensed under</div>
+          <div>许可协议</div>
           <div>
             
               
               
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
                   </span>
                 </a>
@@ -2187,7 +2187,7 @@
                       <a href="/2025/05/21/Web/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -2196,7 +2196,7 @@
                     
                       <a href="/2025/05/21/SSM/" title="">
                         <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -2217,7 +2217,7 @@
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
+    <span>目录</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -2273,7 +2273,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -2281,7 +2281,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -2459,7 +2459,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
 </body>
 </html>
