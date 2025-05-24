@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="61分">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="搭好前端脚手架router,vuex,elementpuls, 配置全局样式css文件下 123456&#x2F;* 全局样式表 *&#x2F;html,body，#app&amp;#123;    height: 100%;    margin: 0;    padding: 0;&amp;#125;  main.js下 1import &amp;#x27;@&#x2F;assets&#x2F;css&#x2F;global.css&amp;#x27;    1、登录页面使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目-前端">
+<meta property="og:url" content="https://dddwah11.github.io/2022/05/05/5-5/%E9%A1%B9%E7%9B%AE_%E5%89%8D%E7%AB%AF/index.html">
+<meta property="og:site_name" content="小刘的博客">
+<meta property="og:description" content="搭好前端脚手架router,vuex,elementpuls, 配置全局样式css文件下 123456&#x2F;* 全局样式表 *&#x2F;html,body，#app&amp;#123;    height: 100%;    margin: 0;    padding: 0;&amp;#125;  main.js下 1import &amp;#x27;@&#x2F;assets&#x2F;css&#x2F;global.css&amp;#x27;    1、登录页面使用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-05T13:24:25.055Z">
+<meta property="article:modified_time" content="2022-05-09T05:28:05.769Z">
+<meta property="article:author" content="61分">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>项目-前端 - 小刘的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dddwah11.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="项目-前端"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-05 21:24" pubdate>
+          May 5, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">项目-前端</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="搭好前端脚手架"><a href="#搭好前端脚手架" class="headerlink" title="搭好前端脚手架"></a>搭好前端脚手架</h1><p>router,vuex,elementpuls,</p>
+<h1 id="配置全局样式"><a href="#配置全局样式" class="headerlink" title="配置全局样式"></a>配置全局样式</h1><p>css文件下</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 全局样式表 */</span><br><span class="hljs-selector-tag">html</span>,<span class="hljs-selector-tag">body</span>，<span class="hljs-selector-id">#app</span>&#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>main.js下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;@/assets/css/global.css&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="1、登录页面"><a href="#1、登录页面" class="headerlink" title="1、登录页面"></a>1、登录页面</h1><p>使用less</p>
+<p><strong>安装</strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> --save-dev <span class="hljs-keyword">less</span>-loader <span class="hljs-keyword">less</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;style lang=<span class="hljs-string">&quot;less&quot;</span>&gt;&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>vue3使用图标需要全局注册组件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install @element-plus/icons-vue<br></code></pre></td></tr></table></figure>
+
+<p>main.js中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">ElementPlusIconsVue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@element-plus/icons-vue&#x27;</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [key, component] <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(<span class="hljs-title class_">ElementPlusIconsVue</span>)) &#123;<br>  app.<span class="hljs-title function_">component</span>(key, component)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>直接引用 </p>
+<p><strong>使用icon的方法</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Avatar</span>, <span class="hljs-title class_">Lock</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@element-plus/icons-vue&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">setup</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-keyword">return</span> &#123;<br>     <span class="hljs-title class_">Avatar</span>,<br>     <span class="hljs-title class_">Lock</span><br>   &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>输入框中引用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">账号 prefix-icon=<span class="hljs-string">&quot;Avatar&quot;</span><br>密码 prefix-icon=<span class="hljs-string">&quot;Lock&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>login.vue登录页面</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;!-- 登录容器 --&gt;<br>  &lt;div class=&quot;login_container&quot;&gt;<br>    &lt;!-- 登录区域 --&gt;<br>    &lt;div class=&quot;login_box&quot;&gt;<br>      &lt;!-- 头像 --&gt;<br>      &lt;div class=&quot;avatar_box&quot;&gt;<br>        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;<br>      &lt;/div&gt;<br>      &lt;!-- 表单 --&gt;<br>      &lt;el-form<br>        :model=&quot;loginForm&quot;<br>        :rules=&quot;loginrules&quot;<br>        ref=&quot;loginForm&quot;<br>        label-width=&quot;0px&quot;<br>        class=&quot;login_form&quot;<br>      &gt;<br>        &lt;el-form-item prop=&quot;username&quot;&gt;<br>          &lt;el-input<br>            v-model=&quot;loginForm.username&quot;<br>            prefix-icon=&quot;Avatar&quot;<br>          &gt;&lt;/el-input&gt;<br>        &lt;/el-form-item&gt;<br>        &lt;el-form-item prop=&quot;password&quot;&gt;<br>          &lt;el-input<br>            v-model=&quot;loginForm.password&quot;<br>            prefix-icon=&quot;Lock&quot;<br>            type=&quot;password&quot;<br>          &gt;&lt;/el-input&gt;<br>        &lt;/el-form-item&gt;<br>        &lt;el-form-item prop=&quot;verifyCode&quot;&gt;<br>          &lt;el-input<br>            v-model=&quot;loginForm.verifyCode&quot;<br>            prefix-icon=&quot;Iphone&quot;<br>            class=&quot;verify_code&quot;<br>          &gt;&lt;/el-input&gt;<br>          &lt;img src=&quot;@/assets/msFvb6.gif&quot; class=&quot;verify_img&quot; /&gt;<br>        &lt;/el-form-item&gt;<br>        &lt;el-form-item class=&quot;login_btn&quot;&gt;<br>          &lt;el-button type=&quot;primary&quot; @click=&quot;submitForm(&#x27;loginForm&#x27;)&quot;<br>            &gt;登录&lt;/el-button<br>          &gt;<br>          &lt;el-button @click=&quot;resetForm(&#x27;loginForm&#x27;)&quot;&gt;重置&lt;/el-button&gt;<br>        &lt;/el-form-item&gt;<br>      &lt;/el-form&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import &#123; Avatar, Lock, Iphone &#125; from &quot;@element-plus/icons-vue&quot;;<br>export default &#123;<br>  setup() &#123;<br>    return &#123;<br>      Avatar,<br>      Lock,<br>      Iphone,<br>    &#125;;<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      loginForm: &#123;<br>        username: &quot;&quot;,<br>        password: &quot;&quot;,<br>        verifyCode: &quot;&quot;,<br>      &#125;,<br>      loginrules: &#123;<br>        username: [<br>          &#123; required: true, message: &quot;请输入账号&quot;, trigger: &quot;blur&quot; &#125;,<br>          &#123;<br>            min: 3,<br>            max: 16,<br>            message: &quot;长度在 3 到 16 个字符&quot;,<br>            trigger: &quot;blur&quot;,<br>          &#125;,<br>        ],<br>        password: [<br>          &#123; required: true, message: &quot;请输入密码&quot;, trigger: &quot;blur&quot; &#125;,<br>          &#123;<br>            min: 3,<br>            max: 16,<br>            message: &quot;长度在 3 到 16  个字符&quot;,<br>            trigger: &quot;blur&quot;,<br>          &#125;,<br>        ],<br>        verifyCode: [<br>          &#123; required: true, message: &quot;请输入验证码&quot;, trigger: &quot;blur&quot; &#125;,<br>          &#123;<br>            min: 3,<br>            max: 16,<br>            trigger: &quot;blur&quot;,<br>          &#125;,<br>        ],<br>      &#125;,<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    submitForm(formName) &#123;<br>      this.$refs[formName].validate((valid) =&gt; &#123;<br>        if (valid) &#123;<br>          alert(&quot;submit!&quot;);<br>        &#125; else &#123;<br>          console.log(&quot;error submit!!&quot;);<br>          return false;<br>        &#125;<br>      &#125;);<br>    &#125;,<br>    resetForm(formName) &#123;<br>      this.$refs[formName].resetFields();<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br>&lt;style lang=&#x27;less&#x27; scoped&gt;<br>.login_container &#123;<br>  height: 100%;<br>  background-color: aquamarine;<br>&#125;<br>.login_box &#123;<br>  width: 450px;<br>  height: 380px;<br>  background-color: #ffffff;<br>  border-radius: 3px;<br>  position: absolute;<br>  left: 50%;<br>  top: 50%;<br>  transform: translate(-50%, -50%);<br>  .avatar_box &#123;<br>    width: 130px;<br>    height: 130px;<br>    border: 1px solid #eeeeee;<br>    border-radius: 50%;<br>    padding: 10px;<br>    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);<br>    margin: -65px auto;<br>    background: #ffffff;<br>    img &#123;<br>      width: 100%;<br>      height: 100%;<br>      border-radius: 50%;<br>      background-color: #eeeeee;<br>    &#125;<br>  &#125;<br>  .login_form &#123;<br>    position: absolute;<br>    bottom: 0px;<br>    width: 100%;<br>  &#125;<br>  .login_btn &#123;<br>    display: flex;<br>    justify-content: flex-end;<br>  &#125;<br>  .verify_code &#123;<br>    width: 60%;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="2、Main页面"><a href="#2、Main页面" class="headerlink" title="2、Main页面"></a>2、Main页面</h1><p>鼠标放上图片拉下菜单</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.el-dropdown-menu</span>,<span class="hljs-selector-tag">img</span>&#123;<br>      <span class="hljs-attribute">height</span>: <span class="hljs-number">60px</span>;<br>      <span class="hljs-attribute">width</span>: <span class="hljs-number">60px</span>;<br>      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;el-dropdown&gt;<br>          &lt;!-- 右边头像 --&gt;<br>          &lt;<span class="hljs-selector-tag">img</span> <span class="hljs-attribute">src</span>=&quot;@/assets/src.jpeg&quot; /&gt;<br>          &lt;!-- 下拉菜单 --&gt;<br>          &lt;template #dropdown&gt;<br>            &lt;el-dropdown-menu&gt;<br>              &lt;el-dropdown-item icon=<span class="hljs-string">&quot;HomeFilled&quot;</span>&gt;系统主页&lt;/el-dropdown-item&gt;<br>              &lt;el-dropdown-item icon=<span class="hljs-string">&quot;Warning&quot;</span>&gt;退出登录&lt;/el-dropdown-item&gt;<br>            &lt;/el-dropdown-menu&gt;<br>          &lt;/template&gt;<br>        &lt;/el-dropdown&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>注意：</strong>去除侧边栏展开多出的边缘，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.el-menu-vertical-demo</span>&#123;<br> <span class="hljs-attribute">border-right</span>: none;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>Main.vue</strong>页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;el-container class=&quot;main_container&quot;&gt;<br>    &lt;el-header&gt;<br>      &lt;div class=&quot;left_box&quot;&gt;<br>        &lt;!-- 左边头像 --&gt;<br>        &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;<br>        &lt;span&gt;系统&lt;/span&gt;<br>      &lt;/div&gt;<br><br>      &lt;div class=&quot;right_box&quot;&gt;<br>        &lt;el-dropdown&gt;<br>          &lt;!-- 右边头像 --&gt;<br>          &lt;img src=&quot;@/assets/src.jpeg&quot; /&gt;<br>          &lt;!-- 下拉菜单 --&gt;<br>          &lt;template #dropdown&gt;<br>            &lt;el-dropdown-menu&gt;<br>              &lt;el-dropdown-item icon=&quot;HomeFilled&quot;&gt;系统主页&lt;/el-dropdown-item&gt;<br>              &lt;el-dropdown-item icon=&quot;Warning&quot;&gt;退出登录&lt;/el-dropdown-item&gt;<br>            &lt;/el-dropdown-menu&gt;<br>          &lt;/template&gt;<br>        &lt;/el-dropdown&gt;<br>      &lt;/div&gt;<br>    &lt;/el-header&gt;<br>    &lt;el-container&gt;<br>      &lt;!-- 侧边栏 --&gt;<br>      &lt;el-aside :width=&quot;iscollapse?&#x27;60px&#x27;:&#x27;200px&#x27;&quot;&gt;<br>        &lt;!-- 展开收起 --&gt;<br>      &lt;div class=&quot;toggle_box&quot; @click=&quot;toggleiscollapse&quot;&gt;|||&lt;/div&gt;<br>      &lt;el-menu<br>        active-text-color=&quot;#ffd04b&quot;<br>        background-color=&quot;#001529&quot;<br>        class=&quot;el-menu-vertical-demo&quot;<br>        :collapse=&quot;iscollapse&quot;<br>        :collapse-transition=&quot;iscollapsetransition&quot;<br>        :router=&quot;true&quot;<br>        default-active=&quot;2&quot;<br>        text-color=&quot;#fff&quot;<br>        @open=&quot;handleOpen&quot;<br>        @close=&quot;handleClose&quot;<br>      &gt;<br>        &lt;MenuTree :menuList=&quot;this.MenuList&quot;&gt;&lt;/MenuTree&gt;<br>      &lt;/el-menu&gt;<br><br>      &lt;/el-aside&gt;<br>      &lt;el-main&gt;<br>        &lt;router-view/&gt;<br>      &lt;/el-main&gt;<br>    &lt;/el-container&gt;<br>  &lt;/el-container&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import MenuTree from &#x27;@/components/MenuTree.vue&#x27;<br>export default &#123;<br>  name: &quot;Main&quot;,<br>  data() &#123;<br>    return &#123;<br>      iscollapse: false,<br>      iscollapsetransition: false,<br>      MenuList: [<br>        &#123;<br>            &quot;id&quot;: 1,<br>            &quot;parentId&quot;: 0,<br>            &quot;menuName&quot;: &quot;系统管理&quot;,<br>            &quot;url&quot;: &quot;&quot;,<br>            &quot;icon&quot;: &quot;el-icon-setting&quot;,<br>            &quot;orderNum&quot;: 1,<br>            &quot;open&quot;: 1,<br>            &quot;disabled&quot;: false,<br>            &quot;perms&quot;: null,<br>            &quot;type&quot;: 0,<br>            &quot;children&quot;: [<br>              &#123;<br>                &quot;id&quot;: 253,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;欢迎页面&quot;,<br>                &quot;url&quot;: &quot;/welcome&quot;,<br>                &quot;icon&quot;: &quot;el-icon-star-off&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;welcome:view&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 226,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;用户管理&quot;,<br>                &quot;url&quot;: &quot;/users&quot;,<br>                &quot;icon&quot;: &quot;el-icon-user&quot;,<br>                &quot;orderNum&quot;: 2,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;users&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 321,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;附件管理&quot;,<br>                &quot;url&quot;: &quot;/attachments&quot;,<br>                &quot;icon&quot;: &quot;el-icon-picture-outline&quot;,<br>                &quot;orderNum&quot;: 2,<br>                &quot;open&quot;: 1,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 4,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;菜单权限&quot;,<br>                &quot;url&quot;: &quot;/menus&quot;,<br>                &quot;icon&quot;: &quot;el-icon-help&quot;,<br>                &quot;orderNum&quot;: 3,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: null,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 235,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;角色管理&quot;,<br>                &quot;url&quot;: &quot;/roles&quot;,<br>                &quot;icon&quot;: &quot;el-icon-postcard&quot;,<br>                &quot;orderNum&quot;: 3,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 261,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;部门管理&quot;,<br>                &quot;url&quot;: &quot;/departments&quot;,<br>                &quot;icon&quot;: &quot;el-icon-s-home&quot;,<br>                &quot;orderNum&quot;: 3,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 319,<br>                &quot;parentId&quot;: 1,<br>                &quot;menuName&quot;: &quot;公告管理&quot;,<br>                &quot;url&quot;: &quot;/notices&quot;,<br>                &quot;icon&quot;: &quot;el-icon-s-flag&quot;,<br>                &quot;orderNum&quot;: 4,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: true,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;<br>            ]<br>          &#125;,<br>         <br>          &#123;<br>            &quot;id&quot;: 303,<br>            &quot;parentId&quot;: 0,<br>            &quot;menuName&quot;: &quot;健康报备&quot;,<br>            &quot;url&quot;: &quot;&quot;,<br>            &quot;icon&quot;: &quot;el-icon-platform-eleme&quot;,<br>            &quot;orderNum&quot;: 3,<br>            &quot;open&quot;: 0,<br>            &quot;disabled&quot;: false,<br>            &quot;perms&quot;: &quot;&quot;,<br>            &quot;type&quot;: 0,<br>            &quot;children&quot;: [<br>              &#123;<br>                &quot;id&quot;: 273,<br>                &quot;parentId&quot;: 303,<br>                &quot;menuName&quot;: &quot;全国疫情&quot;,<br>                &quot;url&quot;: &quot;/map&quot;,<br>                &quot;icon&quot;: &quot;el-icon-s-opportunity&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 1,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;map:view&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 304,<br>                &quot;parentId&quot;: 303,<br>                &quot;menuName&quot;: &quot;健康打卡&quot;,<br>                &quot;url&quot;: &quot;/health&quot;,<br>                &quot;icon&quot;: &quot;el-icon-s-cooperation&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 305,<br>                &quot;parentId&quot;: 303,<br>                &quot;menuName&quot;: &quot;查看情况&quot;,<br>                &quot;url&quot;: null,<br>                &quot;icon&quot;: &quot;el-icon-c-scale-to-original&quot;,<br>                &quot;orderNum&quot;: 2,<br>                &quot;open&quot;: 1,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: null,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 272,<br>                &quot;parentId&quot;: 303,<br>                &quot;menuName&quot;: &quot;疫情辟谣&quot;,<br>                &quot;url&quot;: &quot;/rumors&quot;,<br>                &quot;icon&quot;: &quot;el-icon-help&quot;,<br>                &quot;orderNum&quot;: 5,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: null,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;<br>            ]<br>          &#125;,<br>          &#123;<br>            &quot;id&quot;: 295,<br>            &quot;parentId&quot;: 0,<br>            &quot;menuName&quot;: &quot;其他管理&quot;,<br>            &quot;url&quot;: &quot;&quot;,<br>            &quot;icon&quot;: &quot;el-icon-s-marketing&quot;,<br>            &quot;orderNum&quot;: 5,<br>            &quot;open&quot;: 0,<br>            &quot;disabled&quot;: false,<br>            &quot;perms&quot;: &quot;&quot;,<br>            &quot;type&quot;: 0,<br>            &quot;children&quot;: [<br>              &#123;<br>                &quot;id&quot;: 297,<br>                &quot;parentId&quot;: 295,<br>                &quot;menuName&quot;: &quot;监控管理&quot;,<br>                &quot;url&quot;: &quot;&quot;,<br>                &quot;icon&quot;: &quot;el-icon-warning&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: [<br>                  &#123;<br>                    &quot;id&quot;: 298,<br>                    &quot;parentId&quot;: 297,<br>                    &quot;menuName&quot;: &quot;SQL监控&quot;,<br>                    &quot;url&quot;: &quot;/druid&quot;,<br>                    &quot;icon&quot;: &quot;el-icon-view&quot;,<br>                    &quot;orderNum&quot;: 1,<br>                    &quot;open&quot;: 0,<br>                    &quot;disabled&quot;: false,<br>                    &quot;perms&quot;: null,<br>                    &quot;type&quot;: 0,<br>                    &quot;children&quot;: []<br>                  &#125;<br>                ]<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 341,<br>                &quot;parentId&quot;: 295,<br>                &quot;menuName&quot;: &quot;个人博客&quot;,<br>                &quot;url&quot;: &quot;/blog&quot;,<br>                &quot;icon&quot;: &quot;el-icon-view&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 296,<br>                &quot;parentId&quot;: 295,<br>                &quot;menuName&quot;: &quot;swagger文档&quot;,<br>                &quot;url&quot;: &quot;/swagger&quot;,<br>                &quot;icon&quot;: &quot;el-icon-document&quot;,<br>                &quot;orderNum&quot;: 2,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: null,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 318,<br>                &quot;parentId&quot;: 295,<br>                &quot;menuName&quot;: &quot;图标管理&quot;,<br>                &quot;url&quot;: &quot;/icons&quot;,<br>                &quot;icon&quot;: &quot;el-icon-star-off&quot;,<br>                &quot;orderNum&quot;: 2,<br>                &quot;open&quot;: 1,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;<br>            ]<br>          &#125;,<br>          &#123;<br>            &quot;id&quot;: 5,<br>            &quot;parentId&quot;: 0,<br>            &quot;menuName&quot;: &quot;日志管理&quot;,<br>            &quot;url&quot;: &quot;/logs&quot;,<br>            &quot;icon&quot;: &quot;el-icon-camera&quot;,<br>            &quot;orderNum&quot;: 6,<br>            &quot;open&quot;: 0,<br>            &quot;disabled&quot;: false,<br>            &quot;perms&quot;: null,<br>            &quot;type&quot;: 0,<br>            &quot;children&quot;: [<br>              &#123;<br>                &quot;id&quot;: 271,<br>                &quot;parentId&quot;: 5,<br>                &quot;menuName&quot;: &quot;登入日志&quot;,<br>                &quot;url&quot;: &quot;/loginLog&quot;,<br>                &quot;icon&quot;: &quot;el-icon-date&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 0,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;login:log&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;,<br>              &#123;<br>                &quot;id&quot;: 307,<br>                &quot;parentId&quot;: 5,<br>                &quot;menuName&quot;: &quot;操作日志&quot;,<br>                &quot;url&quot;: &quot;/logs&quot;,<br>                &quot;icon&quot;: &quot;el-icon-edit&quot;,<br>                &quot;orderNum&quot;: 1,<br>                &quot;open&quot;: 1,<br>                &quot;disabled&quot;: false,<br>                &quot;perms&quot;: &quot;&quot;,<br>                &quot;type&quot;: 0,<br>                &quot;children&quot;: []<br>              &#125;<br>            ]<br>          &#125;<br>      ]<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    toggleiscollapse() &#123;<br>      this.iscollapse = !this.iscollapse;<br>    &#125;,<br>  &#125;,<br>  components: &#123;<br>    MenuTree,<br>&#125;,<br>&#125;;<br>&lt;/script&gt;<br>&lt;style  lang=&#x27;less&#x27; scoped&gt;<br>// 头部布局<br>.el-header &#123;<br>  background-color: #001529;<br>  display: flex;<br>  justify-content: space-between;<br>  padding-left: 0;<br>  color: #ffffff;<br>  align-items: center;<br>  font-size: 20px;<br>  // 左边头像样式<br>  .left_box &#123;<br>    display: flex;<br>    align-items: center; //文本居中<br><br>    img &#123;<br>      width: 60px;<br>      height: 60px;<br>      margin: 0px 0px 10px 15px; //边缘<br>    &#125;<br>    // 文本<br>    span &#123;<br>      margin-left: 15px;<br>    &#125;<br>  &#125;<br>  // 右边头像样式<br>  .right_box &#123;<br>    .el-dropdown-menu,<br>    img &#123;<br>      height: 60px;<br>      width: 60px;<br>      border-radius: 50%;<br>      background-size: contain; //容器包裹头像<br>    &#125;<br>  &#125;<br>&#125;<br>// 侧边栏<br>.el-aside &#123;<br>  background-color: #001529;<br><br>  .el-menu-vertical-demo&#123;<br>    border-right: none;<br>  &#125;<br>  // 收起功能样式<br>  .toggle_box &#123;<br>    background-color: #001529;<br>    color: #FFFFFF;<br>    text-align: center;<br>    cursor: pointer;<br>    font-size: 15px;<br>    font-weight: bold;<br>    line-height: 24px;<br>  &#125;<br>&#125;<br>// 主体布局<br>.el-main &#123;<br>  background-color: #e9eef3;<br>&#125;<br><br>// 整个容器高度<br>.main_container &#123;<br>  height: 100%;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-1、MenuTree-vue组件"><a href="#2-1、MenuTree-vue组件" class="headerlink" title="2.1、MenuTree.vue组件"></a><strong>2.1、MenuTree.vue组件</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template &gt;<br>  &lt;div&gt;<br>    &lt;template v-for=&quot;item in this.menuList&quot;&gt;<br>      &lt;el-sub-menu<br>        :disabled=&quot;item.disabled&quot;<br>        :index=&quot;item.id + &#x27;&#x27;&quot;<br>        :key=&quot;item.id + &#x27;&#x27;&quot;<br>        v-if=&quot;item.children.length &gt; 0&quot;<br>      &gt;<br>        &lt;template #title&gt;<br>          &lt;el-icon class=&quot;is-loading&quot;&gt;<br>    &lt;loading /&gt;<br>  &lt;/el-icon&gt;<br>          &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;<br>        &lt;/template&gt;<br>        &lt;MenuTree :menuList=&quot;item.children&quot;&gt;&lt;/MenuTree&gt;<br>      &lt;/el-sub-menu&gt;<br><br>      &lt;el-menu-item v-else :disabled=&quot;item.disabled&quot; :index=&quot;item.url+&#x27;&#x27;&quot; :router=&quot;true&quot; :key=&quot;item.id+&#x27;&#x27;&quot;&gt;<br>        &lt;el-icon class=&quot;is-loading&quot;&gt;<br>    &lt;loading /&gt;<br>  &lt;/el-icon&gt;<br>        &lt;span&gt;&#123;&#123; item.menuName &#125;&#125;&lt;/span&gt;<br>      &lt;/el-menu-item&gt;<br>    &lt;/template&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br><br>&lt;script&gt;<br>export default &#123;<br>  name: &quot;MenuTree&quot;,<br>  props: [&quot;menuList&quot;],<br>&#125;;<br>&lt;/script&gt;<br>&lt;style  &gt;<br>/* 溢出效果解决 */<br>  .el-menu--collapse span,<br>  .el-menu--collapse i.el-sub-menu__icon-arrow&#123;<br>    height: 0;<br>    width: 0;<br>    overflow: hidden;<br>    visibility: hidden;<br>    display: inline-block;<br>  &#125;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="3、用户管理界面"><a href="#3、用户管理界面" class="headerlink" title="3、用户管理界面"></a>3、用户管理界面</h1><h1 id="4、用户数据绑定及分页展示"><a href="#4、用户数据绑定及分页展示" class="headerlink" title="4、用户数据绑定及分页展示"></a>4、用户数据绑定及分页展示</h1><h1 id="5、前端绑定部门信息"><a href="#5、前端绑定部门信息" class="headerlink" title="5、前端绑定部门信息"></a>5、前端绑定部门信息</h1><h1 id="6、用户列表查询"><a href="#6、用户列表查询" class="headerlink" title="6、用户列表查询"></a>6、用户列表查询</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>项目-前端</div>
+      <div>https://dddwah11.github.io/2022/05/05/5-5/项目_前端/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>61分</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 5, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/07/5-5/%E9%A1%B9%E7%9B%AE_%E5%90%8E%E7%AB%AF/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/05/5-5/json/" title="json">
+                        <span class="hidden-mobile">json</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
