@@ -356,7 +356,7 @@
 <p>设置用户信息：</p>
 <ul>
 <li>git config –global user.name “Seazean”</li>
-<li>git config –global user.email “<a href="mailto:&#x69;&#109;&#x73;&#x65;&#97;&#x7a;&#101;&#x61;&#x6e;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x69;&#109;&#x73;&#x65;&#97;&#x7a;&#101;&#x61;&#x6e;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
+<li>git config –global user.email “<a href="mailto:&#x69;&#109;&#115;&#101;&#x61;&#122;&#x65;&#x61;&#110;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x69;&#109;&#115;&#101;&#x61;&#122;&#x65;&#x61;&#110;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>“  &#x2F;&#x2F;用户名和邮箱可以随意填写，不会校对</li>
 </ul>
 <p>查看配置信息：</p>
 <ul>
@@ -391,7 +391,7 @@
 </ul>
 </li>
 <li>查看命令：cat ~&#x2F;.ssh&#x2F;id_rsa.pub</li>
-<li>公钥测试命令：ssh -T <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>公钥测试命令：ssh -T <a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#x6d;</a></li>
 </ul>
 </li>
 </ul>
@@ -2228,6 +2228,37 @@
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"6CMI3sn7XD9wqKLVaHHpIn6F-MdYXbMMI","appKey":"CpmjxvEr8Uhop8J7F4yz97tK","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>
